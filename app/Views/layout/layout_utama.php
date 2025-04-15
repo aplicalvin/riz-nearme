@@ -10,6 +10,8 @@
             integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7"
             crossorigin="anonymous"
         />
+
+        <link rel="icon" href="<?= base_url('assets/logo.png') ?>" type="image/x-icon">
     </head>
     <body>
         <?php echo $this->renderSection("konten_utama") ?>
