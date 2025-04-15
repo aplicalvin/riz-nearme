@@ -2,13 +2,14 @@
 
 namespace App\Controllers;
 
-class Home extends BaseController
+class UserController extends BaseController
 {
     public function index(): string
     {
-        $data = ['judul' => 'Ini adalah Title']; // Perhatikan typo di sini!
-
-        return view('general/v_landing_pages.php', $data);
+        $data = [
+            'judul' => 'Ini adalah Title'
+        ];
+        return view('general/v_landing_pages.php');
     }
 
     public function landing(): string {
