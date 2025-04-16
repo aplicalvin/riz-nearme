@@ -1,0 +1,26 @@
+/* ==========================
+===== THIS FILE INCLUDE =====
+1. Import Font
+2. Default Custom Style
+*/
+
+/* FONT FAMILY */
+@font-face {
+    font-family: "Gothic";
+    src: url("./../assets/font/DelaGothic/DelaGothicOne-Regular.ttf");
+}
+
+@font-face {
+    font-family: "Jost";
+    src: url("./../assets/font/Jost/Jost-VariableFont_wght.ttf");
+}
+
+/* DEFAULT STYLE */
+* {
+    font-family: "Jost", "Arial Narrow", Arial, sans-serif;
+}
+
+.font-heading {
+    font-family: "Gothic", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: bold;
+}
