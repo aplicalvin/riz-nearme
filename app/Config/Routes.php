@@ -29,7 +29,7 @@ $routes->group('booking', function($routes) {
 });
 
 // Authentication Routes
-$routes->group('auth', function($routes) {
+$routes->group('', function($routes) {
     $routes->get('signup', 'AuthController::signup');
     $routes->post('register', 'AuthController::register');
     $routes->get('login', 'AuthController::index');
