@@ -18,13 +18,17 @@
         <link rel="icon" href="" type="image/x-icon">
     </head>
     <body>
-        <!-- KONTEN UTAMA -->
+        <!-- ================ navbar ================ -->
+         <?= $this->include('components/navbar.php') ?>
+        <!-- ================ navbar END ================ -->
+         
+        <!-- ================ KONTEN UTAMA ================ -->
         <?php echo $this->renderSection("konten_utama") ?>
-        <!-- KONTEN UTAMA -->
+        <!-- ================ KONTEN UTAMA END ================ -->
 
-        <!-- ADD FOOTER -->
+        <!-- ================ FOOTER ================ -->
          <?= $this->include('components/footer.php') ?>
-        <!-- ADD FOOTER -->
+        <!-- ================ FOOTER END ================ -->
 
         <!-- External Bootstrap JavaScript -->
         <script

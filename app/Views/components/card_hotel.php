@@ -111,8 +111,8 @@
 }
 
 .rating-badge {
-    background-color: #FFFF6F;
-    color: #1F1F1F;
+    background-color: #0176C8;
+    color: #F6F6F6;
     border-radius: 4px;
     padding: 3px 6px;
     font-size: 12px;
