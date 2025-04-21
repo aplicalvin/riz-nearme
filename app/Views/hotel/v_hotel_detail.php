@@ -6,6 +6,9 @@
     <div class="row mb-4">
         <div class="col-md-8">
             <h1 class="font-heading"><?= esc($hotel['name']) ?></h1>
+            <?php if ($message): ?>
+    <div class="alert alert-info"><?= $message ?></div>
+<?php endif; ?>
             <div class="d-flex align-items-center mb-2">
                 <div class="me-3" style="color: #FFD700;">
                     <?= str_repeat('★', (int)$hotel['stars']) ?><?= str_repeat('☆', 5 - (int)$hotel['stars']) ?>

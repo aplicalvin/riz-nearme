@@ -7,7 +7,7 @@
  */
 ?>
 
-<div class="hotel-card" onclick="window.location.href='<?= base_url('hotel/' . $hotel['id']) ?>'">
+<div class="hotel-card" onclick="window.location.href='<?= base_url('hotels/' . $hotel['id']) ?>'">
     <div class="hotel-image">
         <img src="<?= $hotel['image'] ?? 'https://source.unsplash.com/random/434x240/?hotel,accommodation' ?>" 
              alt="<?= esc($hotel['name']) ?>" 
