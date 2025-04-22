@@ -26,11 +26,7 @@
                         <i class="fas fa-search me-1"></i> Jelajahi Hotel
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="<?= base_url('/popular') ?>" style="color: #E7E7E7;">
-                        <i class="fas fa-fire me-1"></i> Populer
-                    </a>
-                </li>
+
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" 
                        data-bs-toggle="dropdown" aria-expanded="false" style="color: #E7E7E7;">
@@ -48,38 +44,53 @@
             
             <!-- Right Side Items -->
             <div class="d-flex align-items-center">
-                <div class="input-group me-3 d-none d-lg-flex" style="width: 250px;">
-                    <input type="text" class="form-control" placeholder="Cari hotel..." 
-                           style="background-color: #2D2D2D; border-color: #454545; color: #E7E7E7;">
-                    <button class="btn" type="button" style="background-color: #0176C8; color: #1F1F1F;">
-                        <i class="fas fa-search"></i>
-                    </button>
-                </div>
-                
-                <!-- 
-                    php if (logged_in()): 
+                <?php if (session()->get('logged_in')): ?>
                     <div class="dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" 
+                        <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="userDropdown" role="button" 
                            data-bs-toggle="dropdown" aria-expanded="false" style="color: #E7E7E7;">
-                            <i class="fas fa-user-circle me-1"></i> Akun Saya
+                            <i class="fas fa-user-circle me-1"></i>
+                            <span class="d-none d-lg-inline"><?= session()->get('full_name') ?></span>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown" 
                             style="background-color: #2D2D2D;">
-                            <li><a class="dropdown-item" href="#" style="color: #E7E7E7;"><i class="fas fa-user me-2"></i>Profil</a></li>
-                            <li><a class="dropdown-item" href="#" style="color: #E7E7E7;"><i class="fas fa-calendar-alt me-2"></i>Pemesanan</a></li>
-                            <li><a class="dropdown-item" href="#" style="color: #E7E7E7;"><i class="fas fa-heart me-2"></i>Favorit</a></li>
+                            <li>
+                                <div class="dropdown-header text-center py-2" style="color: #E7E7E7;">
+                                    <strong><?= session()->get('full_name') ?></strong><br>
+                                    <small class="text-muted"><?= session()->get('email') ?></small>
+                                </div>
+                            </li>
                             <li><hr class="dropdown-divider" style="border-color: #454545;"></li>
-                            <li><a class="dropdown-item" href="<?= base_url('/logout') ?>" style="color: #E7E7E7;"><i class="fas fa-sign-out-alt me-2"></i>Keluar</a></li>
+                            <li>
+                                <a class="dropdown-item" href="<?= base_url('/user/profile') ?>" style="color: #E7E7E7;">
+                                    <i class="fas fa-user me-2"></i>Profil Saya
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="<?= base_url('/user/bookings') ?>" style="color: #E7E7E7;">
+                                    <i class="fas fa-calendar-alt me-2"></i>Pemesanan
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="<?= base_url('/favorite') ?>" style="color: #E7E7E7;">
+                                    <i class="fas fa-heart me-2"></i>Favorit
+                                </a>
+                            </li>
+                            <li><hr class="dropdown-divider" style="border-color: #454545;"></li>
+                            <li>
+                                <a class="dropdown-item" href="<?= base_url('/logout') ?>" style="color: #E7E7E7;">
+                                    <i class="fas fa-sign-out-alt me-2"></i>Keluar
+                                </a>
+                            </li>
                         </ul>
                     </div>
-                php else:  -->
+                <?php else: ?>
                     <div class="d-flex">
                         <a href="<?= base_url('/login') ?>" class="btn btn-outline-light me-2" 
                            style="border-color: #0176C8; color: #0176C8;">Masuk</a>
                         <a href="<?= base_url('/signup') ?>" class="btn" 
                            style="background-color: #0176C8; color: #1F1F1F;">Daftar</a>
                     </div>
-                <!-- php endif;  -->
+                <?php endif ?>
             </div>
         </div>
     </div>

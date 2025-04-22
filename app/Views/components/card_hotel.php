@@ -3,13 +3,13 @@
  * Hotel Card Component
  * 
  * @param array $hotel - Hotel data including:
- *   - id, name, city, stars, rating, review_count, image
+ *   - id, name, city_name, star_rating, rating, review_count, cover_photo
  */
 ?>
 
 <div class="hotel-card" onclick="window.location.href='<?= base_url('hotels/' . $hotel['id']) ?>'">
     <div class="hotel-image">
-        <img src="<?= $hotel['image'] ?? 'https://source.unsplash.com/random/434x240/?hotel,accommodation' ?>" 
+        <img src="<?= $hotel['cover_photo'] ?? 'https://source.unsplash.com/random/434x240/?hotel,accommodation' ?>" 
              alt="<?= esc($hotel['name']) ?>" 
              loading="lazy">
     </div>
@@ -19,15 +19,15 @@
             <svg width="12" height="12" viewBox="0 0 24 24" fill="#6D6D6D">
                 <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
             </svg>
-            <?= esc($hotel['city']) ?>
+            <?= esc($hotel['city_name'] ?? 'Unknown City') ?>
         </p>
         <div class="stars">
-            <?= str_repeat('★', (int)$hotel['stars']) ?>
-            <?= str_repeat('☆', 5 - (int)$hotel['stars']) ?>
+            <?= str_repeat('★', (int)$hotel['star_rating']) ?>
+            <?= str_repeat('☆', 5 - (int)$hotel['star_rating']) ?>
         </div>
         <div class="rating-container">
-            <span class="rating-badge"><?= number_format($hotel['rating'], 1) ?> / 5</span>
-            <span class="reviews">(<?= $hotel['review_count'] ?> reviews)</span>
+            <span class="rating-badge"><?= number_format($hotel['rating'] ?? 4.0, 1) ?> / 5</span>
+            <span class="reviews">(<?= $hotel['review_count'] ?? 0 ?> reviews)</span>
         </div>
     </div>
 </div>

@@ -2,6 +2,7 @@
 
 use CodeIgniter\Model;
 
+
 class BookingModel extends Model
 {
     protected $table = 'bookings';

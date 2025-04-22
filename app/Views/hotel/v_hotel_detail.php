@@ -8,83 +8,100 @@
             <h1 class="font-heading"><?= esc($hotel['name']) ?></h1>
             <div class="d-flex align-items-center mb-2">
                 <div class="me-3" style="color: #FFD700;">
-                    <?= str_repeat('★', (int)$hotel['stars']) ?><?= str_repeat('☆', 5 - (int)$hotel['stars']) ?>
+                    <?= str_repeat('★', (int)$hotel['star_rating']) ?><?= str_repeat('☆', 5 - (int)$hotel['star_rating']) ?>
                 </div>
-                <span class="badge text-dark me-2" style="background-color: #075085;"><?= number_format($hotel['rating'], 1) ?> / 5</span>
-                <span class="text-muted">(<?= $hotel['review_count'] ?> ulasan)</span>
+                <span class="badge text-dark me-2" style="background-color: #075085;"><?= number_format($avg_rating, 1) ?> / 5</span>
+                <span class="text-muted">(<?= $total_reviews ?> ulasan)</span>
             </div>
             <div class="d-flex align-items-center text-muted mb-3">
                 <i class="fas fa-map-marker-alt me-2"></i>
-                <?= esc($hotel['city']) ?>, <?= esc($hotel['province'] ?? 'Indonesia') ?>
+                <?= esc($hotel['address']) ?>
+                <?php if (!empty($hotel['city_name'])): ?>
+                    , <?= esc($hotel['city_name']) ?>
+                <?php endif; ?>
             </div>
         </div>
         <div class="col-md-4 text-md-end">
-            <button class="btn btn-lg btn-primary" style="background-color: #0176C8; border-color: #0176C8; color: #1F1F1F;">
+            <a href="#booking-form" class="btn btn-lg btn-primary" style="background-color: #0176C8; border-color: #0176C8;">
                 <i class="fas fa-calendar-alt me-2"></i>Pesan Sekarang
-            </button>
+            </a>
+            
         </div>
     </div>
 
-    <!-- Galeri Hotel -->
+    <!-- ======== Galeri Hotel======== -->
+    <!-- Galeri Hotel - Hanya Tampilkan 1 Foto Utama -->
     <div class="row mb-5">
-        <div class="col-md-8 mb-3 mb-md-0">
-            <div class="main-image" style="height: 400px; background-image: url('<?= $hotel['image'] ?>'); background-size: cover; background-position: center; border-radius: 8px;"></div>
-        </div>
-        <div class="col-md-4">
-            <div class="row g-2">
-                <div class="col-6">
-                    <div class="thumbnail" style="height: 120px; background-image: url('https://source.unsplash.com/random/300x200/?hotel,room'); background-size: cover; border-radius: 4px; cursor: pointer;"></div>
-                </div>
-                <div class="col-6">
-                    <div class="thumbnail" style="height: 120px; background-image: url('https://source.unsplash.com/random/300x200/?hotel,lobby'); background-size: cover; border-radius: 4px; cursor: pointer;"></div>
-                </div>
-                <div class="col-6">
-                    <div class="thumbnail" style="height: 120px; background-image: url('https://source.unsplash.com/random/300x200/?hotel,pool'); background-size: cover; border-radius: 4px; cursor: pointer;"></div>
-                </div>
-                <div class="col-6">
-                    <div class="thumbnail" style="height: 120px; background-image: url('https://source.unsplash.com/random/300x200/?hotel,restaurant'); background-size: cover; border-radius: 4px; cursor: pointer;"></div>
-                </div>
-                <div class="col-12 mt-2">
-                    <button class="btn btn-sm btn-outline-secondary w-100">
-                        <i class="fas fa-images me-1"></i> Lihat Semua Foto
-                    </button>
-                </div>
+        <div class="col-12">
+            <div class="main-image" style="height: 400px; background-image: url('<?= !empty($hotel['cover_photo']) ? base_url('uploads/hotels/'.$hotel['cover_photo']) : 'https://source.unsplash.com/random/800x600/?hotel' ?>'); background-size: cover; background-position: center; border-radius: 8px; position: relative;">
+            
+                
             </div>
         </div>
     </div>
 
-    <!-- Info Hotel -->
+    <!-- ======== Info Hotel  ========-->
     <div class="row">
         <div class="col-lg-8">
             <!-- Deskripsi -->
             <div class="card mb-4 border-0 shadow-sm">
                 <div class="card-body">
                     <h3 class="font-heading mb-4">Tentang Hotel Ini</h3>
-                    <p><?= esc($hotel['description'] ?? 'Hotel mewah ini menawarkan akomodasi premium dengan layanan dan fasilitas yang luar biasa. Terletak di pusat kota, hotel ini memberikan akses mudah ke tempat wisata dan area bisnis.') ?></p>
+                    <p><?= !empty($hotel['description']) ? nl2br(esc($hotel['description'])) : 'Hotel ini menawarkan akomodasi dengan layanan dan fasilitas yang lengkap.' ?></p>
                 </div>
             </div>
 
-            <!-- Fasilitas -->
+            <!-- ======== Fasilitas ======== -->
             <div class="card mb-4 border-0 shadow-sm">
                 <div class="card-body">
                     <h3 class="font-heading mb-4">Fasilitas & Layanan</h3>
                     <div class="row">
-                        <?php 
-                        $facilities = $hotel['facilities'] ?? [
-                            'WiFi Gratis', 'Kolam Renang', 'Restoran', 
-                            'Spa', 'Pusat Kebugaran', 'AC',
-                            'Resepsionis 24 Jam', 'Pusat Bisnis', 'Parkir'
-                        ];
-                        
-                        foreach ($facilities as $facility): ?>
-                        <div class="col-md-4 mb-2">
-                            <div class="d-flex align-items-center">
-                                <i class="fas fa-check-circle text-success me-2"></i>
-                                <span><?= esc($facility) ?></span>
+                        <?php if (!empty($facilities)): ?>
+                            <?php foreach ($facilities as $facility): ?>
+                            <div class="col-md-4 mb-2">
+                                <div class="d-flex align-items-center">
+                                    <i class="fas fa-check-circle text-success me-2"></i>
+                                    <span><?= esc($facility['name']) ?></span>
+                                </div>
+                            </div>
+                            <?php endforeach; ?>
+                        <?php else: ?>
+                            <div class="col-12">
+                                <p class="text-muted">Informasi fasilitas belum tersedia</p>
+                            </div>
+                        <?php endif; ?>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tipe Kamar -->
+            <div class="card mb-4 border-0 shadow-sm">
+                <div class="card-body">
+                    <h3 class="font-heading mb-4">Tipe Kamar</h3>
+                    <?php if (!empty($room_types)): ?>
+                        <?php foreach ($room_types as $room): ?>
+                        <div class="mb-4 pb-4 border-bottom">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <img src="<?= !empty($room['photo']) ? base_url('uploads/rooms/'.$room['photo']) : 'https://source.unsplash.com/random/300x200/?hotel-room' ?>" class="img-fluid rounded" alt="<?= esc($room['name']) ?>">
+                                </div>
+                                <div class="col-md-8">
+                                    <h4><?= esc($room['name']) ?></h4>
+                                    <p><?= esc($room['description']) ?></p>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <span class="fw-bold"><?= number_to_currency($room['base_price'], 'IDR') ?></span>
+                                            <span class="text-muted">/malam</span>
+                                        </div>
+                                        <a href="#booking-form" class="btn btn-sm btn-primary">Pesan</a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <?php endforeach; ?>
-                    </div>
+                    <?php else: ?>
+                        <p class="text-muted">Informasi kamar belum tersedia</p>
+                    <?php endif; ?>
                 </div>
             </div>
 
@@ -94,99 +111,84 @@
                     <h3 class="font-heading mb-4">Ulasan Tamu</h3>
                     <div class="d-flex align-items-center mb-4">
                         <div class="me-4 text-center">
-                            <h2 class="mb-0"><?= number_format($hotel['rating'], 1) ?></h2>
+                            <h2 class="mb-0"><?= number_format($avg_rating, 1) ?></h2>
                             <div class="text-warning">
-                                <?= str_repeat('★', round($hotel['rating'])) ?>
+                                <?= str_repeat('★', round($avg_rating)) ?>
                             </div>
-                            <small class="text-muted"><?= $hotel['review_count'] ?> ulasan</small>
+                            <small class="text-muted"><?= $total_reviews ?> ulasan</small>
                         </div>
                         <div class="flex-grow-1">
-                            <?php 
-                            $ratingBars = [
-                                5 => 70,
-                                4 => 20,
-                                3 => 5,
-                                2 => 3,
-                                1 => 2
-                            ];
-                            foreach ($ratingBars as $stars => $percent): ?>
+                            <?php foreach ([5,4,3,2,1] as $stars): ?>
                             <div class="d-flex align-items-center mb-2">
                                 <small class="me-2"><?= $stars ?> bintang</small>
                                 <div class="progress flex-grow-1" style="height: 8px;">
-                                    <div class="progress-bar bg-primary" role="progressbar" style="width: <?= $percent ?>%;" aria-valuenow="<?= $percent ?>" aria-valuemin="0" aria-valuemax="100"></div>
+                                    <div class="progress-bar bg-primary" role="progressbar" style="width: <?= $rating_percent['rating_'.$stars] ?>%;" aria-valuenow="<?= $rating_percent['rating_'.$stars] ?>" aria-valuemin="0" aria-valuemax="100"></div>
                                 </div>
-                                <small class="ms-2 text-muted"><?= $percent ?>%</small>
+                                <small class="ms-2 text-muted"><?= $rating_percent['rating_'.$stars] ?>%</small>
                             </div>
                             <?php endforeach; ?>
                         </div>
                     </div>
                     
-                    <!-- Contoh Ulasan -->
-                    <div class="review">
-                        <div class="d-flex justify-content-between mb-2">
-                            <h5 class="mb-0">Sangat Memuaskan</h5>
-                            <div class="text-warning">★★★★★</div>
+                    <?php if (!empty($reviews)): ?>
+                        <?php foreach ($reviews as $review): ?>
+                        <div class="review mb-4 pb-4 border-bottom">
+                            <div class="d-flex align-items-center mb-3">
+                                <img src="<?= !empty($review['photo']) ? base_url('uploads/users/'.$review['photo']) : base_url('assets/images/default-user.jpg') ?>" class="rounded-circle me-3" width="50" height="50" alt="<?= esc($review['full_name']) ?>">
+                                <div>
+                                    <h5 class="mb-0"><?= esc($review['full_name']) ?></h5>
+                                    <small class="text-muted"><?= date('d M Y', strtotime($review['created_at'])) ?></small>
+                                </div>
+                            </div>
+                            <div class="text-warning mb-2">
+                                <?= str_repeat('★', $review['rating']) ?><?= str_repeat('☆', 5 - $review['rating']) ?>
+                            </div>
+                            <p><?= esc($review['comment']) ?></p>
                         </div>
-                        <p class="text-muted">Oleh John D. pada <?= date('M Y') ?></p>
-                        <p>Hotel ini luar biasa! Lokasi strategis, staf ramah, dan kamar sangat bersih. Pasti akan kembali menginap di sini lagi.</p>
-                    </div>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <p class="text-muted">Belum ada ulasan untuk hotel ini</p>
+                    <?php endif; ?>
                 </div>
             </div>
         </div>
 
         <!-- Sidebar Pemesanan -->
         <div class="col-lg-4">
-            <div class="card border-0 shadow-sm sticky-top" style="top: 20px;">
+            <div id="booking-form" class="card border-0 shadow-sm sticky-top" style="top: 20px;">
                 <div class="card-body">
                     <h3 class="font-heading mb-4">Cek Ketersediaan</h3>
-                    <form>
+                    <form action="<?= base_url('/booking/create') ?>" method="post">
+                        <input type="hidden" name="hotel_id" value="<?= $hotel['id'] ?>">
                         <div class="mb-3">
                             <label class="form-label">Tanggal Check-in</label>
-                            <input type="date" class="form-control">
+                            <input type="date" name="check_in" class="form-control" required min="<?= date('Y-m-d') ?>">
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Tanggal Check-out</label>
-                            <input type="date" class="form-control">
+                            <input type="date" name="check_out" class="form-control" required min="<?= date('Y-m-d', strtotime('+1 day')) ?>">
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">Tamu</label>
-                            <select class="form-select">
-                                <option>1 Dewasa</option>
-                                <option selected>2 Dewasa</option>
-                                <option>3 Dewasa</option>
-                                <option>4 Dewasa</option>
-                                <option>Keluarga (2 Dewasa + 2 Anak)</option>
+                            <label class="form-label">Tipe Kamar</label>
+                            <select class="form-select" name="room_type_id" required>
+                                <option value="">Pilih Tipe Kamar</option>
+                                <?php foreach ($room_types as $room): ?>
+                                <option value="<?= $room['id'] ?>"><?= esc($room['name']) ?> (<?= number_to_currency($room['base_price'], 'IDR') ?>)</option>
+                                <?php endforeach; ?>
                             </select>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">Kamar</label>
-                            <select class="form-select">
-                                <option selected>1 Kamar</option>
-                                <option>2 Kamar</option>
-                                <option>3 Kamar</option>
+                            <label class="form-label">Jumlah Kamar</label>
+                            <select class="form-select" name="rooms" required>
+                                <option value="1" selected>1 Kamar</option>
+                                <option value="2">2 Kamar</option>
+                                <option value="3">3 Kamar</option>
                             </select>
                         </div>
-                        <button type="submit" class="btn btn-primary w-100" style="background-color: #0176C8; border-color: #0176C8; color: #1F1F1F;">
+                        <button type="submit" class="btn btn-primary w-100" style="background-color: #0176C8; border-color: #0176C8;">
                             Cek Ketersediaan
                         </button>
                     </form>
-                    
-                    <hr class="my-4">
-                    
-                    <h4 class="font-heading mb-3">Ringkasan Harga</h4>
-                    <div class="d-flex justify-content-between mb-2">
-                        <span>1 Malam x 2 Dewasa</span>
-                        <span>Rp 1.200.000</span>
-                    </div>
-                    <div class="d-flex justify-content-between mb-2">
-                        <span>Pajak & Biaya</span>
-                        <span>Rp 120.000</span>
-                    </div>
-                    <hr>
-                    <div class="d-flex justify-content-between fw-bold">
-                        <span>Total</span>
-                        <span>Rp 1.320.000</span>
-                    </div>
                 </div>
             </div>
         </div>
@@ -196,7 +198,7 @@
     <?php if (!empty($similar_hotels)): ?>
     <div class="row mt-5">
         <div class="col-12">
-            <h3 class="font-heading mb-4">Hotel Serupa di <?= esc($hotel['city']) ?></h3>
+            <h3 class="font-heading mb-4">Hotel Serupa di <?= esc($hotel['city_name']) ?></h3>
             <div class="row">
                 <?php foreach ($similar_hotels as $similar): ?>
                 <div class="col-md-4 mb-4">

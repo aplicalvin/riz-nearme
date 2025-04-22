@@ -2,17 +2,30 @@
 
 namespace App\Controllers;
 
-use App\Services\HotelDataService;
+use App\Models\HotelModel;
+use App\Models\CityModel;
+use App\Models\ReviewModel;
 
 class Home extends BaseController
 {
+    protected $hotelModel;
+    protected $cityModel;
+    protected $reviewModel;
+
+    public function __construct()
+    {
+        $this->hotelModel = new HotelModel();
+        $this->cityModel = new CityModel();
+        $this->reviewModel = new ReviewModel();
+    }
+
     public function index(): string
     {
         $data = [
             'title' => 'NearMe - Find Your Perfect Stay',
             'meta_description' => 'Book the best hotels in Indonesia with NearMe',
-            'featured_hotels' => HotelDataService::getFeaturedHotels(3),
-            'hotels' => $this->getPopularHotels(6), // New method
+            'featured_hotels' => $this->getFeaturedHotels(3),
+            'hotels' => $this->getPopularHotels(6),
             'popular_destinations' => $this->getPopularDestinations(),
             'message' => ''
         ];
@@ -20,51 +33,43 @@ class Home extends BaseController
         return view('general/v_landing_pages', $data);
     }
 
-    /**
-     * Get static data for popular destinations
-     */
     private function getPopularDestinations(): array
     {
-        // Get all unique cities from our centralized hotel data
-        $cities = array_unique(array_column(HotelDataService::getAllHotels(), 'city'));
-        
-        // Create destination data
-        $destinations = [];
-        foreach ($cities as $city) {
-            $destinations[] = [
-                'name' => $city,
-                'image' => 'https://source.unsplash.com/random/300x200/?' . urlencode($city),
-                'hotel_count' => count(HotelDataService::getHotelsByCity($city))
-            ];
-            
-            // Limit to 6 popular destinations
-            if (count($destinations) >= 6) {
-                break;
-            }
-        }
+        $cities = $this->cityModel->select('cities.*, COUNT(hotels.id) as hotel_count')
+                                 ->join('hotels', 'hotels.city_id = cities.id', 'left')
+                                 ->groupBy('cities.id')
+                                 ->orderBy('hotel_count', 'DESC')
+                                 ->findAll(6);
 
-        return $destinations;
+        return array_map(function($city) {
+            return [
+                'name' => $city['name'],
+                'image' => 'https://source.unsplash.com/random/300x200/?' . urlencode($city['name']),
+                'hotel_count' => $city['hotel_count']
+            ];
+        }, $cities);
     }
 
     private function getPopularHotels(int $limit = 6): array
     {
-        $hotels = HotelDataService::getAllHotels();
-        
-        // Calculate popularity score (weighted average)
-        foreach ($hotels as &$hotel) {
-            $hotel['popularity_score'] = ($hotel['rating'] * 0.7) + (log($hotel['review_count']) * 0.3);
-        }
-        
-        // Sort by popularity score
-        usort($hotels, function($a, $b) {
-            return $b['popularity_score'] <=> $a['popularity_score'];
-        });
-        
-        return array_slice($hotels, 0, $limit);
+        $hotels = $this->hotelModel->select('hotels.*, AVG(reviews.rating) as avg_rating, COUNT(reviews.id) as review_count')
+                                  ->join('reviews', 'reviews.hotel_id = hotels.id', 'left')
+                                  ->groupBy('hotels.id')
+                                  ->orderBy('avg_rating', 'DESC')
+                                  ->orderBy('review_count', 'DESC')
+                                  ->findAll($limit);
+
+        return array_map(function($hotel) {
+            $hotel['rating'] = (float) $hotel['avg_rating'] ?? 0;
+            $hotel['review_count'] = (int) $hotel['review_count'] ?? 0;
+            return $hotel;
+        }, $hotels);
     }
 
-    public function landing(): string 
+    private function getFeaturedHotels(int $limit = 3): array
     {
-        return $this->index(); // Reuse the index method
+        return $this->hotelModel->where('star_rating >=', 4)
+                               ->orderBy('star_rating', 'DESC')
+                               ->findAll($limit);
     }
 }

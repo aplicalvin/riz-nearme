@@ -19,6 +19,11 @@ $routes->group('hotels', function($routes) {
     $routes->get('search', 'Hotels::search');
 });
 
+// app/Config/Routes.php
+$routes->post('hotels/(:num)/favorite', 'Users::toggleFavorite/$1');
+$routes->post('reviews/store', 'Reviews::store');
+$routes->post('bookings/store', 'Bookings::store');
+
 // Booking Routes
 $routes->group('booking', function($routes) {
     $routes->get('/', 'Bookings::index');
@@ -28,15 +33,13 @@ $routes->group('booking', function($routes) {
     $routes->post('(:num)/confirm', 'Bookings::confirm/$1');
 });
 
-// Authentication Routes
+// Auth Routes
 $routes->group('', function($routes) {
-    $routes->get('signup', 'AuthController::signup');
-    $routes->post('register', 'AuthController::register');
     $routes->get('login', 'AuthController::index');
-    $routes->post('authenticate', 'AuthController::authenticate');
+    $routes->post('login', 'AuthController::loginProcess');
+    $routes->get('signup', 'AuthController::signup');
+    $routes->post('register', 'AuthController::registerProcess');
     $routes->get('logout', 'AuthController::logout');
-    $routes->get('forgot-password', 'AuthController::forgotPassword');
-    $routes->post('reset-password', 'AuthController::resetPassword');
 });
 
 // User Profile Routes
@@ -47,34 +50,7 @@ $routes->group('user', function($routes) {
     $routes->get('bookings', 'Users::bookings');
 });
 
-// Admin Routes
-$routes->group('admin', ['filter' => 'admin-auth'], function($routes) {
-    $routes->get('/', 'Admin\Dashboard::index');
-    $routes->get('login', 'Admin\Auth::login');
-    $routes->post('authenticate', 'Admin\Auth::authenticate');
-    
-    $routes->group('hotels', function($routes) {
-        $routes->get('/', 'Admin\Hotels::index');
-        $routes->get('add', 'Admin\Hotels::add');
-        $routes->post('save', 'Admin\Hotels::save');
-        $routes->get('(:num)/edit', 'Admin\Hotels::edit/$1');
-        $routes->post('(:num)/update', 'Admin\Hotels::update/$1');
-        $routes->get('(:num)/delete', 'Admin\Hotels::delete/$1');
-    });
-    
-    $routes->group('bookings', function($routes) {
-        $routes->get('/', 'Admin\Bookings::index');
-        $routes->get('(:num)', 'Admin\Bookings::detail/$1');
-        $routes->post('(:num)/update-status', 'Admin\Bookings::updateStatus/$1');
-    });
-});
 
-// API Routes (if needed)
-$routes->group('api', function($routes) {
-    $routes->get('cities', 'Api::cities');
-    $routes->get('hotels', 'Api::hotels');
-    $routes->get('hotel/(:num)', 'Api::hotelDetail/$1');
-});
 
 // Fallback Route
 $routes->set404Override(function() {

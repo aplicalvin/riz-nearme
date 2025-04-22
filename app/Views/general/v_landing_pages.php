@@ -31,16 +31,7 @@
     <div class="container">
         <h2 class="font-heading text-center mb-5">Destinasi Populer</h2>
         <div class="row">
-            <?php
-            $destinations = [
-                ['name' => 'Bali', 'image' => 'https://picsum.photos/300/200'],
-                ['name' => 'Jakarta', 'image' => 'https://picsum.photos/300/200'],
-                ['name' => 'Yogyakarta', 'image' => 'https://picsum.photos/300/200'],
-                ['name' => 'Bandung', 'image' => 'https://picsum.photos/300/200']
-            ];
-            ?>
-            
-            <?php foreach ($destinations as $destination): ?>
+            <?php foreach ($popular_destinations as $destination): ?>
                 <div class="col-md-3 mb-4">
                     <a href="<?= base_url('/hotels?location=' . urlencode($destination['name'])) ?>" 
                     class="destination-link" 
@@ -51,6 +42,7 @@
                                 style="width: 100%; height: 150px; object-fit: cover;">
                             <div class="p-3" style="background: white;">
                                 <h5 class="font-heading mb-0"><?= $destination['name'] ?></h5>
+                                <small class="text-muted"><?= $destination['hotel_count'] ?> hotel tersedia</small>
                             </div>
                         </div>
                     </a>
