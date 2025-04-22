@@ -21,6 +21,8 @@ class Home extends BaseController
 
     public function index(): string
     {
+        // $hotels = $this->getPopularHotels(6)->hotelModel->getHotelsWithCities(); // Pastikan getPopularHotels mengembalikan objek yang benar
+    
         $data = [
             'title' => 'NearMe - Find Your Perfect Stay',
             'meta_description' => 'Book the best hotels in Indonesia with NearMe',
@@ -29,10 +31,10 @@ class Home extends BaseController
             'popular_destinations' => $this->getPopularDestinations(),
             'message' => ''
         ];
-
+    
         return view('general/v_landing_pages', $data);
     }
-
+    
     private function getPopularDestinations(): array
     {
         $cities = $this->cityModel->select('cities.*, COUNT(hotels.id) as hotel_count')

@@ -10,7 +10,6 @@ use CodeIgniter\Router\RouteCollection;
 $routes->get('/', 'Home::index');
 $routes->get('/popular', 'Hotels::popular');
 $routes->get('/category', 'Hotels::category');
-$routes->get('/favorite', 'Users::favorites');
 
 // Hotel Routes
 $routes->group('hotels', function($routes) {
@@ -44,10 +43,11 @@ $routes->group('', function($routes) {
 
 // User Profile Routes
 $routes->group('user', function($routes) {
-    $routes->get('profile', 'Users::profile');
-    $routes->get('edit-profile', 'Users::editProfile');
-    $routes->post('update-profile', 'Users::updateProfile');
-    $routes->get('bookings', 'Users::bookings');
+    $routes->get('profile', 'UserController::profile');
+    $routes->get('edit-profile', 'UserController::editProfile');
+    $routes->post('update-profile', 'UserController::updateProfile');
+    $routes->get('bookings', 'UserController::bookings');
+    $routes->get('favorites', 'UserController::favorites');
 });
 
 

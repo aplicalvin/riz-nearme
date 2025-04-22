@@ -48,7 +48,7 @@
                     <div class="dropdown">
                         <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="userDropdown" role="button" 
                            data-bs-toggle="dropdown" aria-expanded="false" style="color: #E7E7E7;">
-                            <i class="fas fa-user-circle me-1"></i>
+                            <button class="btn btn-primary">Info</button>
                             <span class="d-none d-lg-inline"><?= session()->get('full_name') ?></span>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown" 
@@ -56,7 +56,7 @@
                             <li>
                                 <div class="dropdown-header text-center py-2" style="color: #E7E7E7;">
                                     <strong><?= session()->get('full_name') ?></strong><br>
-                                    <small class="text-muted"><?= session()->get('email') ?></small>
+                                    <h5 class=""><?= session()->get('email') ?></h5>
                                 </div>
                             </li>
                             <li><hr class="dropdown-divider" style="border-color: #454545;"></li>
@@ -71,7 +71,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a class="dropdown-item" href="<?= base_url('/favorite') ?>" style="color: #E7E7E7;">
+                                <a class="dropdown-item" href="<?= base_url('/user/favorites') ?>" style="color: #E7E7E7;">
                                     <i class="fas fa-heart me-2"></i>Favorit
                                 </a>
                             </li>

@@ -1,54 +1,96 @@
-<?php
+<?php namespace App\Controllers;
 
-namespace App\Controllers;
+use App\Models\UserModel;
+use App\Models\BookingModel;
+use App\Models\FavoriteModel;
 
 class UserController extends BaseController
 {
-    public function index(): string
+    protected $userModel;
+    protected $bookingModel;
+    protected $favoriteModel;
+
+    public function __construct()
+    {
+        $this->userModel = new UserModel();
+        $this->bookingModel = new BookingModel();
+        $this->favoriteModel = new FavoriteModel();
+        
+        // Pastikan user sudah login
+        if (!session()->get('logged_in')) {
+            return redirect()->to('/login');
+        }
+    }
+
+    // Halaman Profil
+    public function profile()
     {
         $data = [
-            'judul' => 'Ini adalah Title'
+            'title' => 'Profil Saya',
+            'user' => $this->userModel->find(session()->get('user_id')),
+            'activeTab' => 'profile'
         ];
-        return view('general/v_landing_pages.php');
+        return view('user/profile', $data);
     }
 
-    public function landing(): string {
-        return view('general/v_landing_pages');
-    }
-
-    // app/Controllers/Users.php
-    public function toggleFavorite($hotelId)
+    // Form Edit Profil
+    public function editProfile()
     {
-        $favoriteModel = new \App\Models\FavoriteModel();
+        $data = [
+            'title' => 'Edit Profil',
+            'user' => $this->userModel->find(session()->get('user_id')),
+            'activeTab' => 'profile'
+        ];
+        return view('user/edit_profile', $data);
+    }
+
+    // Proses Update Profil
+    public function updateProfile()
+    {
         $userId = session()->get('user_id');
+        $rules = [
+            'full_name' => 'required|min_length[3]',
+            'phone' => 'permit_empty|numeric|min_length[10]'
+        ];
 
-        $existing = $favoriteModel->where([
-            'user_id' => $userId,
-            'hotel_id' => $hotelId
-        ])->first();
-
-        if($existing){
-            $favoriteModel->delete($existing['id']);
-        } else {
-            $favoriteModel->insert([
-                'user_id' => $userId,
-                'hotel_id' => $hotelId
-            ]);
+        if (!$this->validate($rules)) {
+            return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
         }
 
-        return redirect()->back();
+        $data = [
+            'full_name' => $this->request->getPost('full_name'),
+            'phone' => $this->request->getPost('phone')
+        ];
+
+        $this->userModel->update($userId, $data);
+        return redirect()->to('/user/profile')->with('success', 'Profil berhasil diperbarui');
     }
 
-        // app/Controllers/Users.php
+    // History Pemesanan
     public function bookings()
     {
-        $bookingModel = new \App\Models\BookingModel();
-        $bookings = $bookingModel->where('user_id', session()->get('user_id'))
-                            ->join('hotels', 'hotels.id = bookings.hotel_id')
-                            ->join('room_types', 'room_types.id = bookings.room_type_id')
-                            ->select('bookings.*, hotels.name as hotel_name, room_types.name as room_type')
-                            ->findAll();
+        $bookings = $this->bookingModel->getUserBookings(session()->get('user_id'));
 
-        return view('user/bookings', ['bookings' => $bookings]);
+        $data = [
+            'title' => 'History Pemesanan',
+            'user' => $this->userModel->find(session()->get('user_id')), // <- Wajib ada
+            'bookings' => $this->bookingModel->getUserBookings(session()->get('user_id')),
+            'activeTab' => 'bookings'
+        ];
+        return view('user/bookings', $data);
+    }
+
+    // Hotel Favorit
+    public function favorites()
+    {
+        $favorites = $this->favoriteModel->getUserFavorites(session()->get('user_id'));
+
+        $data = [
+            'title' => 'Hotel Favorit',
+            'user' => $this->userModel->find(session()->get('user_id')), // <- Tambah ini
+            'favorites' => $this->favoriteModel->getUserFavorites(session()->get('user_id')),
+            'activeTab' => 'favorites'
+        ];
+        return view('user/favorites', $data);
     }
 }
