@@ -23,7 +23,9 @@
         <!-- ================ navbar END ================ -->
          
         <!-- ================ KONTEN UTAMA ================ -->
-        <?php echo $this->renderSection("konten_utama") ?>
+        <div style="min-height: 80vh; background-color: #E0F0FE;">
+            <?php echo $this->renderSection("konten_utama") ?>
+        </div>
         <!-- ================ KONTEN UTAMA END ================ -->
 
         <!-- ================ FOOTER ================ -->

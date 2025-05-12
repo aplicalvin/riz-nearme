@@ -18,15 +18,22 @@ class AuthController extends BaseController
     // Login View
     public function index()
     {
+        $data = [
+            'judul' => 'Masuk untuk mengetahui lebih lanjut'
+        ];
+
         if (session('logged_in')) {
             return redirect()->to($this->getDashboardRoute());
         }
-        return view('auth/login');
+        return view('auth/login', $data);
     }
 
     // Signup View
     public function signup()
     {
+        $data = [
+            'judul' => 'Bergabunglah bersama kami dan dapatkan penawaran menarik'
+        ];
         if (session('logged_in')) {
             return redirect()->to($this->getDashboardRoute());
         }
