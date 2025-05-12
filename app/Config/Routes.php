@@ -10,6 +10,8 @@ use CodeIgniter\Router\RouteCollection;
 $routes->get('/', 'Home::index');
 $routes->get('/popular', 'Hotels::popular');
 $routes->get('/category', 'Hotels::category');
+$routes->get('/404', 'Hotels::category');
+
 
 // Hotel Routes
 $routes->group('hotels', function($routes) {
@@ -17,6 +19,8 @@ $routes->group('hotels', function($routes) {
     $routes->get('(:num)', 'Hotels::detail/$1');
     $routes->get('search', 'Hotels::search');
 });
+
+
 
 // app/Config/Routes.php
 $routes->post('hotels/(:num)/favorite', 'Users::toggleFavorite/$1');
@@ -41,29 +45,44 @@ $routes->group('', function($routes) {
     $routes->get('logout', 'AuthController::logout');
 });
 
-// User Profile Routes
-$routes->group('user', function($routes) {
-    $routes->get('profile', 'UserController::profile');
-    $routes->get('edit-profile', 'UserController::editProfile');
-    $routes->post('update-profile', 'UserController::updateProfile');
-    $routes->get('bookings', 'UserController::bookings');
-    $routes->get('favorites', 'UserController::favorites');
+// Add Filter utk Auth
+$routes->group('',['filter' => 'auth'], function($routes) {
+    // User Profile Routes
+    $routes->group('user', ['filter' => 'role:user'] , function($routes) {
+        $routes->get('profile', 'UserController::profile');
+        $routes->get('edit-profile', 'UserController::editProfile');
+        $routes->post('update-profile', 'UserController::updateProfile');
+        $routes->get('bookings', 'UserController::bookings');
+        $routes->get('favorites', 'UserController::favorites');
+    });
+    
+    // Admin Hotel Routes
+    $routes->group('admin', ['filter' => 'role:hotel'] , function($routes) {
+        $routes->get('/', 'AdminController::index');
+        $routes->get('dashboard', 'AdminController::index');
+        $routes->get('room', 'AdminController::room');
+        $routes->get('booking', 'AdminController::booking');
+        $routes->get('setting', 'AdminController::setting');
+    });
+    
+    // Admin Hotel Routes
+    $routes->group('super', ['filter' => 'role:admin'] , function($routes) {
+        $routes->get('/', 'SuperController::index');
+        $routes->get('dashboard', 'SuperController::index');
+        $routes->get('setting', 'SuperController::setting');
+    });
 });
 
-// Admin Hotel Routes
-$routes->group('admin', function($routes) {
-    $routes->get('/', 'AdminController::index');
-    $routes->get('dashboard', 'AdminController::index');
-    $routes->get('room', 'AdminController::room');
-    $routes->get('booking', 'AdminController::booking');
-    $routes->get('setting', 'AdminController::setting');
-});
-
-// Admin Hotel Routes
-$routes->group('super', function($routes) {
-    $routes->get('/', 'SuperController::index');
-    $routes->get('dashboard', 'SuperController::index');
-    $routes->get('setting', 'SuperController::setting');
+// app/Config/Routes.php
+$routes->get('/debug-session', function() {
+    echo '<h1>Session Data</h1>';
+    echo '<pre>';
+    print_r(session()->get());
+    echo '</pre>';
+    
+    if (session()->has('user')) {
+        echo '<h2>User Role: ' . session()->get('user.role') . '</h2>';
+    }
 });
 
 

@@ -9,10 +9,12 @@ class RoleFilter implements FilterInterface
     public function before(RequestInterface $request, $arguments = null)
     {
         $requiredRole = $arguments[0] ?? null;
-        $userRole = session()->get('userRole');
-
-        if ($userRole !== $requiredRole) {
-            return redirect()->to('/')->with('error', 'Akses ditolak');
+        
+        // Ambil role langsung dari session root
+        $userRole = session()->get('role'); // Sesuai struktur Anda
+        
+        if (!$userRole || $userRole !== $requiredRole) {
+            return redirect()->to('/404')->with('error', 'Akses ditolak');
         }
     }
 
