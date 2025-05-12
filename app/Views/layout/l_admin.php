@@ -25,6 +25,7 @@ if(uri_string()!=""){
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
 
   <!-- Vendor CSS Files -->
+  <link href="<?= base_url()?>css/main.css" rel="stylesheet">
   <link href="<?= base_url()?>NiceAdmin/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <link href="<?= base_url()?>NiceAdmin/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
   <link href="<?= base_url()?>NiceAdmin/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
@@ -47,9 +48,14 @@ if(uri_string()!=""){
 </head>
 
 <body>
-  <main>
 
-    <!-- <div class="pagetitle">
+    <?= $this->include('components/c_admin_header') ?>
+
+    <?= $this->include('components/c_admin_sidebar') ?>
+
+  <main id="main" class="main">
+
+    <div class="pagetitle">
       <h1>Data Tables</h1>
       <nav>
         <ol class="breadcrumb">
@@ -63,7 +69,7 @@ if(uri_string()!=""){
         ?> 
         </ol>
       </nav>
-    </div>End Page Title -->
+    </div><!-- End Page Title -->
 
     <section class="section">
       <div class="row">
@@ -82,7 +88,8 @@ if(uri_string()!=""){
 
   </main><!-- End #main -->
 
-  
+  <?= $this->include('components/c_admin_footer') ?>
+
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
   <!-- Vendor JS Files -->

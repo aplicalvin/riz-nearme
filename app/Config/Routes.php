@@ -50,6 +50,22 @@ $routes->group('user', function($routes) {
     $routes->get('favorites', 'UserController::favorites');
 });
 
+// Admin Hotel Routes
+$routes->group('admin', function($routes) {
+    $routes->get('/', 'AdminController::index');
+    $routes->get('dashboard', 'AdminController::index');
+    $routes->get('room', 'AdminController::room');
+    $routes->get('booking', 'AdminController::booking');
+    $routes->get('setting', 'AdminController::setting');
+});
+
+// Admin Hotel Routes
+$routes->group('super', function($routes) {
+    $routes->get('/', 'SuperController::index');
+    $routes->get('dashboard', 'SuperController::index');
+    $routes->get('setting', 'SuperController::setting');
+});
+
 
 
 // Fallback Route

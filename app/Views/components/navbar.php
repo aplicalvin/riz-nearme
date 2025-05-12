@@ -17,11 +17,6 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav me-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="<?= base_url('/') ?>" style="color: #E7E7E7;">
-                        <i class="fas fa-home me-1"></i> Beranda
-                    </a>
-                </li>
-                <li class="nav-item">
                     <a class="nav-link" href="<?= base_url('/hotels') ?>" style="color: #E7E7E7;">
                         <i class="fas fa-search me-1"></i> Jelajahi Hotel
                     </a>
@@ -53,13 +48,20 @@
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown" 
                             style="background-color: #2D2D2D;">
+                            <!-- IDENTITAS -->
                             <li>
                                 <div class="dropdown-header text-center py-2" style="color: #E7E7E7;">
                                     <strong><?= session()->get('full_name') ?></strong><br>
                                     <h5 class=""><?= session()->get('email') ?></h5>
                                 </div>
                             </li>
+                            <!-- IDENTITAS DONE -->
                             <li><hr class="dropdown-divider" style="border-color: #454545;"></li>
+                            <!-- MENU -->
+                            <!-- Role == "user" -->
+                            <?php 
+                                if (session()->get('role') == 'user') {
+                            ?>
                             <li>
                                 <a class="dropdown-item" href="<?= base_url('/user/profile') ?>" style="color: #E7E7E7;">
                                     <i class="fas fa-user me-2"></i>Profil Saya
@@ -75,7 +77,37 @@
                                     <i class="fas fa-heart me-2"></i>Favorit
                                 </a>
                             </li>
+                            <?php 
+                                }
+                                // role == admin
+                                if (session()->get('role') == 'hotel') {
+                            ?>
+
+                            <li>
+                                <a class="dropdown-item" href="<?= base_url('/admin') ?>" style="color: #E7E7E7;">
+                                    <i class="fas fa-heart me-2"></i>Dashboard
+                                </a>
+                            </li>
+
+                            <?php 
+                                }
+                                // role == Super
+                                if (session()->get('role') == 'admin') {
+                            ?>
+
+                            <li>
+                                <a class="dropdown-item" href="<?= base_url('/super') ?>" style="color: #E7E7E7;">
+                                    <i class="fas fa-heart me-2"></i>Dashboard
+                                </a>
+                            </li>
+
+                            <?php 
+                                }
+                            ?>
+
+                            <!-- MNU END  -->
                             <li><hr class="dropdown-divider" style="border-color: #454545;"></li>
+                            <!-- LOGOUT BUTTON  -->
                             <li>
                                 <a class="dropdown-item" href="<?= base_url('/logout') ?>" style="color: #E7E7E7;">
                                     <i class="fas fa-sign-out-alt me-2"></i>Keluar

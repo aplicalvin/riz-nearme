@@ -1,5 +1,5 @@
   <!-- ======= Sidebar ======= -->
-<aside id="sidebar" class="sidebar">
+  <aside id="sidebar" class="sidebar">
 
 <ul class="sidebar-nav" id="sidebar-nav">
 
@@ -10,18 +10,23 @@
     </li><!-- End Home Nav -->
 
     <li class="nav-item">
-        <a class="nav-link <?php echo (uri_string() == '/kamar') ? "" : "collapsed" ?>" href="kamar">
-            <span>Kamar</span>
+        <a class="nav-link <?php echo (uri_string() == '/room') ? "" : "collapsed" ?>" href="/admin/room">
+            <span>Rooms</span>
         </a>
     </li><!-- End Keranjang Nav --> 
     <li class="nav-item">
-        <a class="nav-link <?php echo (uri_string() == '/keluhan') ? "" : "collapsed" ?>" href="keluhan">
-            <span>Keluhan</span>
+        <a class="nav-link <?php echo (uri_string() == '/booking') ? "" : "collapsed" ?>" href="booking">
+            <span>Booking</span>
         </a>
     </li><!-- End Keranjang Nav --> 
     <li class="nav-item">
-        <a class="nav-link <?php echo (uri_string() == '/pemesanan') ? "" : "collapsed" ?>" href="pemesanan">
-            <span>Pemesanan</span>
+        <a class="nav-link <?php echo (uri_string() == '/admin') ? "" : "collapsed" ?>" href="setting">
+            <span>Setting</span>
+        </a>
+    </li><!-- End Keranjang Nav --> 
+    <li class="nav-item">
+        <a class="nav-link <?php echo (uri_string() == '/admin') ? "" : "collapsed" ?>" href="/logout">
+            <span>Logout</span>
         </a>
     </li><!-- End Keranjang Nav --> 
     <?php 

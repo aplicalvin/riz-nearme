@@ -170,9 +170,9 @@ class AuthController extends BaseController
         
         switch ($role) {
             case 'admin':
-                return '/admin/dashboard';
+                return '/super/dashboard';
             case 'hotel':
-                return '/hotel/dashboard';
+                return '/admin/dashboard';
             default:
                 return '/';
         }

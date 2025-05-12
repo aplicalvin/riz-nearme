@@ -1,5 +1,5 @@
-<?php echo $this->extend("layout/layout_utama"); ?>
-<?php echo $this->section("konten_utama") ?>
+<?php echo $this->extend("layout/l_clean"); ?>
+<?php echo $this->section("main_content"); ?>
         <div class="container py-5">
             <div class="row justify-content-center">
                 <div class="col-md-6 col-lg-4">

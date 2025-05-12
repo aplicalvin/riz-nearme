@@ -48,17 +48,16 @@ if(uri_string()!=""){
 
 <body>
 
-    <?= $this->include('admin/components/header') ?>
+    <?= $this->include('components/c_super_header') ?>
 
-    <?= $this->include('admin/components/sidebar') ?>
+    <?= $this->include('components/c_super_sidebar') ?>
 
   <main id="main" class="main">
 
     <div class="pagetitle">
-      <h1>Data Tables</h1>
+      <h1>Super Admin</h1>
       <nav>
         <ol class="breadcrumb">
-        <li class="breadcrumb-item">Home</li>
         <?php
             if($hlm!="Home"){
             ?>
@@ -87,7 +86,7 @@ if(uri_string()!=""){
 
   </main><!-- End #main -->
 
-  <?= $this->include('admin/components/footer') ?>
+  <?= $this->include('components/c_admin_footer') ?>
 
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
