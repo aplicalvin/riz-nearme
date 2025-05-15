@@ -13,4 +13,11 @@ class RoomTypeModel extends Model
         return $this->where('hotel_id', $hotelId)
                    ->findAll();
     }
+
+    // Get Room Information via admin
+    public function getRoomData($hotelId) 
+    {
+
+        return $this->where(['hotel_id' => $hotelId])->first();
+    }
 }

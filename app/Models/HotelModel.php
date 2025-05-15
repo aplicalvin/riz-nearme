@@ -18,4 +18,19 @@ class HotelModel extends Model
                    ->join('cities', 'cities.id = hotels.city_id')
                    ->findAll();
     }
+
+    // get Hotel ID by Admin ID
+    public function getHotelID($admin_id) {
+        // gimana cara agar saya cuma return atribut "id" pada tabel hotel?
+        return $this->select('id')
+                    ->where(['admin_id' => $admin_id])
+                    ->first();
+    }
+
+    // Get Full Data Hotel
+    public function getHotelData($id) 
+    {
+        return $this->where(['id' => $id])->first();
+    }
+
 }
