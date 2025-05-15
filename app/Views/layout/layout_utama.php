@@ -16,6 +16,11 @@
         <!-- Import Favicon -->
         <link rel="icon" href="<?= base_url('assets/logo.png') ?>" type="image/x-icon">
         <link rel="icon" href="" type="image/x-icon">
+
+
+        <!-- BOOTSTRAP ICON -->
+        <link href="<?= base_url('assets/bootstrap-icons/bootstrap-icons.css') ?>" rel="stylesheet">
+         
     </head>
     <body>
         <!-- ================ navbar ================ -->

@@ -16,6 +16,12 @@
         <!-- Import Favicon -->
         <link rel="icon" href="<?= base_url('assets/logo.png') ?>" type="image/x-icon">
         <link rel="icon" href="" type="image/x-icon">
+
+        <!-- FONTAWESOME -->
+        <link href="<?= base_url('assets/fontawesome/all.min.css') ?>" rel="stylesheet">
+        
+        <!-- BOOTSTRAP ICON -->
+        <link href="<?= base_url('assets/bootstrap-icons/bootstrap-icons.css') ?>" rel="stylesheet">
     </head>
     <body>
         <!-- ================ navbar ================ -->
@@ -23,7 +29,7 @@
         <!-- ================ navbar END ================ -->
          
         <!-- ================ KONTEN UTAMA ================ -->
-        <main class="maincontent" style="min-height: 80vh;">
+        <main class="maincontent" style="min-height: 80vh; background-color: #E0F0FE;">
           <?php echo $this->renderSection("main_content") ?>
         </main>
         <!-- ================ KONTEN UTAMA END ================ -->

@@ -21,27 +21,27 @@
                             <div class="col-md-5">
                                 <label class="form-label text-start w-100 text-dark">Lokasi</label>
                                 <div class="input-group">
-                                    <span class="input-group-text bg-white border-end-0"><i class="fas fa-map-marker-alt text-muted"></i></span>
+                                    <span class="input-group-text bg-white border-end-0"><i class="bi bi-geo-alt text-muted"></i></span>
                                     <input type="text" class="form-control form-control-lg border-start-0" placeholder="Kota atau nama hotel" name="location" style="height: 55px;">
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <label class="form-label text-start w-100 text-dark">Check-in</label>
                                 <div class="input-group">
-                                    <span class="input-group-text bg-white border-end-0"><i class="fas fa-calendar-alt text-muted"></i></span>
+                                    <span class="input-group-text bg-white border-end-0"><i class="bi bi-calendar-event text-muted"></i></span>
                                     <input type="date" class="form-control form-control-lg border-start-0" name="checkin" style="height: 55px;">
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <label class="form-label text-start w-100 text-dark">Check-out</label>
                                 <div class="input-group">
-                                    <span class="input-group-text bg-white border-end-0"><i class="fas fa-calendar-alt text-muted"></i></span>
+                                    <span class="input-group-text bg-white border-end-0"><i class="bi bi-calendar-event text-muted"></i></span>
                                     <input type="date" class="form-control form-control-lg border-start-0" name="checkout" style="height: 55px;">
                                 </div>
                             </div>
                             <div class="col-md-1">
                                 <button type="submit" class="btn btn-primary w-100 h-100" style="background-color: #0176C8; border: none; font-weight: bold;">
-                                    <i class="fas fa-search"></i>
+                                    <i class="bi bi-search"></i>
                                 </button>
                             </div>
                         </div>
@@ -92,7 +92,7 @@
         
         <div class="text-center mt-5">
             <a href="<?= base_url('/destinations') ?>" class="btn btn-outline-primary px-4 py-2" style="border-color: #0176C8; color: #0176C8;">
-                Lihat Semua Destinasi <i class="fas fa-arrow-right ms-2"></i>
+                Lihat Semua Destinasi <i class="bi bi-arrow-right ms-2"></i>
             </a>
         </div>
     </div>
@@ -110,7 +110,7 @@
                 <p class="text-muted">Hotel pilihan dengan rating tertinggi dari pelanggan</p>
             </div>
             <a href="<?= base_url('/hotels') ?>" class="btn btn-outline-dark px-4 py-2 d-flex align-items-center">
-                Lihat Semua <i class="fas fa-chevron-right ms-2"></i>
+                Lihat Semua <i class="bi bi-chevron-right ms-2"></i>
             </a>
         </div>
         
@@ -139,7 +139,7 @@
             <div class="col-lg-4 col-md-6">
                 <div class="feature-card p-4 h-100" style="background: rgba(255,255,255,0.05); border-radius: 12px; transition: all 0.3s ease; border: 1px solid rgba(255,255,255,0.1);">
                     <div class="feature-icon mb-4" style="width: 70px; height: 70px; background: rgba(1, 118, 200, 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
-                        <i class="fas fa-percentage fa-2x" style="color: #0176C8;"></i>
+                        <i class="bi bi-percent fa-2x" style="color: #0176C8;"></i>
                     </div>
                     <h4 class="font-heading mb-3">Harga Terbaik</h4>
                     <p class="mb-0" style="opacity: 0.8;">Jaminan harga terbaik dengan penawaran eksklusif dan diskon spesial untuk member</p>
@@ -148,7 +148,7 @@
             <div class="col-lg-4 col-md-6">
                 <div class="feature-card p-4 h-100" style="background: rgba(255,255,255,0.05); border-radius: 12px; transition: all 0.3s ease; border: 1px solid rgba(255,255,255,0.1);">
                     <div class="feature-icon mb-4" style="width: 70px; height: 70px; background: rgba(1, 118, 200, 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
-                        <i class="fas fa-headset fa-2x" style="color: #0176C8;"></i>
+                        <i class="bi bi-headset fa-2x" style="color: #0176C8;"></i>
                     </div>
                     <h4 class="font-heading mb-3">Bantuan 24/7</h4>
                     <p class="mb-0" style="opacity: 0.8;">Tim dukungan kami siap membantu Anda kapan saja melalui chat, telepon, atau email</p>
@@ -166,7 +166,7 @@
             <div class="col-lg-4 col-md-6">
                 <div class="feature-card p-4 h-100" style="background: rgba(255,255,255,0.05); border-radius: 12px; transition: all 0.3s ease; border: 1px solid rgba(255,255,255,0.1);">
                     <div class="feature-icon mb-4" style="width: 70px; height: 70px; background: rgba(1, 118, 200, 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
-                        <i class="fas fa-map-marked-alt fa-2x" style="color: #0176C8;"></i>
+                        <i class="bi bi-map fa-2x" style="color: #0176C8;"></i>
                     </div>
                     <h4 class="font-heading mb-3">Pilihan Luas</h4>
                     <p class="mb-0" style="opacity: 0.8;">Ribuan hotel di seluruh Indonesia dari budget hingga bintang 5</p>
@@ -175,7 +175,7 @@
             <div class="col-lg-4 col-md-6">
                 <div class="feature-card p-4 h-100" style="background: rgba(255,255,255,0.05); border-radius: 12px; transition: all 0.3s ease; border: 1px solid rgba(255,255,255,0.1);">
                     <div class="feature-icon mb-4" style="width: 70px; height: 70px; background: rgba(1, 118, 200, 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
-                        <i class="fas fa-mobile-alt fa-2x" style="color: #0176C8;"></i>
+                        <i class="bi bi-phone fa-2x" style="color: #0176C8;"></i>
                     </div>
                     <h4 class="font-heading mb-3">Aplikasi Mobile</h4>
                     <p class="mb-0" style="opacity: 0.8;">Pesan hotel lebih mudah dengan aplikasi mobile kami yang user-friendly</p>
