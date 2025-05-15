@@ -18,15 +18,22 @@ class AuthController extends BaseController
     // Login View
     public function index()
     {
+        $data = [
+            'judul' => 'Masuk untuk mengetahui lebih lanjut'
+        ];
+
         if (session('logged_in')) {
             return redirect()->to($this->getDashboardRoute());
         }
-        return view('auth/login');
+        return view('auth/login', $data);
     }
 
     // Signup View
     public function signup()
     {
+        $data = [
+            'judul' => 'Bergabunglah bersama kami dan dapatkan penawaran menarik'
+        ];
         if (session('logged_in')) {
             return redirect()->to($this->getDashboardRoute());
         }
@@ -170,9 +177,9 @@ class AuthController extends BaseController
         
         switch ($role) {
             case 'admin':
-                return '/admin/dashboard';
+                return '/super/dashboard';
             case 'hotel':
-                return '/hotel/dashboard';
+                return '/admin/dashboard';
             default:
                 return '/';
         }

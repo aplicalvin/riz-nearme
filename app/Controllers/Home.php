@@ -34,6 +34,10 @@ class Home extends BaseController
     
         return view('general/v_landing_pages', $data);
     }
+
+    public function error404() {
+        return view('error/html/404');
+    }
     
     private function getPopularDestinations(): array
     {

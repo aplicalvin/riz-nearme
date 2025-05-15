@@ -27,10 +27,11 @@ class UserController extends BaseController
     {
         $data = [
             'title' => 'Profil Saya',
+            'judul' => 'Profil Saya - ',
             'user' => $this->userModel->find(session()->get('user_id')),
             'activeTab' => 'profile'
         ];
-        return view('user/profile', $data);
+        return view('user/profile_content', $data);
     }
 
     // Form Edit Profil

@@ -21,6 +21,6 @@
 }
 
 .font-heading {
-    font-family: "Gothic", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    font-family: "Gothic", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif !important;
     font-weight: bold;
 }
