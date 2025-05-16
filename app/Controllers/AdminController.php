@@ -24,18 +24,21 @@ class AdminController extends BaseController
     }
     public function index()
     {
-        
-        // Validate if admin is logged in
         if (!$this->admin_id) {
-            return redirect()->to('/login'); // Redirect to login if not authenticated
+            return redirect()->to('/login');
         }
 
         $data = [
             'judul' => 'Dashboard Admin',
-            'hotels' => $this->datahotel->getHotelData($this->hotel_id) 
+            'hotels' => $this->datahotel->getHotelData($this->hotel_id),
+            'stats' => [
+                'total_rooms' => $this->datakamar->getHotelCount($this->hotel_id),
+                'available_rooms' => $this->datakamar->getAvailableRoomsCount($this->hotel_id),
+                'total_bookings' => $this->databooking->getBookCount($this->hotel_id),
+                'today_bookings' => $this->databooking->getTodayBookings($this->hotel_id),
+                'active_bookings' => $this->databooking->getActiveBookings($this->hotel_id)
+            ]
         ];
-
-        // $admin_id->
 
         return view('admin/v_dashboard', $data);
     }

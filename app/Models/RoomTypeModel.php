@@ -33,4 +33,16 @@ class RoomTypeModel extends Model
                    ->where('room_types.id', $roomId)
                    ->first();
     }
+
+    public function getHotelCount($hotel_id)
+    {
+        return $this->where('hotel_id', $hotel_id)
+                ->countAllResults();
+    }
+
+    public function getAvailableRoomsCount($hotel_id)
+    {
+        return $this->where(['hotel_id' => $hotel_id, 'available_rooms >' => 0])
+                ->countAllResults();
+    }
 }
