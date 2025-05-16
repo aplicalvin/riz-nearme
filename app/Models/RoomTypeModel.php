@@ -18,6 +18,6 @@ class RoomTypeModel extends Model
     public function getRoomData($hotelId) 
     {
 
-        return $this->where(['hotel_id' => $hotelId])->first();
+        return $this->where(['hotel_id' => $hotelId])->findAll();
     }
 }

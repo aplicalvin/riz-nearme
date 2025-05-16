@@ -62,6 +62,7 @@ $routes->group('',['filter' => 'auth'], function($routes) {
         $routes->get('dashboard', 'AdminController::index');
         $routes->get('room', 'AdminController::room');
         $routes->get('booking', 'AdminController::booking');
+        $routes->post('bookings/update-status', 'AdminController::updateStatus');
         $routes->get('setting', 'AdminController::setting');
     });
     

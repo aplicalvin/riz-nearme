@@ -8,7 +8,7 @@ if(uri_string()!=""){
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
+<>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
@@ -45,7 +45,11 @@ if(uri_string()!=""){
   * Author: BootstrapMade.com
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
-</head>
+
+
+  <!-- JQUERY -->
+  <script src="<?= base_url('assets/js/jquery.min.js') ?>"></script>
+</>
 
 <body>
 
