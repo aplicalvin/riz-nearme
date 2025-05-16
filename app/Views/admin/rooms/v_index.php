@@ -52,11 +52,13 @@
                                 <a href="<?= base_url('admin/rooms/edit/' . $room['id']) ?>" 
                                    class="btn btn-warning btn-sm">
                                     <i class="fas fa-edit"></i>
+                                    Edit
                                 </a>
                                 <a href="<?= base_url('admin/rooms/delete/' . $room['id']) ?>" 
                                    class="btn btn-danger btn-sm" 
                                    onclick="return confirm('Yakin menghapus kamar ini?')">
                                     <i class="fas fa-trash"></i>
+                                    Delete
                                 </a>
                             </td>
                         </tr>

@@ -18,7 +18,7 @@
        <!-- Display cover photo if exists -->
        <?php if (!empty($hotels['cover_photo'])): ?>
            <div class="mt-3">
-               <img src="/uploads/<?= esc($hotels['cover_photo']) ?>" 
+               <img src="/uploads/hotels/<?= esc($hotels['cover_photo']) ?>" 
                     alt="<?= esc($hotels['name']) ?>" 
                     class="img-thumbnail" style="max-width: 300px;">
            </div>

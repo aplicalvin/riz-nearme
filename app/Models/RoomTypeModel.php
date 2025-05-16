@@ -5,19 +5,32 @@ use CodeIgniter\Model;
 class RoomTypeModel extends Model
 {
     protected $table = 'room_types';
-    protected $allowedFields = ['hotel_id', 'name', 'base_price', 'capacity'];
+    protected $primaryKey = 'id';
+    protected $allowedFields = [
+        'hotel_id',
+        'name',
+        'description',
+        'base_price',
+        'capacity',
+        'available_rooms',
+        'photo'
+    ];
+    // protected $useTimestamps = true;
+    // protected $createdField = 'created_at';
+    // protected $updatedField = 'updated_at';
 
-    public function getAvailableRooms($hotelId, $checkIn, $checkOut)
+    // Get rooms by hotel ID
+    public function getRoomsByHotel($hotelId)
     {
-        // Logika cek kamar yang tersedia di tanggal tertentu
-        return $this->where('hotel_id', $hotelId)
-                   ->findAll();
+        return $this->where('hotel_id', $hotelId)->findAll();
     }
 
-    // Get Room Information via admin
-    public function getRoomData($hotelId) 
+    // Get room data with hotel info
+    public function getRoomWithHotel($roomId)
     {
-
-        return $this->where(['hotel_id' => $hotelId])->findAll();
+        return $this->select('room_types.*, hotels.name as hotel_name')
+                   ->join('hotels', 'hotels.id = room_types.hotel_id')
+                   ->where('room_types.id', $roomId)
+                   ->first();
     }
 }

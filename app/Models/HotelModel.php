@@ -33,4 +33,28 @@ class HotelModel extends Model
         return $this->where(['id' => $id])->first();
     }
 
+
+    // UPDATE HOTEL DATA
+    public function updateHotelData($id, array $data)
+    {
+        // Validasi ID
+        if (empty($id)) {
+            throw new \InvalidArgumentException('Hotel ID tidak boleh kosong');
+        }
+
+        // Filter data hanya untuk field yang diizinkan
+        $filteredData = array_intersect_key($data, array_flip($this->allowedFields));
+
+        if (empty($filteredData)) {
+            throw new \RuntimeException('Tidak ada data yang valid untuk diupdate');
+        }
+
+        // Tambahkan updated_at manual jika perlu
+        if ($this->useTimestamps) {
+            $filteredData[$this->updatedField] = date('Y-m-d H:i:s');
+        }
+
+        return $this->update($id, $filteredData);
+    }
+
 }
