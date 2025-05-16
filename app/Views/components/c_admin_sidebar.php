@@ -15,12 +15,12 @@
         </a>
     </li><!-- End Keranjang Nav --> 
     <li class="nav-item">
-        <a class="nav-link <?php echo (uri_string() == '/booking') ? "" : "collapsed" ?>" href="booking">
+        <a class="nav-link <?php echo (uri_string() == '/booking') ? "" : "collapsed" ?>" href="/admin/booking">
             <span>Booking</span>
         </a>
     </li><!-- End Keranjang Nav --> 
     <li class="nav-item">
-        <a class="nav-link <?php echo (uri_string() == '/admin') ? "" : "collapsed" ?>" href="setting">
+        <a class="nav-link <?php echo (uri_string() == '/admin') ? "" : "collapsed" ?>" href="/admin/setting">
             <span>Setting</span>
         </a>
     </li><!-- End Keranjang Nav --> 

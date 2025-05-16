@@ -61,7 +61,17 @@ $routes->group('',['filter' => 'auth'], function($routes) {
         $routes->get('/', 'AdminController::index');
         $routes->get('dashboard', 'AdminController::index');
         $routes->get('room', 'AdminController::room');
+        $routes->group('rooms', function($routes) {
+            $routes->get('/', 'AdminController::room');
+            $routes->get('add', 'AdminController::addRoom');
+            $routes->post('save', 'AdminController::saveRoom');
+            $routes->get('edit/(:num)', 'AdminController::editRoom/$1');
+            $routes->post('update/(:num)', 'AdminController::updateRoom/$1');
+            $routes->get('delete/(:num)', 'AdminController::deleteRoom/$1');
+        });
         $routes->get('booking', 'AdminController::booking');
+        $routes->post('bookings/update-status', 'AdminController::updateStatus');
+        $routes->post('setting/update', 'AdminController::updateHotelData');
         $routes->get('setting', 'AdminController::setting');
     });
     
