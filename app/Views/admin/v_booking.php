@@ -2,12 +2,10 @@
 <?php echo $this->section("content"); ?>
 
 <h1 class="font-heading">Booking</h1>
-
+<p>Kelola pemesanan anda disini </p>
     <!-- TABLE -->
     <div class="card">
     <div class="card-body">
-        <h5 class="card-title">Datatables</h5>
-        <p>Add lightweight datatables to your project with using the <a href="https://github.com/fiduswriter/Simple-DataTables" target="_blank">Simple DataTables</a> library. Just add <code>.datatable</code> class name to any table you wish to conver to a datatable</p>
                     <!-- Tambahkan ini untuk menampilkan flash message -->
             <?php if (session()->has('message')) : ?>
                 <div class="alert alert-success"><?= session('message') ?></div>
@@ -17,7 +15,7 @@
                 <div class="alert alert-danger"><?= session('error') ?></div>
             <?php endif; ?>
         <!-- Table with stripped rows -->
-        <table class="table datatable">
+        <table class="table datatable table-striped">
         <thead>
             <tr>
             <th scope="col">#</th>
@@ -32,17 +30,23 @@
             </tr>
         </thead>
         <tbody>
-            <?php foreach($bookings as $book): ?>
+            <?php   foreach($bookings as $book): 
+
+            ?>
                 <tr>
                     <th scope="row">1</th>
                     <td>
-                        <p><?= $book['guest_name'] ?></p>
-                        <p><?= $book['guest_email'] ?></p>
-                        <p><?= $book['guest_phone'] ?></p>
+                        <div class="d-flex flex-column gap-0 m-0">
+                            <p class="fw-bold m-0"><?= $book['guest_name'] ?></p>
+                            <p class="m-0 text-muted"><?= $book['guest_email'] ?></p>
+                            <p class="m-0 text-muted"><?= $book['guest_phone'] ?></p>
+                        </div>
                     </td>
                     <td>
-                        <p><?= $book['room_type'] ?></p>
-                        <p><?= $book['room_price'] ?></p>
+                        <div class="d-flex flex-column gap-0" style="min-width: 125px">
+                            <p class="m-0 fw-bold"><?= $book['room_type'] ?></p>
+                            <p class="m-0">Rp. <?= $book['room_price'] ?></p>
+                        </div>
                     </td>
                     <td>
                         <p><?= $book['payment_method'] ?></p>

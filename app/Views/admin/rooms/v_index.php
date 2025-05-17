@@ -39,7 +39,9 @@
                             <td>
                                 <?php if ($room['photo']): ?>
                                     <img src="<?= base_url('uploads/rooms/' . $room['photo']) ?>" 
-                                         alt="<?= $room['name'] ?>" class="img-thumbnail" style="max-width: 100px;">
+                                        alt="<?= $room['name'] ?>" 
+                                        class="img-thumbnail" 
+                                        style="width: 210px; height: 140px; object-fit: cover;">
                                 <?php else: ?>
                                     <span class="text-muted">No photo</span>
                                 <?php endif; ?>
