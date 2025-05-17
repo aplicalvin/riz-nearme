@@ -25,8 +25,11 @@
                         </div>
                     <?php endif; ?>
 
-                    <form method="post" action="<?= base_url('super/users/store') ?>" enctype="multipart/form-data">
+                    <form method="post" action="<?= isset($user) ? base_url('super/users/update/' . $user['id']) : base_url('super/users/store') ?>" enctype="multipart/form-data">
                         <?= csrf_field() ?>
+                        <?php if (isset($user)): ?>
+                            <input type="hidden" name="_method" value="PUT">
+                        <?php endif; ?>
 
                         <div class="row">
                             <div class="col-md-6 mb-3">
@@ -56,7 +59,11 @@
 
                         <div class="mb-3">
                             <label for="password" class="form-label">Password</label>
-                            <input type="password" class="form-control" id="password" name="password" required>
+                            <input type="password" class="form-control" id="password" name="password" 
+                                    placeholder="<?= isset($user) ? 'Kosongkan jika tidak ingin mengubah' : '' ?>">
+                            <?php if (isset($user)): ?>
+                                <small class="text-muted">Kosongkan jika tidak ingin mengubah password</small>
+                            <?php endif; ?>
                         </div>
 
                         <div class="mb-3">

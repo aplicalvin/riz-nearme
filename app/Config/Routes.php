@@ -93,6 +93,8 @@ $routes->group('',['filter' => 'auth'], function($routes) {
             $routes->get('create', 'SuperController::usersCreate');
             $routes->post('store', 'SuperController::usersStore');
             $routes->get('delete/(:num)', 'SuperController::usersDelete/$1');
+            $routes->get('export', 'SuperController::usersExport');
+            $routes->get('reset-password/(:num)', 'SuperController::usersResetPassword/$1'); 
         });
     
         $routes->get('setting', 'SuperController::setting');

@@ -35,7 +35,7 @@
                     <p class="text-muted small">Pengguna terdaftar</p>
                 </div>
                 <div class="card-footer bg-transparent border-success">
-                    <a href="#" class="btn btn-sm btn-outline-success">Lihat Data</a>
+                    <a href="<?= base_url('super/users') ?>" class="btn btn-sm btn-outline-success">Lihat Data</a>
                 </div>
             </div>
         </div>

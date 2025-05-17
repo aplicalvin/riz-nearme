@@ -86,4 +86,35 @@ class UserModel extends Model
         
         return ['success' => false, 'errors' => $this->errors()];
     }
+
+    public function getFilteredUsers($search = null, $sort = 'created_at', $order = 'DESC')
+    {
+        $builder = $this->where('role', 'user');
+        
+        if (!empty($search)) {
+            $builder->groupStart()
+                ->like('full_name', $search)
+                ->orLike('username', $search)
+                ->orLike('email', $search)
+                ->orLike('phone', $search)
+                ->groupEnd();
+        }
+        
+        return $builder->orderBy($sort, $order);
+    }
+
+    // UserModel.php
+
+    /**
+     * Reset password user ke default
+     * @param int $id User ID
+     * @return bool
+     */
+    public function resetPassword($id)
+    {
+        $defaultPassword = 'password'; // Password default
+        $hashedPassword = password_hash($defaultPassword, PASSWORD_DEFAULT);
+        
+        return $this->update($id, ['password' => $hashedPassword]);
+    }
 }

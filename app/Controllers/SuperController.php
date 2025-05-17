@@ -236,9 +236,17 @@ class SuperController extends BaseController
     // Method untuk menampilkan daftar user biasa
     public function users()
     {
+        $search = $this->request->getGet('search');
+        $sort = $this->request->getGet('sort') ?? 'created_at';
+        $order = $this->request->getGet('order') ?? 'DESC';
+        
         $data = [
             'judul' => 'Manajemen User Biasa',
-            'users' => $this->datauser->where('role', 'user')->orderBy('created_at', 'DESC')->findAll()
+            'users' => $this->datauser->getFilteredUsers($search, $sort, $order)->paginate(10),
+            'pager' => $this->datauser->pager,
+            'search' => $search,
+            'sort' => $sort,
+            'order' => $order
         ];
         
         return view('super/v_users', $data);
@@ -305,6 +313,120 @@ class SuperController extends BaseController
             return redirect()->to('/super/users')->with('message', 'User berhasil dihapus');
         } else {
             return redirect()->to('/super/users')->with('error', 'Gagal menghapus user');
+        }
+    }
+
+    // Method untuk menampilkan form edit user
+    public function usersEdit($id)
+    {
+        $user = $this->datauser->find($id);
+        
+        if (!$user || $user['role'] != 'user') {
+            return redirect()->to('/super/users')->with('error', 'User tidak ditemukan');
+        }
+        
+        $data = [
+            'judul' => 'Edit User',
+            'user' => $user
+        ];
+        
+        return view('super/v_users_form', $data);
+    }
+
+    // Method untuk update user
+    public function usersUpdate($id)
+    {
+        $user = $this->datauser->find($id);
+        
+        if (!$user || $user['role'] != 'user') {
+            return redirect()->to('/super/users')->with('error', 'User tidak ditemukan');
+        }
+        
+        $rules = [
+            'full_name' => 'required|min_length[3]|max_length[100]',
+            'username' => 'required|alpha_numeric|min_length[3]|max_length[30]|is_unique[users.username,id,'.$id.']',
+            'email' => 'required|valid_email|is_unique[users.email,id,'.$id.']',
+            'phone' => 'required|numeric',
+            'password' => 'permit_empty|min_length[4]'
+        ];
+
+        if (!$this->validate($rules)) {
+            return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
+        }
+
+        $data = $this->request->getPost();
+        
+        // Jika password kosong, hapus dari data
+        if (empty($data['password'])) {
+            unset($data['password']);
+        }
+        
+        // Handle file upload (foto profil)
+        $photo = $this->request->getFile('photo');
+        if ($photo->isValid() && !$photo->hasMoved()) {
+            // Hapus foto lama jika ada
+            if ($user['photo'] && file_exists(ROOTPATH . 'public/uploads/profiles/' . $user['photo'])) {
+                unlink(ROOTPATH . 'public/uploads/profiles/' . $user['photo']);
+            }
+            
+            $newName = $photo->getRandomName();
+            $photo->move(ROOTPATH . 'public/uploads/profiles', $newName);
+            $data['photo'] = $newName;
+        }
+
+        if ($this->datauser->update($id, $data)) {
+            return redirect()->to('/super/users')->with('message', 'User berhasil diperbarui');
+        } else {
+            return redirect()->back()->withInput()->with('errors', $this->datauser->errors());
+        }
+    }
+
+    public function usersExport()
+    {
+        $users = $this->datauser->where('role', 'user')->findAll();
+        
+        $filename = 'users_export_' . date('Ymd_His') . '.csv';
+        
+        header("Content-Description: File Transfer");
+        header("Content-Disposition: attachment; filename=$filename");
+        header("Content-Type: application/csv;");
+        
+        $file = fopen('php://output', 'w');
+        
+        // Header
+        fputcsv($file, ['No', 'Nama Lengkap', 'Username', 'Email', 'No. Telepon', 'Tanggal Daftar']);
+        
+        // Data
+        $no = 1;
+        foreach ($users as $user) {
+            fputcsv($file, [
+                $no++,
+                $user['full_name'],
+                $user['username'],
+                $user['email'],
+                $user['phone'],
+                date('d/m/Y H:i', strtotime($user['created_at']))
+            ]);
+        }
+        
+        fclose($file);
+        exit;
+    }
+
+
+    // SuperController.php
+    public function usersResetPassword($id)
+    {
+        $user = $this->datauser->find($id);
+        
+        if (!$user || $user['role'] != 'user') {
+            return redirect()->to('/super/users')->with('error', 'User tidak ditemukan');
+        }
+        
+        if ($this->datauser->resetPassword($id)) {
+            return redirect()->to('/super/users')->with('message', 'Password user berhasil direset ke default');
+        } else {
+            return redirect()->to('/super/users')->with('error', 'Gagal mereset password');
         }
     }
 }
