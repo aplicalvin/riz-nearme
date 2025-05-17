@@ -212,4 +212,32 @@ class BookingModel extends Model
                   ->orderBy('bookings.check_out_date', 'ASC')
                   ->findAll();
     }
+
+
+    // COUNT
+    public function getBookCount($hotel_id)
+    {
+        return $this->where('hotel_id', $hotel_id)
+                ->countAllResults();
+    }
+
+    public function getTodayBookings($hotel_id)
+    {
+        $today = date('Y-m-d');
+        return $this->where('hotel_id', $hotel_id)
+                ->where('DATE(created_at)', $today)
+                ->countAllResults();
+    }
+
+    public function getActiveBookings($hotel_id)
+    {
+        $today = date('Y-m-d');
+        return $this->where('hotel_id', $hotel_id)
+                ->groupStart()
+                    ->where('status', 'confirmed')
+                    ->orWhere('status', 'pending')
+                ->groupEnd()
+                ->where('check_in_date >=', $today)
+                ->countAllResults();
+    }
 }
