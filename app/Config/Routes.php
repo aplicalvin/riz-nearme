@@ -80,8 +80,18 @@ $routes->group('',['filter' => 'auth'], function($routes) {
         $routes->get('/', 'SuperController::index');
         $routes->get('dashboard', 'SuperController::index');
         $routes->get('hotel', 'SuperController::hotel');
+        $routes->get('hotel/create', 'SuperController::createHotel');
+        $routes->post('hotel/store-admin', 'SuperController::storeHotelAdmin');
+        $routes->get('hotel/create-step2', 'SuperController::createHotelStep2');
+        $routes->post('hotel/store', 'SuperController::storeHotel');
+        $routes->get('hotel/edit/(:num)', 'SuperController::hotelEdit/$1');
+        $routes->post('hotel/update/(:num)', 'SuperController::hotelUpdate/$1');
+        $routes->get('hotel/delete/(:num)', 'SuperController::hotelDelete/$1');
+    
         $routes->get('setting', 'SuperController::setting');
     });
+
+    
 });
 
 // app/Config/Routes.php

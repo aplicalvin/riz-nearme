@@ -1,6 +1,8 @@
 <?php namespace App\Models;
 
 use CodeIgniter\Model;
+use Config\Services; // Ini yang benar
+
 
 class HotelModel extends Model
 {
@@ -10,6 +12,15 @@ class HotelModel extends Model
     protected $useTimestamps = true;
     protected $createdField = 'created_at';
     protected $updatedField = 'updated_at';
+
+
+    protected $validation;
+
+    public function __construct()
+    {
+        parent::__construct();
+        $this->validation = Services::validation(); // Inisialisasi validation service
+    }
 
     // Ambil hotel beserta data kota
     public function getHotelsWithCities()
@@ -71,6 +82,112 @@ class HotelModel extends Model
             return $this->where($conditions)->countAllResults();
         }
         return $this->countAll();
+    }
+
+
+    // Ambil semua hotel dengan data kota terkait
+    public function getAllHotelsWithCities()
+    {
+        return $this->select('hotels.*, cities.name as city_name, users.full_name as admin_name')
+                   ->join('cities', 'cities.id = hotels.city_id', 'left')
+                   ->join('users', 'users.id = hotels.admin_id', 'left')
+                   ->orderBy('hotels.created_at', 'DESC')
+                   ->findAll();
+    }
+
+    // Ambil detail hotel lengkap dengan join
+    public function getHotelDetails($id)
+    {
+        return $this->select('hotels.*, cities.name as city_name, users.full_name as admin_name')
+                   ->join('cities', 'cities.id = hotels.city_id', 'left')
+                   ->join('users', 'users.id = hotels.admin_id', 'left')
+                   ->where('hotels.id', $id)
+                   ->first();
+    }
+
+    // Validasi sebelum menyimpan
+    public function validateHotel($data, $isUpdate = false)
+    {
+        $validationRules = [
+            'name' => 'required|min_length[3]|max_length[100]',
+            'description' => 'required|min_length[10]',
+            'address' => 'required',
+            'city_id' => 'required|numeric',
+            'star_rating' => 'permit_empty|numeric|less_than_equal_to[5]',
+            'admin_id' => 'permit_empty|numeric' // Tambahkan validasi untuk admin_id
+
+        ];
+
+        if ($isUpdate) {
+            $validationRules['id'] = 'required|numeric';
+        }
+
+        $this->validation->setRules($validationRules);
+
+        if (!$this->validation->run($data)) {
+            return $this->validation->getErrors();
+        }
+
+        return true;
+    }
+
+    // HotelModel.php
+
+    public function deleteHotelWithDependencies($hotelId)
+    {
+        $db = \Config\Database::connect();
+        $db->transStart(); // Mulai transaction
+
+        try {
+            // 1. Dapatkan data hotel beserta admin_id
+            $hotel = $this->find($hotelId);
+            if (!$hotel) {
+                throw new \RuntimeException('Hotel tidak ditemukan');
+            }
+
+            // 2. Hapus semua room_types terkait hotel ini
+            $roomTypeModel = new \App\Models\RoomTypeModel();
+            $roomTypes = $roomTypeModel->where('hotel_id', $hotelId)->findAll();
+            
+            // Hapus gambar-gambar kamar jika ada
+            foreach ($roomTypes as $room) {
+                if ($room['photo'] && file_exists(ROOTPATH . 'public/uploads/rooms/' . $room['photo'])) {
+                    unlink(ROOTPATH . 'public/uploads/rooms/' . $room['photo']);
+                }
+            }
+            
+            // Hapus semua room_types
+            $roomTypeModel->where('hotel_id', $hotelId)->delete();
+
+            // 3. Hapus cover photo hotel jika ada
+            if ($hotel['cover_photo'] && file_exists(ROOTPATH . 'public/uploads/hotels/' . $hotel['cover_photo'])) {
+                unlink(ROOTPATH . 'public/uploads/hotels/' . $hotel['cover_photo']);
+            }
+
+            // 4. Hapus hotel
+            $this->delete($hotelId);
+
+            // 5. Hapus user admin jika ada
+            if ($hotel['admin_id']) {
+                $userModel = new \App\Models\UserModel();
+                
+                // Hapus foto profil admin jika ada
+                $admin = $userModel->find($hotel['admin_id']);
+                if ($admin && $admin['photo'] && file_exists(ROOTPATH . 'public/uploads/profiles/' . $admin['photo'])) {
+                    unlink(ROOTPATH . 'public/uploads/profiles/' . $admin['photo']);
+                }
+                
+                $userModel->delete($hotel['admin_id']);
+            }
+
+            $db->transComplete(); // Commit transaction
+
+            return true;
+        } catch (\Exception $e) {
+            $db->transRollback(); // Rollback jika ada error
+            log_message('error', 'Gagal menghapus hotel: ' . $e->getMessage());
+            return false;
+        }
     }
 
 }
