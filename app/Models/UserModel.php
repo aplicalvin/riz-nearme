@@ -16,4 +16,36 @@ class UserModel extends Model
         }
         return $data;
     }
+
+    /**
+     * Hitung total semua user
+     * @return int
+     */
+    public function countAllUsers()
+    {
+        return $this->countAll();
+    }
+
+    /**
+     * Hitung user berdasarkan role tertentu
+     * @param string $role
+     * @return int
+     */
+    public function countUsersByRole($role)
+    {
+        return $this->where('role', $role)->countAllResults();
+    }
+
+    /**
+     * Hitung user dengan kondisi custom
+     * @param array $conditions
+     * @return int
+     */
+    public function countUsersWithConditions($conditions = [])
+    {
+        if (!empty($conditions)) {
+            return $this->where($conditions)->countAllResults();
+        }
+        return $this->countAll();
+    }
 }

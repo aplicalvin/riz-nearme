@@ -57,4 +57,20 @@ class HotelModel extends Model
         return $this->update($id, $filteredData);
     }
 
+
+
+    /**
+     * Hitung jumlah hotel dengan kondisi tertentu (opsional)
+     * 
+     * @param array $conditions Kondisi where (contoh: ['city_id' => 1])
+     * @return int Jumlah hotel yang memenuhi kondisi
+     */
+    public function countHotels($conditions = [])
+    {
+        if (!empty($conditions)) {
+            return $this->where($conditions)->countAllResults();
+        }
+        return $this->countAll();
+    }
+
 }

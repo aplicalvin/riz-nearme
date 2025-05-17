@@ -79,6 +79,7 @@ $routes->group('',['filter' => 'auth'], function($routes) {
     $routes->group('super', ['filter' => 'role:admin'] , function($routes) {
         $routes->get('/', 'SuperController::index');
         $routes->get('dashboard', 'SuperController::index');
+        $routes->get('hotel', 'SuperController::hotel');
         $routes->get('setting', 'SuperController::setting');
     });
 });
