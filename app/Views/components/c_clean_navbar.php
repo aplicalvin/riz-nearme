@@ -3,7 +3,7 @@
     <div class="container">
         <!-- Brand Logo -->
         <a class="navbar-brand font-heading" href="<?= base_url('/') ?>" style="color: #0176C8; font-size: 1.5rem;">
-            <i class="fas fa-hotel me-2"></i>NearMe
+            NearMe
         </a>
         
     </div>

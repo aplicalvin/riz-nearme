@@ -4,25 +4,30 @@
    <h3 class="font-heading">Welcome! <span class="fw-bold"><?= esc(session()->get('full_name')) ?></span></h3>
    
    <?php if (!empty($hotels)): ?>
-       <!-- Display first hotel if exists (assuming one admin manages one hotel) -->
-       <h6>Pengelola hotel <span class="fw-bold"><?= esc($hotels['name']) ?></span></h6>
-       <p>Alamat: <?= esc($hotels['address']) ?></p>
-       
-       <!-- Display star rating if exists -->
-       <?php if (!empty($hotels['star_rating'])): ?>
-           <div class="mt-2">
-               Rating: <?= str_repeat('★', $hotels['star_rating']) ?>
-           </div>
-       <?php endif; ?>
-       
-       <!-- Display cover photo if exists -->
-       <?php if (!empty($hotels['cover_photo'])): ?>
-           <div class="mt-3">
-               <img src="/uploads/hotels/<?= esc($hotels['cover_photo']) ?>" 
-                    alt="<?= esc($hotels['name']) ?>" 
-                    class="img-thumbnail" style="max-width: 300px;">
-           </div>
-       <?php endif; ?>
+        <div class="d-flex flex-column flex-md-row gap-3">
+            <!-- Display cover photo if exists -->
+            <?php if (!empty($hotels['cover_photo'])): ?>
+            <div class="">
+                <img src="/uploads/hotels/<?= esc($hotels['cover_photo']) ?>" 
+                alt="<?= esc($hotels['name']) ?>" 
+                class="img-thumbnail" style="width: 300px; height: 200px; object-fit: cover;">
+            </div>
+            <?php endif; ?>
+            
+            <!-- INFORMASI DI SAMPING -->
+             <div>
+                 <!-- Display first hotel if exists (assuming one admin manages one hotel) -->
+                 <h4>Pengelola hotel <span class="fw-bold"><?= esc($hotels['name']) ?></span></h4>
+                 <p>Alamat: <?= esc($hotels['address']) ?></p>
+                 
+                 <!-- Display star rating if exists -->
+                 <?php if (!empty($hotels['star_rating'])): ?>
+                    <div class="">
+                        Rating: <?= str_repeat('★', $hotels['star_rating']) ?>
+                    </div>
+                <?php endif; ?>       
+            </div>
+        </div>
    <?php else: ?>
        <div class="alert alert-warning">
            Anda belum memiliki hotel terdaftar.
@@ -33,7 +38,7 @@
 <hr>
 <!-- Statistik -->
 <div class="container">
-    <h5 class="font-heading">Statistik</h5>        
+    <h5 class="font-heading mb-2">Statistik</h5>        
     <div class="row">
         <!-- Card Total Kamar -->
         <div class="col-md-4 mb-4">
