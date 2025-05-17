@@ -3,7 +3,7 @@
 <?= $this->section("content") ?>
 
 <div class="container-fluid">
-    <h1 class="h3 mb-4 text-gray-800"><?= $title ?></h1>
+    <h1 class="h3 mb-4 font-heading"><?= $title ?></h1>
 
     <?php if (session()->has('message')): ?>
         <div class="alert alert-success"><?= session('message') ?></div>
