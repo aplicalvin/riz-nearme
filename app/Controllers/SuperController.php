@@ -230,4 +230,81 @@ class SuperController extends BaseController
             return redirect()->back()->withInput()->with('errors', $this->datahotel->errors());
         }
     }
+
+
+    // CRUD USERS
+    // Method untuk menampilkan daftar user biasa
+    public function users()
+    {
+        $data = [
+            'judul' => 'Manajemen User Biasa',
+            'users' => $this->datauser->where('role', 'user')->orderBy('created_at', 'DESC')->findAll()
+        ];
+        
+        return view('super/v_users', $data);
+    }
+
+    // Method untuk menampilkan form tambah user
+    public function usersCreate()
+    {
+        $data = [
+            'judul' => 'Tambah User Baru'
+        ];
+        
+        return view('super/v_users_form', $data);
+    }
+
+    // Method untuk menyimpan user baru
+    public function usersStore()
+    {
+        $rules = [
+            'full_name' => 'required|min_length[3]|max_length[100]',
+            'username' => 'required|alpha_numeric|min_length[3]|max_length[30]|is_unique[users.username]',
+            'email' => 'required|valid_email|is_unique[users.email]',
+            'phone' => 'required|numeric',
+            'password' => 'required|min_length[4]'
+        ];
+
+        if (!$this->validate($rules)) {
+            return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
+        }
+
+        $data = $this->request->getPost();
+        $data['role'] = 'user'; // Set role sebagai user biasa
+        
+        // Handle file upload (foto profil)
+        $photo = $this->request->getFile('photo');
+        if ($photo->isValid() && !$photo->hasMoved()) {
+            $newName = $photo->getRandomName();
+            $photo->move(ROOTPATH . 'public/uploads/profiles', $newName);
+            $data['photo'] = $newName;
+        }
+
+        if ($this->datauser->save($data)) {
+            return redirect()->to('/super/users')->with('message', 'User berhasil ditambahkan');
+        } else {
+            return redirect()->back()->withInput()->with('errors', $this->datauser->errors());
+        }
+    }
+
+    // Method untuk menghapus user
+    public function usersDelete($id)
+    {
+        $user = $this->datauser->find($id);
+        
+        if (!$user || $user['role'] != 'user') {
+            return redirect()->to('/super/users')->with('error', 'User tidak ditemukan');
+        }
+        
+        // Hapus foto profil jika ada
+        if ($user['photo'] && file_exists(ROOTPATH . 'public/uploads/profiles/' . $user['photo'])) {
+            unlink(ROOTPATH . 'public/uploads/profiles/' . $user['photo']);
+        }
+        
+        if ($this->datauser->delete($id)) {
+            return redirect()->to('/super/users')->with('message', 'User berhasil dihapus');
+        } else {
+            return redirect()->to('/super/users')->with('error', 'Gagal menghapus user');
+        }
+    }
 }

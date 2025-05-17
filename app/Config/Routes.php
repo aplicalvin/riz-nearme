@@ -87,6 +87,13 @@ $routes->group('',['filter' => 'auth'], function($routes) {
         $routes->get('hotel/edit/(:num)', 'SuperController::hotelEdit/$1');
         $routes->post('hotel/update/(:num)', 'SuperController::hotelUpdate/$1');
         $routes->get('hotel/delete/(:num)', 'SuperController::hotelDelete/$1');
+
+        $routes->group('users', function($routes) {
+            $routes->get('/', 'SuperController::users');
+            $routes->get('create', 'SuperController::usersCreate');
+            $routes->post('store', 'SuperController::usersStore');
+            $routes->get('delete/(:num)', 'SuperController::usersDelete/$1');
+        });
     
         $routes->get('setting', 'SuperController::setting');
     });

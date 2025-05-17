@@ -13,6 +13,11 @@
             <span>Manajemen Hotel</span>
         </a>
     </li><!-- End Home Nav -->
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="/super/users">
+            <span>Manajemen User</span>
+        </a>
+    </li><!-- End Home Nav -->
 
     
      <li class="nav-item">
