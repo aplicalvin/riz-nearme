@@ -4,14 +4,24 @@
 <ul class="sidebar-nav" id="sidebar-nav">
 
     <li class="nav-item">
-        <a class="nav-link <?php echo (uri_string() == '/admin') ? "" : "collapsed" ?>" href="/admin">
+        <a class="nav-link collapsed" href="/super">
             <span>Dashboard</span>
+        </a>
+    </li><!-- End Home Nav -->
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="/super/hotel">
+            <span>Manajemen Hotel</span>
+        </a>
+    </li><!-- End Home Nav -->
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="/super/users">
+            <span>Manajemen User</span>
         </a>
     </li><!-- End Home Nav -->
 
     
      <li class="nav-item">
-        <a class="nav-link <?php echo (uri_string() == '/admin') ? "" : "collapsed" ?>" data-bs-toggle="modal" data-bs-target="#logoutModal" href="#">
+        <a class="nav-link collapsed" data-bs-toggle="modal" data-bs-target="#logoutModal" href="#">
             <span class="text-danger">Logout</span>
         </a>
     </li><!-- End Logout Nav -->

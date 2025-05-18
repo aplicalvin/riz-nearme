@@ -79,8 +79,28 @@ $routes->group('',['filter' => 'auth'], function($routes) {
     $routes->group('super', ['filter' => 'role:admin'] , function($routes) {
         $routes->get('/', 'SuperController::index');
         $routes->get('dashboard', 'SuperController::index');
+        $routes->get('hotel', 'SuperController::hotel');
+        $routes->get('hotel/create', 'SuperController::createHotel');
+        $routes->post('hotel/store-admin', 'SuperController::storeHotelAdmin');
+        $routes->get('hotel/create-step2', 'SuperController::createHotelStep2');
+        $routes->post('hotel/store', 'SuperController::storeHotel');
+        $routes->get('hotel/edit/(:num)', 'SuperController::hotelEdit/$1');
+        $routes->post('hotel/update/(:num)', 'SuperController::hotelUpdate/$1');
+        $routes->get('hotel/delete/(:num)', 'SuperController::hotelDelete/$1');
+
+        $routes->group('users', function($routes) {
+            $routes->get('/', 'SuperController::users');
+            $routes->get('create', 'SuperController::usersCreate');
+            $routes->post('store', 'SuperController::usersStore');
+            $routes->get('delete/(:num)', 'SuperController::usersDelete/$1');
+            $routes->get('export', 'SuperController::usersExport');
+            $routes->get('reset-password/(:num)', 'SuperController::usersResetPassword/$1'); 
+        });
+    
         $routes->get('setting', 'SuperController::setting');
     });
+
+    
 });
 
 // app/Config/Routes.php
@@ -94,6 +114,7 @@ $routes->get('/debug-session', function() {
         echo '<h2>User Role: ' . session()->get('user.role') . '</h2>';
     }
 });
+
 
 
 
