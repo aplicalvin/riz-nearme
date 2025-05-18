@@ -49,10 +49,18 @@ class UserController extends BaseController
     public function updateProfile()
     {
         $userId = session()->get('user_id');
+        $user = $this->userModel->find($userId);
+
         $rules = [
             'full_name' => 'required|min_length[3]',
-            'phone' => 'permit_empty|numeric|min_length[10]'
+            'phone' => 'permit_empty|numeric|min_length[10]',
+            'photo' => 'uploaded[photo]|is_image[photo]|max_size[photo,2048]' // 2MB max
         ];
+
+        // Foto optional: ubah rules jika tidak upload
+        if (!$this->request->getFile('photo')->isValid()) {
+            unset($rules['photo']);
+        }
 
         if (!$this->validate($rules)) {
             return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
@@ -63,9 +71,26 @@ class UserController extends BaseController
             'phone' => $this->request->getPost('phone')
         ];
 
+        $photo = $this->request->getFile('photo');
+        if ($photo && $photo->isValid() && !$photo->hasMoved()) {
+            $newName = $photo->getRandomName();
+            $photo->move('uploads/profiles', $newName);
+            $data['photo'] = $newName;
+
+            // Hapus foto lama jika ada
+            if (!empty($user['photo']) && file_exists('uploads/profiles/' . $user['photo'])) {
+                unlink('uploads/profiles/' . $user['photo']);
+            }
+
+            // Update session photo jika sedang digunakan
+            session()->set('photo', $newName);
+        }
+
         $this->userModel->update($userId, $data);
+
         return redirect()->to('/user/profile')->with('success', 'Profil berhasil diperbarui');
     }
+
 
     // History Pemesanan
     public function bookings()

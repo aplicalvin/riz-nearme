@@ -2,6 +2,53 @@
 <?php echo $this->section("konten_utama") ?>
 
 <div class="container py-5">
+
+    <!-- ======== Galeri Hotel======== -->
+    <!-- Galeri Hotel - Hanya Tampilkan 1 Foto Utama -->
+    <div class="row mb-5">
+        <div class="col-12">
+            <div id="carouselExample" class="carousel slide">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <div class="carousel-image"
+                            style="background-image: url('<?= !empty($hotel['cover_photo']) ? base_url('uploads/hotels/'.$hotel['cover_photo']) : 'https://source.unsplash.com/random/800x600/?hotel' ?>');">
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="carousel-image"
+                            style="background-image: url('https://source.unsplash.com/random/800x600/?resort');">
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="carousel-image"
+                            style="background-image: url('https://source.unsplash.com/random/800x600/?room');">
+                        </div>
+                    </div>
+                </div>
+
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+        </div>
+
+        <style>
+            .carousel-image {
+                height: 400px;
+                background-size: cover;
+                background-position: center;
+                border-radius: 8px;
+            }
+        </style>
+
+    </div>
+
+
     <!-- Header Hotel -->
     <div class="row mb-4">
         <div class="col-md-8">
@@ -22,27 +69,16 @@
             </div>
         </div>
         <div class="col-md-4 text-md-end">
-            <a href="#booking-form" class="btn btn-lg btn-primary" style="background-color: #0176C8; border-color: #0176C8;">
+            <a href="#tipekamarr" class="btn btn-lg btn-primary <?= ($user_role !== 'user') ? 'disabled' : '' ?>" style="background-color: #0176C8; border-color: #0176C8;">
                 <i class="fas fa-calendar-alt me-2"></i>Pesan Sekarang
             </a>
             
         </div>
     </div>
 
-    <!-- ======== Galeri Hotel======== -->
-    <!-- Galeri Hotel - Hanya Tampilkan 1 Foto Utama -->
-    <div class="row mb-5">
-        <div class="col-12">
-            <div class="main-image" style="height: 400px; background-image: url('<?= !empty($hotel['cover_photo']) ? base_url('uploads/hotels/'.$hotel['cover_photo']) : 'https://source.unsplash.com/random/800x600/?hotel' ?>'); background-size: cover; background-position: center; border-radius: 8px; position: relative;">
-            
-                
-            </div>
-        </div>
-    </div>
-
     <!-- ======== Info Hotel  ========-->
     <div class="row">
-        <div class="col-lg-8">
+        <div class="">
             <!-- Deskripsi -->
             <div class="card mb-4 border-0 shadow-sm">
                 <div class="card-body">
@@ -75,16 +111,42 @@
             </div>
 
             <!-- Tipe Kamar -->
-            <div class="card mb-4 border-0 shadow-sm">
+            <div class="card mb-4 border-0 shadow-sm" id="tipekamarr">
                 <div class="card-body">
                     <h3 class="font-heading mb-4">Tipe Kamar</h3>
                     <?php if (!empty($room_types)): ?>
                         <?php foreach ($room_types as $room): ?>
                         <div class="mb-4 pb-4 border-bottom">
                             <div class="row">
+                                <!-- <div class="col-md-4"> -->
+                                    <!-- buat bawah ini menjadi caroursel juga,,, ibarat ada 3 foto.  -->
+                                    <!-- <img src="" class="img-fluid rounded" alt=""> -->
+                                <!-- </div> -->
+
                                 <div class="col-md-4">
-                                    <img src="<?= !empty($room['photo']) ? base_url('uploads/rooms/'.$room['photo']) : 'https://source.unsplash.com/random/300x200/?hotel-room' ?>" class="img-fluid rounded" alt="<?= esc($room['name']) ?>">
+                                    <div id="roomCarousel<?= $room['id'] ?>" class="carousel slide" data-bs-ride="carousel">
+                                        <div class="carousel-inner">
+                                            <div class="carousel-item active">
+                                                <img src="<?= !empty($room['photo']) ? base_url('uploads/rooms/'.$room['photo']) : 'https://source.unsplash.com/random/300x200/?hotel-room' ?>" class="d-block w-100 rounded" style="height: 200px; object-fit: cover;" alt="<?= esc($room['name']) ?>">
+                                            </div>
+                                            <div class="carousel-item">
+                                                <img src="..." class="d-block w-100 rounded" style="height: 200px; object-fit: cover;" alt="...">
+                                            </div>
+                                            <div class="carousel-item">
+                                                <img src="..." class="d-block w-100 rounded" style="height: 200px; object-fit: cover;" alt="...">
+                                            </div>
+                                        </div>
+                                        <button class="carousel-control-prev" type="button" data-bs-target="#roomCarousel<?= $room['id'] ?>" data-bs-slide="prev">
+                                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                            <span class="visually-hidden">Previous</span>
+                                        </button>
+                                        <button class="carousel-control-next" type="button" data-bs-target="#roomCarousel<?= $room['id'] ?>" data-bs-slide="next">
+                                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                            <span class="visually-hidden">Next</span>
+                                        </button>
+                                    </div>
                                 </div>
+
                                 <div class="col-md-8">
                                     <h4><?= esc($room['name']) ?></h4>
                                     <p><?= esc($room['description']) ?></p>
@@ -93,7 +155,7 @@
                                             <span class="fw-bold"><?= number_to_currency($room['base_price'], 'IDR') ?></span>
                                             <span class="text-muted">/malam</span>
                                         </div>
-                                        <a href="#booking-form" class="btn btn-sm btn-primary">Pesan</a>
+                                        <a href="#booking-form" class="btn btn-sm btn-primary <?= ($user_role !== 'user') ? 'disabled' : '' ?>">Pesan</a>
                                     </div>
                                 </div>
                             </div>
@@ -153,45 +215,7 @@
             </div>
         </div>
 
-        <!-- Sidebar Pemesanan -->
-        <div class="col-lg-4">
-            <div id="booking-form" class="card border-0 shadow-sm sticky-top" style="top: 20px;">
-                <div class="card-body">
-                    <h3 class="font-heading mb-4">Cek Ketersediaan</h3>
-                    <form action="<?= base_url('/booking/create') ?>" method="post">
-                        <input type="hidden" name="hotel_id" value="<?= $hotel['id'] ?>">
-                        <div class="mb-3">
-                            <label class="form-label">Tanggal Check-in</label>
-                            <input type="date" name="check_in" class="form-control" required min="<?= date('Y-m-d') ?>">
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">Tanggal Check-out</label>
-                            <input type="date" name="check_out" class="form-control" required min="<?= date('Y-m-d', strtotime('+1 day')) ?>">
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">Tipe Kamar</label>
-                            <select class="form-select" name="room_type_id" required>
-                                <option value="">Pilih Tipe Kamar</option>
-                                <?php foreach ($room_types as $room): ?>
-                                <option value="<?= $room['id'] ?>"><?= esc($room['name']) ?> (<?= number_to_currency($room['base_price'], 'IDR') ?>)</option>
-                                <?php endforeach; ?>
-                            </select>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">Jumlah Kamar</label>
-                            <select class="form-select" name="rooms" required>
-                                <option value="1" selected>1 Kamar</option>
-                                <option value="2">2 Kamar</option>
-                                <option value="3">3 Kamar</option>
-                            </select>
-                        </div>
-                        <button type="submit" class="btn btn-primary w-100" style="background-color: #0176C8; border-color: #0176C8;">
-                            Cek Ketersediaan
-                        </button>
-                    </form>
-                </div>
-            </div>
-        </div>
+
     </div>
 
     <!-- Hotel Serupa -->

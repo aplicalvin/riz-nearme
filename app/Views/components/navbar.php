@@ -22,18 +22,19 @@
                 <?php if (session()->get('logged_in')): ?>
                     <div class="dropdown">
                         <a class="d-flex align-items-center text-decoration-none dropdown-toggle" href="#" 
-                           id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <img src="<?= session()->get('photo') ?? base_url('dummy/person.png') ?>" 
-                                 class="rounded-circle me-2" width="36" height="36" alt="User">
+                            id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <img src="<?= view_cell('\App\Cells\UserCell::photo') ?>" 
+                                class="rounded-circle me-2" width="36" height="36" alt="User">
                         </a>
+
                         <ul class="dropdown-menu dropdown-menu-end border-0 shadow-sm" aria-labelledby="userDropdown">
                             <li class="px-3 py-2">
                                 <div class="d-flex align-items-center">
-                                    <img src="<?= session()->get('photo') ?? base_url('dummy/person.png') ?>" 
-                                         class="rounded-circle me-2" width="48" height="48" alt="User">
+                                    <img src="<?= view_cell('\App\Cells\UserCell::photo') ?>" 
+                                        class="rounded-circle me-2" width="48" height="48" alt="User">
                                     <div>
-                                        <h6 class="mb-0"><?= session()->get('full_name') ?></h6>
-                                        <small class="text-muted"><?= session()->get('email') ?></small>
+                                        <h6 class="mb-0"><?= view_cell('\App\Cells\UserCell::fullName') ?></h6>
+                                        <small class="text-muted"><?= view_cell('\App\Cells\UserCell::email') ?></small>
                                     </div>
                                 </div>
                             </li>
@@ -41,11 +42,11 @@
                             
                             <?php if(session()->get('role') == 'user'): ?>
                                 <li><a class="dropdown-item" href="<?= base_url('/user/profile') ?>"><i class="fas fa-user-circle me-2"></i> Profil Saya</a></li>
-                                <li><a class="dropdown-item" href="<?= base_url('/user/bookings') ?>"><i class="fas fa-calendar-check me-2"></i> Pemesanan</a></li>
+                                <li><a class="dropdown-item" href="<?= base_url('/user/booking') ?>"><i class="fas fa-calendar-check me-2"></i> Pemesanan</a></li>
                                 <li><a class="dropdown-item" href="<?= base_url('/user/favorites') ?>"><i class="fas fa-heart me-2"></i> Favorit</a></li>
                             <?php elseif(session()->get('role') == 'hotel'): ?>
                                 <li><a class="dropdown-item" href="<?= base_url('/admin') ?>"><i class="fas fa-tachometer-alt me-2"></i> Dashboard</a></li>
-                                <li><a class="dropdown-item" href="<?= base_url('/admin/bookings') ?>"><i class="fas fa-receipt me-2"></i> Manajemen Booking</a></li>
+                                <li><a class="dropdown-item" href="<?= base_url('/admin/booking') ?>"><i class="fas fa-receipt me-2"></i> Manajemen Booking</a></li>
                             <?php elseif(session()->get('role') == 'admin'): ?>
                                 <li><a class="dropdown-item" href="<?= base_url('/super') ?>"><i class="fas fa-crown me-2"></i> Super Admin</a></li>
                                 <li><a class="dropdown-item" href="<?= base_url('/super/users') ?>"><i class="fas fa-users-cog me-2"></i> Manajemen User</a></li>

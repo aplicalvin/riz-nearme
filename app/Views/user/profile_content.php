@@ -16,23 +16,32 @@
                 </div>
             <?php endif; ?>
             
-            <dl class="row">
-                <dt class="col-sm-3">Nama Lengkap</dt>
-                <dd class="col-sm-9"><?= esc($user['full_name']) ?></dd>
-                
-                <dt class="col-sm-3">Email</dt>
-                <dd class="col-sm-9"><?= esc($user['email']) ?></dd>
-                
-                <dt class="col-sm-3">Nomor Telepon</dt>
-                <dd class="col-sm-9"><?= $user['phone'] ? esc($user['phone']) : '-' ?></dd>
-                
-                <dt class="col-sm-3">Member sejak</dt>
-                <dd class="col-sm-9"><?= date('d F Y', strtotime($user['created_at'])) ?></dd>
-            </dl>
+            <div class="row gap-4">
+                <div class="col-sm-3">
+                    <img src="<?= base_url('uploads/profiles/' . esc($user['photo'])) ?>" alt="<?=$user['full_name']; ?>" class="rounded-4" style="width: 240px; height: 240px; object-fit: cover">
+                </div>
+
+                <div class="col-sm-8 ">
+                    <div class="row">
+
+                        <dt class="col-sm-3">Nama Lengkap</dt>
+                        <dd class="col-sm-9"><?= esc($user['full_name']) ?></dd>
+                        
+                        <dt class="col-sm-3">Email</dt>
+                        <dd class="col-sm-9"><?= esc($user['email']) ?></dd>
+                        
+                        <dt class="col-sm-3">Nomor Telepon</dt>
+                        <dd class="col-sm-9"><?= $user['phone'] ? esc($user['phone']) : '-' ?></dd>
+                        
+                        <dt class="col-sm-3">Member sejak</dt>
+                        <dd class="col-sm-9"><?= date('d F Y', strtotime($user['created_at'])) ?></dd>
+                    </div>
+                    <a href="/user/edit-profile" class="btn btn-primary">
+                        <i class="fas fa-edit me-1"></i> Edit Profil
+                    </a>
+                </div>
+            </div>
             
-            <a href="/user/edit-profile" class="btn btn-primary">
-                <i class="fas fa-edit me-1"></i> Edit Profil
-            </a>
         </div>
     </div>
 </div>
