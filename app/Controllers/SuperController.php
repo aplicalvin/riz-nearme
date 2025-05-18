@@ -5,7 +5,6 @@ namespace App\Controllers;
 use App\Controllers\BaseController;
 use App\Models\HotelModel;
 use App\Models\RoomTypeModel;
-use App\Models\BookingModel;
 use App\Models\UserModel;
 use CodeIgniter\HTTP\ResponseInterface;
 
@@ -20,7 +19,6 @@ class SuperController extends BaseController
         $this->datauser = new UserModel();
         $this->cityModel = new \App\Models\CityModel();
 
-        $this->databooking = new BookingModel();
         $this->superadmin_id = session()->get('user_id'); 
     }
 

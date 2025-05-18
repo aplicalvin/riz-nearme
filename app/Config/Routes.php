@@ -116,6 +116,21 @@ $routes->get('/debug-session', function() {
 });
 
 
+// Di app/Config/Routes.php (untuk testing saja)
+$routes->get('test-pass/(:num)', function($userId) {
+    $userModel = new \App\Models\UserModel();
+    $user = $userModel->find($userId);
+    
+    if (!$user) {
+        return "User not found";
+    }
+    
+    $result = password_verify('password', $user['password']);
+    
+    return "Password verification for user {$userId}: " . ($result ? 'SUCCESS' : 'FAILED');
+});
+
+
 
 // Fallback Route
 $routes->set404Override(function() {

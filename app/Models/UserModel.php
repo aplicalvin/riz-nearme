@@ -112,9 +112,10 @@ class UserModel extends Model
      */
     public function resetPassword($id)
     {
-        $defaultPassword = 'password'; // Password default
-        $hashedPassword = password_hash($defaultPassword, PASSWORD_DEFAULT);
-        
-        return $this->update($id, ['password' => $hashedPassword]);
+        $defaultPassword = 'password';
+        // Lewati beforeUpdate dengan menggunakan skipValidation dan direct update
+        return $this->where('id', $id)
+                ->set('password', $defaultPassword)
+                ->update();
     }
 }
