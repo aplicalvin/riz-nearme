@@ -1,7 +1,8 @@
 <?php namespace App\Models;
 
 use CodeIgniter\Model;
-use Config\Services; // Tambahkan ini
+use Config\Services; 
+use function PHPUnit\Framework\returnArgument;// Tambahkan ini
 
 class UserModel extends Model
 {
@@ -118,4 +119,16 @@ class UserModel extends Model
                 ->set('password', $defaultPassword)
                 ->update();
     }
+
+    public function getUserRole($id)
+    {
+        $user = $this->find($id); // Ambil user berdasarkan ID
+
+        if ($user && isset($user['role'])) {
+            return $user['role'];
+        }
+
+        return null; // Atau bisa juga return 'guest', 'unknown', dll sesuai kebutuhanmu
+    }
+
 }

@@ -7,6 +7,7 @@ use App\Models\CityModel; // You'll need to create this
 use App\Models\ReviewModel;
 use App\Models\RoomTypeModel;
 use App\Models\FacilityModel;
+use App\Models\UserModel;
 
 class Hotels extends BaseController
 {
@@ -17,6 +18,7 @@ class Hotels extends BaseController
     {
         $this->hotelModel = new HotelModel();
         $this->cityModel = new CityModel(); // Initialize CityModel
+        $this->userModel = new UserModel();
     }
 
     public function index(): string
@@ -113,6 +115,10 @@ class Hotels extends BaseController
                                    ->where('hotels.city_id', $hotel['city_id'])
                                    ->orderBy('RAND()')
                                    ->findAll(3);
+
+        $session = session();
+        $userId = $session->get('user_id');
+
     
         $data = [
             'title' => $hotel['name'] . ' - NearMe',
@@ -123,7 +129,8 @@ class Hotels extends BaseController
             'similar_hotels' => $similarHotels,
             'total_reviews' => $totalReviews,
             'avg_rating' => $totalReviews > 0 ? $reviewModel->where('hotel_id', $id)->selectAvg('rating')->first()['rating'] : 0,
-            'rating_percent' => $ratingPercent
+            'rating_percent' => $ratingPercent,
+            'user_role' => $this->userModel->getUserRole($userId)
         ];
     
         return view('hotel/v_hotel_detail', $data);
