@@ -28,7 +28,7 @@ public function store()
         'room_type_id' => $this->request->getPost('room_type_id'),
         'check_in_date' => $this->request->getPost('check_in'),
         'check_out_date' => $this->request->getPost('check_out'),
-        'total_price' => $this->calculateTotalPrice(), // Buat method ini
+        // 'total_price' => $this->calculateTotalPrice(), // Buat method ini
         'status' => 'pending'
     ];
 
