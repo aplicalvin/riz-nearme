@@ -18,6 +18,11 @@
             <span>Manajemen User</span>
         </a>
     </li><!-- End Home Nav -->
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="/super/cities">
+            <span>Manajemen Kota</span>
+        </a>
+    </li><!-- End Home Nav -->
 
     
      <li class="nav-item">

@@ -29,11 +29,11 @@ $routes->post('bookings/store', 'Bookings::store');
 
 // Booking Routes
 $routes->group('booking', function($routes) {
-    $routes->get('/', 'Bookings::index');
-    $routes->get('(:num)', 'Bookings::detail/$1');
-    $routes->get('(:num)/payment', 'Bookings::payment/$1');
-    $routes->get('(:num)/review', 'Bookings::review/$1');
-    $routes->post('(:num)/confirm', 'Bookings::confirm/$1');
+    $routes->get('/', 'BookingController::store');
+    $routes->get('(:num)', 'BookingController::detail/$1');
+    $routes->get('(:num)/payment', 'BookingController::payment/$1');
+    $routes->get('(:num)/review', 'BookingController::review/$1');
+    $routes->post('(:num)/confirm', 'BookingController::confirm/$1');
 });
 
 // Auth Routes
@@ -95,6 +95,17 @@ $routes->group('',['filter' => 'auth'], function($routes) {
             $routes->get('delete/(:num)', 'SuperController::usersDelete/$1');
             $routes->get('export', 'SuperController::usersExport');
             $routes->get('reset-password/(:num)', 'SuperController::usersResetPassword/$1'); 
+        });
+
+
+        $routes->group('cities', ['filter' => 'auth'], function($routes) {
+            $routes->post('test', 'CityController::kontol');
+            $routes->get('/', 'CityController::index');
+            $routes->get('create', 'CityController::create');
+            $routes->post('store', 'CityController::store');
+            $routes->get('edit/(:num)', 'CityController::edit/$1');
+            $routes->post('update/(:num)', 'CityController::update/$1');
+            $routes->get('delete/(:num)', 'CityController::delete/$1');
         });
     
         $routes->get('setting', 'SuperController::setting');
