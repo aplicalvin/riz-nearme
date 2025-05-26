@@ -103,6 +103,7 @@ class UserController extends BaseController
             'bookings' => $this->bookingModel->getUserBookings(session()->get('user_id')),
             'activeTab' => 'bookings'
         ];
+        // dd($data);
         return view('user/bookings', $data);
     }
 

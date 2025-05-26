@@ -132,7 +132,7 @@ class Hotels extends BaseController
             'rating_percent' => $ratingPercent,
             'user_role' => $this->userModel->getUserRole($userId)
         ];
-    
+        
         return view('hotel/v_hotel_detail', $data);
     }
 
@@ -209,5 +209,12 @@ class Hotels extends BaseController
         // Implement your facility logic here
         // Example: return $this->facilityModel->where('hotel_id', $hotelId)->findAll();
         return ['Free WiFi', 'Swimming Pool', 'Restaurant']; // Default for now
+    }
+
+    // Di dalam HotelController.php
+    public function book($hotelId, $roomTypeId = null)
+    {
+        // Redirect ke BookingController
+        return redirect()->to('/booking/new/'.$hotelId.'/'.$roomTypeId);
     }
 }
