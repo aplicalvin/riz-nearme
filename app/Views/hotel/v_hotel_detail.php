@@ -155,7 +155,7 @@
                                             <span class="fw-bold"><?= number_to_currency($room['base_price'], 'IDR') ?></span>
                                             <span class="text-muted">/malam</span>
                                         </div>
-                                        <a href="#booking-form" class="btn btn-sm btn-primary <?= ($user_role !== 'user') ? 'disabled' : '' ?>">Pesan</a>
+                                        <a href="/booking/new/<?= $hotel['id']?>/<?= $room['id']?>" class="btn btn-sm btn-primary <?= ($user_role !== 'user') ? 'disabled' : '' ?>">Pesan</a>
                                     </div>
                                 </div>
                             </div>

@@ -32,7 +32,7 @@
                             <tr>
                                 <td>#<?= $booking['id'] ?></td>
                                 <td><?= esc($booking['hotel_name']) ?></td>
-                                <td><?= esc($booking['room_type']) ?></td>
+                                <td><?= esc($booking['room_type_name']) ?></td>
                                 <td><?= date('d M Y', strtotime($booking['check_in_date'])) ?></td>
                                 <td><?= date('d M Y', strtotime($booking['check_out_date'])) ?></td>
                                 <td>
@@ -44,7 +44,7 @@
                                     </span>
                                 </td>
                                 <td>
-                                    <a href="/booking/<?= $booking['id'] ?>" class="btn btn-sm btn-outline-primary">
+                                    <a href="/booking/show/<?= $booking['id'] ?>" class="btn btn-sm btn-outline-primary">
                                         Detail
                                     </a>
                                 </td>

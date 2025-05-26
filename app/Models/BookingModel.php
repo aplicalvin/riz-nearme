@@ -27,16 +27,21 @@ class BookingModel extends Model
     protected $updatedField = 'updated_at';
 
     /**
-     * Get all bookings for a specific user
+     * Get bookings for a specific user
      */
     public function getUserBookings($userId)
     {
-        return $this->select('bookings.*, hotels.name as hotel_name, room_types.name as room_type')
-            ->join('hotels', 'hotels.id = bookings.hotel_id')
-            ->join('room_types', 'room_types.id = bookings.room_type_id')
-            ->where('bookings.user_id', $userId)
-            ->orderBy('bookings.created_at', 'DESC')
-            ->findAll();
+        return $this->select('bookings.*, 
+                            hotels.name as hotel_name, 
+                            hotels.cover_photo as hotel_photo,
+                            room_types.name as room_type_name,
+                            payment_methods.name as payment_method_name')
+                ->join('hotels', 'hotels.id = bookings.hotel_id')
+                ->join('room_types', 'room_types.id = bookings.room_type_id')
+                ->join('payment_methods', 'payment_methods.id = bookings.payment_method_id', 'left')
+                ->where('bookings.user_id', $userId)
+                ->orderBy('bookings.created_at', 'DESC')
+                ->findAll();
     }
 
     /**
@@ -240,4 +245,31 @@ class BookingModel extends Model
                 ->where('check_in_date >=', $today)
                 ->countAllResults();
     }
+
+    // Di dalam BookingModel.php
+
+    /**
+     * Get detailed booking information
+     */
+    public function getBookingDetail($id)
+    {
+        return $this->select('bookings.*, 
+                            hotels.name as hotel_name, 
+                            hotels.address as hotel_address,
+                            hotels.cover_photo as hotel_photo,
+                            room_types.name as room_type_name,
+                            room_types.photo as room_photo,
+                            room_types.base_price as room_price,
+                            payment_methods.name as payment_method_name,
+                            users.full_name as user_name,
+                            users.email as user_email,
+                            users.phone as user_phone')
+                ->join('hotels', 'hotels.id = bookings.hotel_id')
+                ->join('room_types', 'room_types.id = bookings.room_type_id')
+                ->join('payment_methods', 'payment_methods.id = bookings.payment_method_id', 'left')
+                ->join('users', 'users.id = bookings.user_id')
+                ->find($id);
+    }
+
+
 }

@@ -28,13 +28,24 @@ $routes->post('reviews/store', 'Reviews::store');
 $routes->post('bookings/store', 'Bookings::store');
 
 // Booking Routes
+// $routes->group('booking', function($routes) {
+//     $routes->get('/', 'BookingController::store');
+//     $routes->get('(:num)/payment', 'BookingController::payment/$1');
+//     $routes->get('(:num)/review', 'BookingController::review/$1');
+//     $routes->post('(:num)/confirm', 'BookingController::confirm/$1');
+// $routes->get('(:num)', 'BookingController::detail/$1');
+// });
+
 $routes->group('booking', function($routes) {
-    $routes->get('/', 'BookingController::store');
-    $routes->get('(:num)', 'BookingController::detail/$1');
-    $routes->get('(:num)/payment', 'BookingController::payment/$1');
-    $routes->get('(:num)/review', 'BookingController::review/$1');
-    $routes->post('(:num)/confirm', 'BookingController::confirm/$1');
+    $routes->get('new/(:num)/(:num?)', 'BookingController::new/$1/$2');
+    $routes->post('create', 'BookingController::create');
+    $routes->get('show/(:num)', 'BookingController::show/$1');
+    $routes->post('upload/(:num)', 'BookingController::uploadPayment/$1');
+    $routes->post('cancel/(:num)', 'BookingController::cancel/$1');
 });
+
+// Di dalam group yang sudah ada (jika ada)
+$routes->get('hotel/(:num)/book/(:num?)', 'Hotels::book/$1/$2');
 
 // Auth Routes
 $routes->group('', function($routes) {
