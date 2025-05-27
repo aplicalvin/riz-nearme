@@ -132,19 +132,31 @@
                                     <!-- <img src="" class="img-fluid rounded" alt=""> -->
                                 <!-- </div> -->
 
-                                <div class="col-md-4">
-                                    <div id="roomCarousel<?= $room['id'] ?>" class="carousel slide" data-bs-ride="carousel">
-                                        <div class="carousel-inner">
+                              <div class="col-md-4">
+                                <div id="roomCarousel<?= $room['id'] ?>" class="carousel slide" data-bs-ride="carousel">
+                                    <div class="carousel-inner">
+                                        <?php
+                                            $hasMainPhoto = !empty($room['photo']);
+                                            $galleryPhotos = $room['galleries'] ?? [];
+                                            $first = true;
+
+                                            // Jika ada foto utama room
+                                            if ($hasMainPhoto):
+                                        ?>
                                             <div class="carousel-item active">
-                                                <img src="<?= !empty($room['photo']) ? base_url('uploads/rooms/'.$room['photo']) : 'https://source.unsplash.com/random/300x200/?hotel-room' ?>" class="d-block w-100 rounded" style="height: 200px; object-fit: cover;" alt="<?= esc($room['name']) ?>">
+                                                <img src="<?= base_url('uploads/rooms/' . $room['photo']) ?>" class="d-block w-100 rounded" style="height: 200px; object-fit: cover;" alt="<?= esc($room['name']) ?>">
                                             </div>
-                                            <div class="carousel-item">
-                                                <img src="..." class="d-block w-100 rounded" style="height: 200px; object-fit: cover;" alt="...">
+                                            <?php $first = false; ?>
+                                        <?php endif; ?>
+
+                                        <?php foreach ($galleryPhotos as $index => $gallery): ?>
+                                            <div class="carousel-item <?= (!$hasMainPhoto && $index === 0) ? 'active' : '' ?>">
+                                                <img src="<?= base_url('uploads/room_gallery/' . $gallery['photo']) ?>" class="d-block w-100 rounded" style="height: 200px; object-fit: cover;" alt="Galeri <?= esc($room['name']) ?>">
                                             </div>
-                                            <div class="carousel-item">
-                                                <img src="..." class="d-block w-100 rounded" style="height: 200px; object-fit: cover;" alt="...">
-                                            </div>
-                                        </div>
+                                        <?php endforeach; ?>
+                                    </div>
+
+                                    <?php if ($hasMainPhoto || count($galleryPhotos) > 1): ?>
                                         <button class="carousel-control-prev" type="button" data-bs-target="#roomCarousel<?= $room['id'] ?>" data-bs-slide="prev">
                                             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                                             <span class="visually-hidden">Previous</span>
@@ -153,8 +165,9 @@
                                             <span class="carousel-control-next-icon" aria-hidden="true"></span>
                                             <span class="visually-hidden">Next</span>
                                         </button>
-                                    </div>
+                                    <?php endif; ?>
                                 </div>
+                            </div>
 
                                 <div class="col-md-8">
                                     <h4><?= esc($room['name']) ?></h4>

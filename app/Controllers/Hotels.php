@@ -60,7 +60,10 @@ class Hotels extends BaseController
 
 
         $galleryModel = new \App\Models\HotelGalleryModel();
+        $roomGalleryModel = new \App\Models\RoomGalleryModel();
         $galleryPhotos = $galleryModel->getPhotosByHotel($id);
+        $roomGalleryPhotos = $roomGalleryModel->getPhotosByRoom($id);
+        // $roomGalleryPhotos = $roomGalleryModel->where('room_type_id', $roomId)->findAll();
         $hotelModel = new HotelModel();
         $reviewModel = new ReviewModel();
         $roomTypeModel = new RoomTypeModel();
@@ -109,7 +112,12 @@ class Hotels extends BaseController
         $facilities = $facilityModel->where('hotel_id', $id)->findAll();
     
         // Data kamar
+        // $roomTypes = $roomTypeModel->where('hotel_id', $id)->findAll();
         $roomTypes = $roomTypeModel->where('hotel_id', $id)->findAll();
+        foreach ($roomTypes as &$room) {
+            $room['galleries'] = $roomGalleryModel->where('room_type_id', $room['id'])->findAll();
+        }
+
     
         // Hotel serupa (dari kota yang sama)
         $similarHotels = $hotelModel->select('hotels.*, cities.name as city_name')

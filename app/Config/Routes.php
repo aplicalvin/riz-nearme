@@ -86,6 +86,13 @@ $routes->group('',['filter' => 'auth'], function($routes) {
             $routes->post('upload/(:num)', 'HotelGalleryController::upload/$1');
             $routes->delete('delete/(:num)', 'HotelGalleryController::delete/$1');
         });
+
+        $routes->group('room-gallery', function($routes) {
+            $routes->get('(:num)', 'RoomGalleryController::index/$1');
+            $routes->post('upload/(:num)', 'RoomGalleryController::upload/$1');
+            $routes->get('delete/(:num)', 'RoomGalleryController::delete/$1');
+        });
+
         $routes->get('booking', 'AdminController::booking');
         $routes->post('bookings/update-status', 'AdminController::updateStatus');
         $routes->post('setting/update', 'AdminController::updateHotelData');
