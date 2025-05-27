@@ -4,7 +4,7 @@
 <div class="container py-5">
 
     <!-- ======== Galeri Hotel======== -->
-    <!-- Galeri Hotel - Hanya Tampilkan 1 Foto Utama -->
+    <!-- Galeri Hotel -->
     <div class="row mb-5">
         <div class="col-12">
             <div id="carouselExample" class="carousel slide">
@@ -14,7 +14,15 @@
                             style="background-image: url('<?= !empty($hotel['cover_photo']) ? base_url('uploads/hotels/'.$hotel['cover_photo']) : 'https://source.unsplash.com/random/800x600/?hotel' ?>');">
                         </div>
                     </div>
-                    <div class="carousel-item">
+                    <?php foreach ($gallery_photos as $photo): ?>
+                        <div class="carousel-item">
+                            <div class="carousel-image"
+                                style="background-image: url('<?= base_url('uploads/galleries/' . $photo['photo']) ?>');">
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
+                    <!-- Disini, setelah menampilkan cover_photo, saya ingin agar gallery di looping di sini.  -->
+                    <!-- <div class="carousel-item">
                         <div class="carousel-image"
                             style="background-image: url('https://source.unsplash.com/random/800x600/?resort');">
                         </div>
@@ -23,7 +31,8 @@
                         <div class="carousel-image"
                             style="background-image: url('https://source.unsplash.com/random/800x600/?room');">
                         </div>
-                    </div>
+                    </div> -->
+                    <!-- sampai sini, jadi total div class caroursel-item adalah sebanyak gallery, dengan background image adalah foto di gallerynya -->
                 </div>
 
                 <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">

@@ -20,6 +20,11 @@
         </a>
     </li><!-- End Keranjang Nav --> 
     <li class="nav-item">
+        <a class="nav-link <?php echo (uri_string() == '/gallery') ? "" : "collapsed" ?>" href="/admin/gallery">
+            <span>Gallery</span>
+        </a>
+    </li><!-- End Keranjang Nav --> 
+    <li class="nav-item">
         <a class="nav-link <?php echo (uri_string() == '/admin') ? "" : "collapsed" ?>" href="/admin/setting">
             <span>Setting</span>
         </a>
