@@ -16,6 +16,11 @@ if(uri_string()!=""){
   <meta content="" name="description">
   <meta content="" name="keywords">
 
+  <!-- ICON -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+
   <!-- Favicons -->
   <link href="<?= base_url()?>NiceAdmin/assets/img/favicon.png" rel="icon">
   <link href="<?= base_url()?>NiceAdmin/assets/img/apple-touch-icon.png" rel="apple-touch-icon">

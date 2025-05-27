@@ -71,12 +71,6 @@
                 <div class="col-xl-3 col-lg-4 col-md-6">
                     <a href="<?= base_url('/hotels?location=' . urlencode($destination['name'])) ?>" class="destination-link text-decoration-none">
                         <div class="destination-card h-100 overflow-hidden position-relative" style="border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.08); transition: all 0.3s ease;">
-                            <div class="destination-image-container" style="height: 200px; overflow: hidden;">
-                                <img src="<?= $destination['image'] ?>" 
-                                    alt="<?= 'Hotel di ' . $destination['name'] ?>" 
-                                    class="img-fluid w-100 h-100 object-fit-cover transition-all"
-                                    style="transition: transform 0.5s ease;">
-                            </div>
                             <div class="p-4 bg-white">
                                 <h5 class="font-heading mb-1"><?= $destination['name'] ?></h5>
                                 <div class="d-flex justify-content-between align-items-center">
@@ -270,7 +264,7 @@
         <div class="row align-items-center">
             <div class="col-lg-6 mb-5 mb-lg-0">
                 <div class="position-relative">
-                    <img src="<?= base_url('NiceAdmin/assets/img/card.jpg') ?>" class="img-fluid rounded-3 shadow" alt="Tentang NearMe">
+                    <img src="<?= base_url('assets/images/about.png') ?>" class="img-fluid rounded-3 shadow" alt="Tentang NearMe">
                 </div>
             </div>
             <div class="col-lg-6">
