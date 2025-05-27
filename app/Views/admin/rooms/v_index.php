@@ -62,6 +62,8 @@
                                     <i class="fas fa-trash"></i>
                                     Delete
                                 </a>
+                                <a href="<?= base_url('admin/room-gallery/' . $room['id']) ?>" class="btn btn-info btn-sm mt-2">Kelola Galeri Kamar</a>
+
                             </td>
                         </tr>
                         <?php endforeach; ?>

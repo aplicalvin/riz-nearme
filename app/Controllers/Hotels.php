@@ -58,6 +58,12 @@ class Hotels extends BaseController
     {
         helper('number'); // Tambahkan ini
 
+
+        $galleryModel = new \App\Models\HotelGalleryModel();
+        $roomGalleryModel = new \App\Models\RoomGalleryModel();
+        $galleryPhotos = $galleryModel->getPhotosByHotel($id);
+        $roomGalleryPhotos = $roomGalleryModel->getPhotosByRoom($id);
+        // $roomGalleryPhotos = $roomGalleryModel->where('room_type_id', $roomId)->findAll();
         $hotelModel = new HotelModel();
         $reviewModel = new ReviewModel();
         $roomTypeModel = new RoomTypeModel();
@@ -106,7 +112,12 @@ class Hotels extends BaseController
         $facilities = $facilityModel->where('hotel_id', $id)->findAll();
     
         // Data kamar
+        // $roomTypes = $roomTypeModel->where('hotel_id', $id)->findAll();
         $roomTypes = $roomTypeModel->where('hotel_id', $id)->findAll();
+        foreach ($roomTypes as &$room) {
+            $room['galleries'] = $roomGalleryModel->where('room_type_id', $room['id'])->findAll();
+        }
+
     
         // Hotel serupa (dari kota yang sama)
         $similarHotels = $hotelModel->select('hotels.*, cities.name as city_name')
@@ -127,6 +138,7 @@ class Hotels extends BaseController
             'room_types' => $roomTypes,
             'facilities' => $facilities,
             'similar_hotels' => $similarHotels,
+            'gallery_photos' => $galleryPhotos,
             'total_reviews' => $totalReviews,
             'avg_rating' => $totalReviews > 0 ? $reviewModel->where('hotel_id', $id)->selectAvg('rating')->first()['rating'] : 0,
             'rating_percent' => $ratingPercent,

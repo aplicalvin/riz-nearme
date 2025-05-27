@@ -4,7 +4,7 @@
 <div class="container py-5">
 
     <!-- ======== Galeri Hotel======== -->
-    <!-- Galeri Hotel - Hanya Tampilkan 1 Foto Utama -->
+    <!-- Galeri Hotel -->
     <div class="row mb-5">
         <div class="col-12">
             <div id="carouselExample" class="carousel slide">
@@ -14,7 +14,15 @@
                             style="background-image: url('<?= !empty($hotel['cover_photo']) ? base_url('uploads/hotels/'.$hotel['cover_photo']) : 'https://source.unsplash.com/random/800x600/?hotel' ?>');">
                         </div>
                     </div>
-                    <div class="carousel-item">
+                    <?php foreach ($gallery_photos as $photo): ?>
+                        <div class="carousel-item">
+                            <div class="carousel-image"
+                                style="background-image: url('<?= base_url('uploads/galleries/' . $photo['photo']) ?>');">
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
+                    <!-- Disini, setelah menampilkan cover_photo, saya ingin agar gallery di looping di sini.  -->
+                    <!-- <div class="carousel-item">
                         <div class="carousel-image"
                             style="background-image: url('https://source.unsplash.com/random/800x600/?resort');">
                         </div>
@@ -23,7 +31,8 @@
                         <div class="carousel-image"
                             style="background-image: url('https://source.unsplash.com/random/800x600/?room');">
                         </div>
-                    </div>
+                    </div> -->
+                    <!-- sampai sini, jadi total div class caroursel-item adalah sebanyak gallery, dengan background image adalah foto di gallerynya -->
                 </div>
 
                 <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
@@ -123,19 +132,31 @@
                                     <!-- <img src="" class="img-fluid rounded" alt=""> -->
                                 <!-- </div> -->
 
-                                <div class="col-md-4">
-                                    <div id="roomCarousel<?= $room['id'] ?>" class="carousel slide" data-bs-ride="carousel">
-                                        <div class="carousel-inner">
+                              <div class="col-md-4">
+                                <div id="roomCarousel<?= $room['id'] ?>" class="carousel slide" data-bs-ride="carousel">
+                                    <div class="carousel-inner">
+                                        <?php
+                                            $hasMainPhoto = !empty($room['photo']);
+                                            $galleryPhotos = $room['galleries'] ?? [];
+                                            $first = true;
+
+                                            // Jika ada foto utama room
+                                            if ($hasMainPhoto):
+                                        ?>
                                             <div class="carousel-item active">
-                                                <img src="<?= !empty($room['photo']) ? base_url('uploads/rooms/'.$room['photo']) : 'https://source.unsplash.com/random/300x200/?hotel-room' ?>" class="d-block w-100 rounded" style="height: 200px; object-fit: cover;" alt="<?= esc($room['name']) ?>">
+                                                <img src="<?= base_url('uploads/rooms/' . $room['photo']) ?>" class="d-block w-100 rounded" style="height: 200px; object-fit: cover;" alt="<?= esc($room['name']) ?>">
                                             </div>
-                                            <div class="carousel-item">
-                                                <img src="..." class="d-block w-100 rounded" style="height: 200px; object-fit: cover;" alt="...">
+                                            <?php $first = false; ?>
+                                        <?php endif; ?>
+
+                                        <?php foreach ($galleryPhotos as $index => $gallery): ?>
+                                            <div class="carousel-item <?= (!$hasMainPhoto && $index === 0) ? 'active' : '' ?>">
+                                                <img src="<?= base_url('uploads/room_gallery/' . $gallery['photo']) ?>" class="d-block w-100 rounded" style="height: 200px; object-fit: cover;" alt="Galeri <?= esc($room['name']) ?>">
                                             </div>
-                                            <div class="carousel-item">
-                                                <img src="..." class="d-block w-100 rounded" style="height: 200px; object-fit: cover;" alt="...">
-                                            </div>
-                                        </div>
+                                        <?php endforeach; ?>
+                                    </div>
+
+                                    <?php if ($hasMainPhoto || count($galleryPhotos) > 1): ?>
                                         <button class="carousel-control-prev" type="button" data-bs-target="#roomCarousel<?= $room['id'] ?>" data-bs-slide="prev">
                                             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                                             <span class="visually-hidden">Previous</span>
@@ -144,8 +165,9 @@
                                             <span class="carousel-control-next-icon" aria-hidden="true"></span>
                                             <span class="visually-hidden">Next</span>
                                         </button>
-                                    </div>
+                                    <?php endif; ?>
                                 </div>
+                            </div>
 
                                 <div class="col-md-8">
                                     <h4><?= esc($room['name']) ?></h4>
