@@ -21,7 +21,7 @@ class UserCell extends Cell
 
     public function photo()
     {
-        if (!isset($this->user) || empty($this->user['photo'])) {
+        if ($this->user['photo'] == 'default.jpg' || empty($this->user['photo'])) {
             return base_url('dummy/person.png');
         }
 
