@@ -166,15 +166,7 @@
                     <p class="mb-0" style="opacity: 0.8;">Ribuan hotel di seluruh Indonesia dari budget hingga bintang 5</p>
                 </div>
             </div>
-            <div class="col-lg-4 col-md-6">
-                <div class="feature-card p-4 h-100" style="background: rgba(255,255,255,0.05); border-radius: 12px; transition: all 0.3s ease; border: 1px solid rgba(255,255,255,0.1);">
-                    <div class="feature-icon mb-4" style="width: 70px; height: 70px; background: rgba(1, 118, 200, 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
-                        <i class="bi bi-phone fa-2x" style="color: #0176C8;"></i>
-                    </div>
-                    <h4 class="font-heading mb-3">Aplikasi Mobile</h4>
-                    <p class="mb-0" style="opacity: 0.8;">Pesan hotel lebih mudah dengan aplikasi mobile kami yang user-friendly</p>
-                </div>
-            </div>
+           
             <div class="col-lg-4 col-md-6">
                 <div class="feature-card p-4 h-100" style="background: rgba(255,255,255,0.05); border-radius: 12px; transition: all 0.3s ease; border: 1px solid rgba(255,255,255,0.1);">
                     <div class="feature-icon mb-4" style="width: 70px; height: 70px; background: rgba(1, 118, 200, 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
