@@ -26,13 +26,49 @@ class Hotels extends BaseController
 
     public function index(): string
     {
-        $hotels = $this->hotelModel->getHotelsWithCities();
+        // Ambil filter dari GET parameters
+        $request = service('request');
+        $filters = [
+            'city' => $request->getGet('city'),
+            'stars' => $request->getGet('stars'),
+            // 'price_range' => $request->getGet('price_range')
+        ];
+        
+        // Konfigurasi pagination
+        $perPage = 12; // Jumlah item per halaman
+        $currentPage = $request->getGet('page') ?? 1; // Ambil current page dari URL
+        
+        // Dapatkan hotel paginated berdasarkan filter
+        $hotelData = $this->hotelModel->getPaginatedHotels($filters, $perPage, $currentPage);
+        
+        // Siapkan pesan jika filter aktif
+        $message = '';
+        if (!empty(array_filter($filters))) {
+            $activeFilters = array_filter($filters);
+            $filterMessages = [];
+            
+            if (!empty($filters['city'])) {
+                $filterMessages[] = 'Kota: ' . $filters['city'];
+            }
+            if (!empty($filters['stars'])) {
+                $filterMessages[] = 'Bintang: ' . str_repeat('★', $filters['stars']);
+            }
+            
+            $message = 'Menampilkan hasil filter: ' . implode(', ', $filterMessages);
+        }
+        
+        // Hitung total hotel (untuk info pagination)
+        $totalHotels = $this->hotelModel->countFilteredHotels($filters);
         
         $data = [
             'title' => 'Cari Hotels - NearMe',
-            'hotels' => $hotels,
-            'filter_options' => $this->getFilterOptions($hotels),
-            'message' => ''
+            'hotels' => $hotelData['hotels'],
+            'pager' => $hotelData['pager'],
+            'filter_options' => $this->hotelModel->getFilterOptions(),
+            'message' => $message,
+            'total_results' => $totalHotels,
+            'current_page' => $currentPage,
+            'per_page' => $perPage
         ];
 
         return view('hotel/v_hotel_listing', $data);
@@ -177,7 +213,7 @@ class Hotels extends BaseController
             'stars' => $hotel['star_rating'],
             'rating' => $hotel['rating'] ?? 4.0, // Add these fields to your DB if needed
             'review_count' => $hotel['review_count'] ?? 0,
-            'price_range' => $this->generatePriceRange($hotel['star_rating']),
+            // 'price_range' => $this->generatePriceRange($hotel['star_rating']),
             'image' => $hotel['cover_photo'] ?? 'https://source.unsplash.com/random/600x400/?hotel',
             'facilities' => $this->getHotelFacilities($hotel['id']), // You'll need to implement this
             'description' => $hotel['description']
@@ -195,12 +231,6 @@ class Hotels extends BaseController
         return [
             'cities' => $cities,
             'star_ratings' => [5, 4, 3, 2],
-            'price_ranges' => [
-                '0-500000' => 'Under Rp 500.000',
-                '500000-1000000' => 'Rp 500.000 - 1.000.000',
-                '1000000-2000000' => 'Rp 1.000.000 - 2.000.000',
-                '2000000-' => 'Over Rp 2.000.000'
-            ]
         ];
     }
 

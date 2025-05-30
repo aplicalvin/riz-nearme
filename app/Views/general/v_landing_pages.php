@@ -18,14 +18,31 @@
                 <div class="search-box animate__animated animate__fadeInUp animate__delay-1s" style="background: rgba(255,255,255,0.95); padding: 25px; border-radius: 12px; max-width: 900px; margin: 0 auto; box-shadow: 0 8px 30px rgba(0,0,0,0.2);">
                     <form action="<?= base_url('/search') ?>" method="get">
                         <div class="row g-3 align-items-end">
-                            <div class="col-md-5">
-                                <label class="form-label text-start w-100 text-dark">Lokasi</label>
-                                <div class="input-group">
-                                    <span class="input-group-text bg-white border-end-0"><i class="bi bi-geo-alt text-muted"></i></span>
-                                    <input type="text" class="form-control form-control-lg border-start-0" placeholder="Kota atau nama hotel" name="location" style="height: 55px;">
+                            <div class="d-flex gap-3 align-items-stretch">
+                                <!-- Input Search -->
+                                <div class="flex-grow-1">
+                                    <div class="input-group h-100">
+                                        <span class="input-group-text bg-white border-end-0">
+                                            <i class="bi bi-geo-alt text-muted"></i>
+                                        </span>
+                                        <input 
+                                            type="text" 
+                                            class="form-control form-control-lg border-start-0" 
+                                            name="location" 
+                                            placeholder="Kota atau nama hotel" 
+                                            style="height: 100%;">
+                                    </div>
                                 </div>
+
+                                <!-- Search Button -->
+                                <button type="submit" 
+                                    class="btn btn-primary d-flex gap-3 align-items-center justify-content-center px-4" 
+                                    style="background-color: #0176C8; border: none; font-weight: bold;">
+                                    <i class="bi bi-search fs-5"></i> Cari Sekarang
+                                </button>
                             </div>
-                            <div class="col-md-3">
+
+                            <!-- <div class="col-md-3">
                                 <label class="form-label text-start w-100 text-dark">Check-in</label>
                                 <div class="input-group">
                                     <span class="input-group-text bg-white border-end-0"><i class="bi bi-calendar-event text-muted"></i></span>
@@ -38,12 +55,8 @@
                                     <span class="input-group-text bg-white border-end-0"><i class="bi bi-calendar-event text-muted"></i></span>
                                     <input type="date" class="form-control form-control-lg border-start-0" name="checkout" style="height: 55px;">
                                 </div>
-                            </div>
-                            <div class="col-md-1">
-                                <button type="submit" class="btn btn-primary w-100 h-100" style="background-color: #0176C8; border: none; font-weight: bold;">
-                                    <i class="bi bi-search"></i>
-                                </button>
-                            </div>
+                            </div> -->
+
                         </div>
                     </form>
                 </div>
@@ -69,7 +82,7 @@
             $limited_destinations = array_slice($popular_destinations, 0, 4);
             foreach ($limited_destinations as $destination): ?>
                 <div class="col-xl-3 col-lg-4 col-md-6">
-                    <a href="<?= base_url('/hotels?location=' . urlencode($destination['name'])) ?>" class="destination-link text-decoration-none">
+                    <a href="<?= base_url('/hotels?city=' . urlencode($destination['name'])) ?>" class="destination-link text-decoration-none">
                         <div class="destination-card h-100 overflow-hidden position-relative" style="border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.08); transition: all 0.3s ease;">
                             <div class="p-4 bg-white">
                                 <h5 class="font-heading mb-1"><?= $destination['name'] ?></h5>
@@ -84,11 +97,11 @@
             <?php endforeach; ?>
         </div>
         
-        <div class="text-center mt-5">
+        <!-- <div class="text-center mt-5">
             <a href="<?= base_url('/destinations') ?>" class="btn btn-outline-primary px-4 py-2" style="border-color: #0176C8; color: #0176C8;">
                 Lihat Semua Destinasi <i class="bi bi-arrow-right ms-2"></i>
             </a>
-        </div>
+        </div> -->
     </div>
 </section>
 
