@@ -2,7 +2,6 @@
 <?php echo $this->section("content"); ?>
 <div class="container">
    <h3 class="font-heading">Welcome! <span class="fw-bold"><?= session()->get('full_name') ?> </span></h3>
-   <h6>Pengelola hotel <span class="fw-bold">Grand Panorama</span></h6>
    <p>Anda login sebagai: <span class="badge bg-primary"><?= session()->get('role') ?></span></p>
 </div>
 

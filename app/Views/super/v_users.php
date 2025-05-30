@@ -31,29 +31,28 @@
     <div class="card shadow-sm">
         <div class="card-body">
             <!-- Tambahkan di atas tabel -->
-            <div class="card mb-4">
+            <div class="card mt-4">
                 <div class="card-body">
                     <form method="get" action="<?= base_url('super/users') ?>" class="">
-                        <div class="row">
-                            <div class="col-md-4 mb-2">
+                        <div class="row mt-3">
+                            <div class="col-md-6 my-2">
                                 <input type="text" class="form-control" style="max-width: 350px;" name="search" placeholder="Cari user..." value="<?= esc($search) ?>">
                             </div>
-                            <div class="col-md-2 mb-2">
-                                <select class="form-select" name="sort">
-                                    <option value="full_name" <?= $sort == 'full_name' ? 'selected' : '' ?>>Nama</option>
-                                    <option value="username" <?= $sort == 'username' ? 'selected' : '' ?>>Username</option>
-                                    <option value="created_at" <?= $sort == 'created_at' ? 'selected' : '' ?>>Tanggal Daftar</option>
-                                </select>
-                            </div>
-                            <div class="col-md-2 mb-2">
-                                <select class="form-select" name="order">
-                                    <option value="ASC" <?= $order == 'ASC' ? 'selected' : '' ?>>A-Z</option>
-                                    <option value="DESC" <?= $order == 'DESC' ? 'selected' : '' ?>>Z-A</option>
-                                </select>
-                            </div>
-                            <div class="col-4">
-                                <button type="submit" class="btn btn-primary">Filter</button>
-                                <a href="<?= base_url('super/users') ?>" class="btn btn-secondary">Reset</a>
+                            <div class="col-md-6 my-2">
+                                <div class="d-flex gap-2">
+
+                                    <select class="form-select" name="sort">
+                                        <option value="full_name" <?= $sort == 'full_name' ? 'selected' : '' ?>>Nama</option>
+                                        <option value="username" <?= $sort == 'username' ? 'selected' : '' ?>>Username</option>
+                                        <option value="created_at" <?= $sort == 'created_at' ? 'selected' : '' ?>>Tanggal Daftar</option>
+                                    </select>
+                                    <select class="form-select" name="order">
+                                        <option value="ASC" <?= $order == 'ASC' ? 'selected' : '' ?>>A-Z</option>
+                                        <option value="DESC" <?= $order == 'DESC' ? 'selected' : '' ?>>Z-A</option>
+                                    </select>
+                                    <button type="submit" class="btn btn-primary">Filter</button>
+                                    <a href="<?= base_url('super/users') ?>" class="btn btn-secondary">Reset</a>
+                                </div>
                             </div>
                         </div>
                        
