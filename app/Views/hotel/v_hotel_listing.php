@@ -3,28 +3,31 @@
 
 <div class="container py-5">
     <!-- Page Header -->
-    <div class="row mb-5">
+    <div class="row mb-4">
         <div class="col-12">
-            <h1 class="font-heading mb-3"><?= esc($title) ?></h1>
-            
+            <h1 class="font-heading mb-2"><?= esc($title) ?></h1>
+
             <?php if ($message): ?>
                 <div class="alert alert-info"><?= esc($message) ?></div>
             <?php endif; ?>
-            
-            <p class="text-muted"><?= count($hotels) ?> hotels found</p>
+
+            <p class="text-muted">Menampilkan <span class="badge bg-primary"><?= count($hotels) ?></span> hotel</p>
         </div>
     </div>
 
     <!-- Filter Section -->
-    <div class="card mb-5 border-0 shadow-sm">
+    <div class="card mb-5 border-0 shadow-lg bg-light">
+        <div class="card-header bg-white border-bottom-0">
+            <h5 class="mb-0"><i class="fas fa-search-location me-2 text-primary"></i>Filter Pencarian</h5>
+        </div>
         <div class="card-body">
             <form method="get" action="<?= current_url() ?>">
                 <div class="row g-3">
-                    <!-- City Filter -->
+                    <!-- City -->
                     <div class="col-md-4">
-                        <label class="form-label">City</label>
+                        <label class="form-label"><i class="fas fa-city me-1 text-secondary"></i> Kota</label>
                         <select class="form-select" name="city">
-                            <option value="">All Cities</option>
+                            <option value="">Semua Kota</option>
                             <?php foreach ($filter_options['cities'] as $city): ?>
                                 <option value="<?= esc($city) ?>" <?= (service('request')->getGet('city') === $city) ? 'selected' : '' ?>>
                                     <?= esc($city) ?>
@@ -32,12 +35,12 @@
                             <?php endforeach; ?>
                         </select>
                     </div>
-                    
-                    <!-- Star Rating Filter -->
+
+                    <!-- Star -->
                     <div class="col-md-3">
-                        <label class="form-label">Star Rating</label>
+                        <label class="form-label"><i class="fas fa-star me-1 text-warning"></i> Rating</label>
                         <select class="form-select" name="stars">
-                            <option value="">All Ratings</option>
+                            <option value="">Semua Rating</option>
                             <?php foreach ($filter_options['star_ratings'] as $stars): ?>
                                 <option value="<?= $stars ?>" <?= (service('request')->getGet('stars') == $stars) ? 'selected' : '' ?>>
                                     <?= str_repeat('★', $stars) ?>
@@ -45,10 +48,10 @@
                             <?php endforeach; ?>
                         </select>
                     </div>
-                    
-                    <!-- Price Range Filter -->
+
+                    <!-- Price -->
                     <div class="col-md-3">
-                        <label class="form-label">Price Range</label>
+                        <label class="form-label"><i class="fas fa-tags me-1 text-success"></i> Harga</label>
                         <select class="form-select" name="price_range">
                             <?php foreach ($filter_options['price_ranges'] as $key => $range): ?>
                                 <option value="<?= $key ?>" <?= (service('request')->getGet('price_range') === $key) ? 'selected' : '' ?>>
@@ -57,11 +60,11 @@
                             <?php endforeach; ?>
                         </select>
                     </div>
-                    
-                    <!-- Filter Button -->
+
+                    <!-- Submit -->
                     <div class="col-md-2 d-flex align-items-end">
-                        <button type="submit" class="btn btn-primary w-100" style="background-color: #FFFF6F; border-color: #FFFF6F; color: #1F1F1F;">
-                            <i class="fas fa-filter me-1"></i> Filter
+                        <button type="submit" class="btn btn-primary w-100 fw-semibold shadow-sm">
+                            <i class="fas fa-filter me-1"></i> Terapkan
                         </button>
                     </div>
                 </div>
@@ -69,13 +72,13 @@
         </div>
     </div>
 
-    <!-- Hotels Listing -->
+    <!-- Hotel List -->
     <?php if (empty($hotels)): ?>
         <div class="text-center py-5">
-            <i class="fas fa-hotel fa-4x mb-3" style="color: #6D6D6D;"></i>
-            <h3 class="font-heading">No hotels found</h3>
-            <p class="text-muted">Try adjusting your filters</p>
-            <a href="<?= current_url() ?>" class="btn btn-outline-secondary">Reset Filters</a>
+            <i class="fas fa-hotel fa-4x mb-3 text-secondary"></i>
+            <h4 class="font-heading">Tidak ada hotel ditemukan</h4>
+            <p class="text-muted">Coba ubah filter pencarian Anda.</p>
+            <a href="<?= current_url() ?>" class="btn btn-outline-secondary">Reset Filter</a>
         </div>
     <?php else: ?>
         <div class="row">
@@ -87,18 +90,14 @@
         </div>
     <?php endif; ?>
 
-    <!-- Pagination (static for now) -->
+    <!-- Pagination Placeholder -->
     <nav class="mt-5">
         <ul class="pagination justify-content-center">
-            <li class="page-item disabled">
-                <a class="page-link" href="#" tabindex="-1">Previous</a>
-            </li>
-            <li class="page-item active"><a class="page-link" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item">
-                <a class="page-link" href="#">Next</a>
-            </li>
+            <li class="page-item disabled"><a class="page-link">Sebelumnya</a></li>
+            <li class="page-item active"><a class="page-link">1</a></li>
+            <li class="page-item"><a class="page-link">2</a></li>
+            <li class="page-item"><a class="page-link">3</a></li>
+            <li class="page-item"><a class="page-link">Berikutnya</a></li>
         </ul>
     </nav>
 </div>

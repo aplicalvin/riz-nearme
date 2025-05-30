@@ -138,6 +138,8 @@ $routes->group('',['filter' => 'auth'], function($routes) {
     
 });
 
+$routes->get('/tests', 'TestController::testUser');
+
 // app/Config/Routes.php
 $routes->get('/debug-session', function() {
     echo '<h1>Session Data</h1>';

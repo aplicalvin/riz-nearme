@@ -1,13 +1,18 @@
-  <!-- ======= Footer ======= -->
-  <footer id="footer" class="footer">
-    <div class="copyright">
-      &copy; Copyright <strong><span>NearMe Admin Panel</span></strong>. All Rights Reserved
+<!-- ======= Footer ======= -->
+<footer id="footer" class="footer bg-light text-center py-3 border-top shadow-sm mt-auto">
+  <div class="container">
+    <div class="row justify-content-between align-items-center">
+      <div class="col-md-6 text-md-start text-center mb-2 mb-md-0">
+        <small class="text-muted">
+          &copy; <?= date('Y') ?> <strong class="text-dark">NearMe Admin Panel</strong>. All Rights Reserved.
+        </small>
+      </div>
+      <div class="col-md-6 text-md-end text-center">
+        <small class="text-muted fst-italic">
+          Designed by <a href="https://bootstrapmade.com/" target="_blank" class="text-decoration-none">BootstrapMade</a>
+        </small>
+      </div>
     </div>
-    <div class="credits">
-      <!-- All the links in the footer should remain intact. -->
-      <!-- You can delete the links only if you purchased the pro version. -->
-      <!-- Licensing information: https://bootstrapmade.com/license/ -->
-      <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/ -->
-      <!-- Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a> -->
-    </div>
-  </footer><!-- End Footer -->
+  </div>
+</footer>
+<!-- End Footer -->

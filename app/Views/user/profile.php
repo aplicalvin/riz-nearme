@@ -8,7 +8,10 @@
             <div class="card shadow-sm rounded-4 d-grid">
                 <!-- Identitas -->
                 <div class="card-body text-center">
-                    <i class="fas fa-user-circle fa-5x mb-3" style="color: #0176C8;"></i>
+                    <!-- <i class="fas fa-user-circle fa-5x mb-3" style="color: #0176C8;"></i> -->
+                    <div class="">
+                        <img src="<?= base_url('uploads/profiles/' . esc($user['photo'])) ?>" alt="<?=$user['full_name']; ?>" class="rounded-circle mb-3" style="width: 120px; height: 120px; object-fit: cover">
+                    </div>
                     <h5><?= esc($user['full_name']) ?></h5>
                     <p class="text-muted"><?= esc($user['email']) ?></p>
                 </div>
