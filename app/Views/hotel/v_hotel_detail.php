@@ -60,6 +60,13 @@
 
     <!-- Header Hotel -->
     <div class="row mb-4">
+        <?php if (session()->getFlashdata('success')) : ?>
+            <div class="alert alert-success"><?= session()->getFlashdata('success') ?></div>
+        <?php endif; ?>
+
+        <?php if (session()->getFlashdata('error')) : ?>
+            <div class="alert alert-danger"><?= session()->getFlashdata('error') ?></div>
+        <?php endif; ?>
         <div class="col-md-8">
             <h1 class="font-heading"><?= esc($hotel['name']) ?></h1>
             <div class="d-flex align-items-center mb-2">
@@ -78,11 +85,32 @@
             </div>
         </div>
         <div class="col-md-4 text-md-end">
-            <a href="#tipekamarr" class="btn btn-lg btn-primary <?= ($user_role !== 'user') ? 'disabled' : '' ?>" style="background-color: #0176C8; border-color: #0176C8;">
-                <i class="fas fa-calendar-alt me-2"></i>Pesan Sekarang
-            </a>
-            
-        </div>
+    <?php if ($user_role === 'user') : ?>
+        <?php if ($isFavorite) : ?>
+            <!-- Tombol hapus favorit -->
+            <form action="<?= base_url('hotel/deleteFavorite') ?>" method="post" style="display: inline;">
+                <input type="hidden" name="user_id" value="<?= $userId ?>">
+                <input type="hidden" name="hotel_id" value="<?= $hotel['id'] ?>">
+                <button type="submit" class="btn btn-lg btn-outline-primary" style="border-color: #0176C8;">
+                    <i class="fas fa-star me-2"></i>Hapus dari Favorit
+                </button>
+            </form>
+        <?php else : ?>
+            <!-- Tombol tambah favorit -->
+            <form action="<?= base_url('hotel/addFavorite') ?>" method="post" style="display: inline;">
+                <input type="hidden" name="user_id" value="<?= $userId ?>">
+                <input type="hidden" name="hotel_id" value="<?= $hotel['id'] ?>">
+                <button type="submit" class="btn btn-lg btn-primary" style="background-color: #0176C8; border-color: #0176C8;">
+                    <i class="fas fa-star me-2"></i>Tambah ke Favorit
+                </button>
+            </form>
+        <?php endif; ?>
+    <?php else : ?>
+        <button class="btn btn-lg btn-primary disabled" style="background-color: #0176C8; border-color: #0176C8;">
+            <i class="fas fa-star me-2"></i>Tambah ke Favorit
+        </button>
+    <?php endif; ?>
+</div>
     </div>
 
     <!-- ======== Info Hotel  ========-->

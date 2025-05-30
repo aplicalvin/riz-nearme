@@ -42,7 +42,7 @@
                             
                             <?php if(session()->get('role') == 'user'): ?>
                                 <li><a class="dropdown-item" href="<?= base_url('/user/profile') ?>"><i class="fas fa-user-circle me-2"></i> Profil Saya</a></li>
-                                <li><a class="dropdown-item" href="<?= base_url('/user/booking') ?>"><i class="fas fa-calendar-check me-2"></i> Pemesanan</a></li>
+                                <li><a class="dropdown-item" href="<?= base_url('/user/bookings') ?>"><i class="fas fa-calendar-check me-2"></i> Pemesanan</a></li>
                                 <li><a class="dropdown-item" href="<?= base_url('/user/favorites') ?>"><i class="fas fa-heart me-2"></i> Favorit</a></li>
                             <?php elseif(session()->get('role') == 'hotel'): ?>
                                 <li><a class="dropdown-item" href="<?= base_url('/admin') ?>"><i class="fas fa-tachometer-alt me-2"></i> Dashboard</a></li>

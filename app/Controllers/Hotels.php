@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Models\FavoriteModel;
 use App\Models\HotelModel;
 use App\Models\CityModel; // You'll need to create this
 use App\Models\ReviewModel;
@@ -13,12 +14,14 @@ class Hotels extends BaseController
 {
     protected $hotelModel;
     protected $cityModel;
+    protected $favoriteModel;
 
     public function __construct()
     {
         $this->hotelModel = new HotelModel();
         $this->cityModel = new CityModel(); // Initialize CityModel
         $this->userModel = new UserModel();
+        $this->favoriteModel = new FavoriteModel();
     }
 
     public function index(): string
@@ -142,9 +145,12 @@ class Hotels extends BaseController
             'total_reviews' => $totalReviews,
             'avg_rating' => $totalReviews > 0 ? $reviewModel->where('hotel_id', $id)->selectAvg('rating')->first()['rating'] : 0,
             'rating_percent' => $ratingPercent,
-            'user_role' => $this->userModel->getUserRole($userId)
+            'user_role' => $this->userModel->getUserRole($userId),
+            'userId' => $userId,
+            'isFavorite' => $this->favoriteModel->checkFavorite($userId, $hotel['id'])
         ];
         
+        // dd($data);
         return view('hotel/v_hotel_detail', $data);
     }
 
