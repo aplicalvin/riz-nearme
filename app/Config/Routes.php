@@ -47,6 +47,9 @@ $routes->group('booking', function($routes) {
 // Di dalam group yang sudah ada (jika ada)
 $routes->get('hotel/(:num)/book/(:num?)', 'Hotels::book/$1/$2');
 
+$routes->post('hotel/addFavorite', 'FavoriteController::addFavorite');
+$routes->post('hotel/deleteFavorite', 'FavoriteController::deleteFavorite');
+
 // Auth Routes
 $routes->group('', function($routes) {
     $routes->get('login', 'AuthController::index');
