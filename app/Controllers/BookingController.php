@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Models\BookingModel;
 use App\Models\PaymentMethodModel;
 use App\Models\RoomTypeModel;
+use function PHPUnit\Framework\returnArgument;
 
 class BookingController extends BaseController
 {
@@ -169,5 +170,28 @@ class BookingController extends BaseController
         ]);
 
         return redirect()->back()->with('success', 'Bukti pembayaran berhasil diunggah. Silakan tunggu verifikasi.');
+    }
+
+    public function cancel($id)
+    {
+        $detail = $this->bookingModel->getBookingDetail($id);
+        // dd($detail['status']);
+
+        if ($detail['status'] == 'pending') {
+            $this->bookingModel->updateBookingStatus($id, 'cancelled');
+            // $this->bookingModel->updatePaymentStatus($id, 'failed');
+            return redirect()->back()->with('success', 'Pesanan berhasil dibatalkan.');
+
+        } else {
+             $errorMessage = 'Gagal membatalkan pesanan.';
+            if (!$detail) {
+                $errorMessage = 'Detail pesanan tidak ditemukan.';
+            } elseif ($detail['status'] != 'pending') {
+                $errorMessage = 'Pesanan tidak dapat dibatalkan karena statusnya bukan "pending" (Status saat ini: ' . $detail['status'] . ').';
+            }
+            // Mengarahkan kembali ke halaman sebelumnya dengan pesan gagal
+            return redirect()->back()->with('failed', $errorMessage);
+        }
+
     }
 }

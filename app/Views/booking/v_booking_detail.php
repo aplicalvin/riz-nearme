@@ -9,6 +9,21 @@
                     <h3 class="mb-0">Detail Pemesanan #<?= $booking['id'] ?></h3>
                 </div>
                 <div class="card-body">
+                    <!-- PESAN KONFIRMASI -->
+                     <?php if (session()->getFlashdata('success')): ?>
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            <?= session()->getFlashdata('success') ?>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    <?php endif; ?>
+    
+                    <?php if (session()->getFlashdata('failed')): ?>
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <?= session()->getFlashdata('failed') ?>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    <?php endif; ?>
+                    <!-- PESAN KONFIRMASI -->
                     <!-- Status Pemesanan -->
                     <div class="alert alert-<?= 
                         $booking['status'] == 'confirmed' ? 'success' : 
