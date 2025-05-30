@@ -97,11 +97,11 @@
             <?php endforeach; ?>
         </div>
         
-        <div class="text-center mt-5">
+        <!-- <div class="text-center mt-5">
             <a href="<?= base_url('/destinations') ?>" class="btn btn-outline-primary px-4 py-2" style="border-color: #0176C8; color: #0176C8;">
                 Lihat Semua Destinasi <i class="bi bi-arrow-right ms-2"></i>
             </a>
-        </div>
+        </div> -->
     </div>
 </section>
 
