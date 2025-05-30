@@ -1,25 +1,30 @@
-  <!-- ======= Header ======= -->
-  <header id="header" class="header fixed-top d-flex align-items-center px-5 py-4">
+<!-- ======= Header ======= -->
+<header id="header" class="header fixed-top d-flex align-items-center justify-content-between px-4 py-3 shadow-sm bg-white">
 
-    <div class="d-flex align-items-center justify-content-between">
-      <a href="/" class="logo d-flex align-items-center">
-        <span class="d-none d-lg-block font-heading">NearMe Admin</span>
-      </a>
-      <i class="bi bi-list toggle-sidebar-btn"></i>
-    </div><!-- End Logo -->
+  <!-- Logo & Sidebar Toggle -->
+  <div class="d-flex align-items-center">
+    <a href="/admin" class="logo d-flex align-items-center text-decoration-none">
+      <i class="bi bi-geo-alt-fill fs-4 me-2 text-primary"></i>
+      <span class="fs-5 fw-bold d-none d-lg-block text-dark font-heading">NearMe Admin</span>
+    </a>
+    <button class="btn btn-sm btn-light ms-3 d-lg-none toggle-sidebar-btn">
+      <i class="bi bi-list fs-5"></i>
+    </button>
+  </div>
+  <!-- End Logo -->
 
-    
+  <!-- Profile Info -->
+  <nav class="header-nav">
+    <ul class="d-flex align-items-center list-unstyled mb-0">
+      <li class="nav-item d-flex align-items-center gap-3">
+        <span class="d-none d-md-block text-dark">
+          <?= session()->get('username'); ?> (<?= session()->get('role'); ?>)
+        </span>
+        <img src="<?= view_cell('\App\Cells\UserCell::photo') ?>" alt="Profile" class="rounded-circle" width="36" height="36" style="object-fit: cover;">
+      </li>
+    </ul>
+  </nav>
+  <!-- End Profile -->
 
-    <nav class="header-nav ms-auto">
-      <ul class="d-flex align-items-center">
-          <div class="nav-link nav-profile d-flex align-items-center gap-2">
-            <span class="d-none d-md-block  ps-2"><?= session()->get('username'); ?> ( <?= session()->get('role'); ?>)</span>
-            <img src="<?= base_url()?>NiceAdmin/assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
-          </div><!-- End Profile Iamge Icon -->
-
-        </li><!-- End Profile Nav -->
-
-      </ul>
-    </nav><!-- End Icons Navigation -->
-
-  </header><!-- End Header -->
+</header>
+<!-- End Header -->
