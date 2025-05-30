@@ -190,4 +190,99 @@ class HotelModel extends Model
         }
     }
 
+    public function getFilteredHotels($filters = [])
+    {
+        $builder = $this->select('hotels.*, cities.name as city_name')
+                        ->join('cities', 'cities.id = hotels.city_id');
+        // Filter berdasarkan kota
+        if (!empty($filters['city'])) {
+            $builder->where('cities.name', $filters['city']);
+        }
+        
+        // Filter berdasarkan rating bintang
+        if (!empty($filters['stars'])) {
+            $builder->where('hotels.star_rating', $filters['stars']);
+        }
+
+        return $builder->findAll();
+    }
+
+
+   public function getFilterOptions()
+    {
+        // Ambil semua kota unik
+     $cities = $this->db->table('cities')
+                    ->select('name')
+                    ->distinct()
+                    ->orderBy('name', 'ASC')
+                    ->get()
+                    ->getResultArray();
+
+        return [
+            'cities' => array_column($cities, 'name'),
+            'star_ratings' => [1, 2, 3, 4, 5],
+        ];
+    }
+
+
+
+
+    public function getPaginatedHotels($filters = [], $perPage = 12, $page = 1)
+    {
+        $builder = $this->select('hotels.*, cities.name as city_name')
+                    ->join('cities', 'cities.id = hotels.city_id');
+        
+        // Terapkan filter
+        $this->applyFilters($builder, $filters);
+        
+        return [
+            'hotels' => $builder->paginate($perPage, 'default', $page),
+            'pager' => $builder->pager
+        ];
+    }
+
+    public function countFilteredHotels($filters = [])
+    {
+        $builder = $this->select('hotels.id')
+                    ->join('cities', 'cities.id = hotels.city_id');
+        
+        // Terapkan filter yang sama
+        $this->applyFilters($builder, $filters);
+        
+        return $builder->countAllResults();
+    }
+
+    // protected function applyFilters(&$builder, $filters)
+    // {
+    //     // Filter berdasarkan kota
+    //     if (!empty($filters['city'])) {
+    //         $builder->where('cities.name', $filters['city']);
+    //     }
+        
+    //     // Filter berdasarkan rating bintang
+    //     if (!empty($filters['stars'])) {
+    //         $builder->where('hotels.star_rating', $filters['stars']);
+    //     }
+    // }
+
+     protected function applyFilters(&$builder, $filters)
+    {
+        // Filter berdasarkan kota
+        if (!empty($filters['city'])) {
+            $builder->where('cities.name', $filters['city']);
+        }
+
+        // Filter berdasarkan rating bintang
+        if (!empty($filters['stars'])) {
+            $builder->where('hotels.star_rating', $filters['stars']);
+        }
+
+        // 🔍 Filter berdasarkan input keyword lokasi/nama hotel
+        if (!empty($filters['location'])) {
+            $builder->groupStart()
+                    ->like('hotels.name', $filters['location'])
+                    ->orLike('cities.name', $filters['location'])
+                    ->groupEnd();
+        }
+    }
 }

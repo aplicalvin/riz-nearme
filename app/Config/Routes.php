@@ -13,12 +13,12 @@ $routes->get('/category', 'Hotels::category');
 $routes->get('/404', 'Hotels::category');
 
 
-// Hotel Routes
 $routes->group('hotels', function($routes) {
     $routes->get('/', 'Hotels::index');
     $routes->get('(:num)', 'Hotels::detail/$1');
-    $routes->get('search', 'Hotels::search');
+    // Route search tidak perlu jika sudah di handle oleh index
 });
+$routes->get('/search', 'Home::search');
 
 
 

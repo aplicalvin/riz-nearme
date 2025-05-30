@@ -50,16 +50,7 @@
                     </div>
 
                     <!-- Price -->
-                    <div class="col-md-3">
-                        <label class="form-label"><i class="fas fa-tags me-1 text-success"></i> Harga</label>
-                        <select class="form-select" name="price_range">
-                            <?php foreach ($filter_options['price_ranges'] as $key => $range): ?>
-                                <option value="<?= $key ?>" <?= (service('request')->getGet('price_range') === $key) ? 'selected' : '' ?>>
-                                    <?= esc($range) ?>
-                                </option>
-                            <?php endforeach; ?>
-                        </select>
-                    </div>
+                    
 
                     <!-- Submit -->
                     <div class="col-md-2 d-flex align-items-end">
@@ -91,15 +82,19 @@
     <?php endif; ?>
 
     <!-- Pagination Placeholder -->
-    <nav class="mt-5">
-        <ul class="pagination justify-content-center">
-            <li class="page-item disabled"><a class="page-link">Sebelumnya</a></li>
-            <li class="page-item active"><a class="page-link">1</a></li>
-            <li class="page-item"><a class="page-link">2</a></li>
-            <li class="page-item"><a class="page-link">3</a></li>
-            <li class="page-item"><a class="page-link">Berikutnya</a></li>
-        </ul>
-    </nav>
+    <!-- Ganti bagian pagination dengan ini -->
+    <?php if (isset($pager) && $total_results > $per_page): ?>
+        <nav class="mt-5">
+            <?= $pager->links('default', 'front_full') ?>
+        </nav>
+    <?php endif; ?>
+
+    <!-- Tambahkan info pagination -->
+    <div class="text-muted text-center mt-3">
+        Menampilkan <?= (($current_page - 1) * $per_page) + 1 ?> - 
+        <?= min($current_page * $per_page, $total_results) ?> 
+        dari <?= number_format($total_results) ?> hotel
+    </div>
 </div>
 
 <?php echo $this->endSection() ?>

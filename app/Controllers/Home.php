@@ -35,6 +35,40 @@ class Home extends BaseController
         return view('general/v_landing_pages', $data);
     }
 
+    public function search()
+    {
+        $hotelModel = new \App\Models\HotelModel();
+
+        // Ambil filter dari input GET
+        $filters = [
+            'location' => $this->request->getGet('location'),
+            'city' => $this->request->getGet('city'),
+            'stars' => $this->request->getGet('stars'),
+        ];
+
+        $perPage = 12;
+        $currentPage = $this->request->getGet('page') ?? 1;
+
+        // Ambil data hotel dengan pagination
+        $result = $hotelModel->getPaginatedHotels($filters, $perPage, $currentPage);
+
+        $data = [
+            'title' => 'Hasil Pencarian Hotel',
+            'hotels' => $result['hotels'],
+            'pager' => $result['pager'],
+            'current_page' => (int) $currentPage,
+            'per_page' => $perPage,
+            'total_results' => $hotelModel->countFilteredHotels($filters),
+            'filter_options' => $hotelModel->getFilterOptions(),
+            'message' => '',
+        ];
+
+        return view('hotel/v_hotel_listing', $data);
+    }
+
+
+
+
     public function error404() {
         return view('error/html/404');
     }
