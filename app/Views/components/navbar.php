@@ -95,11 +95,11 @@
                     </ul>
                 </li>
                 
-                <li class="nav-item mx-2">
+                <!-- <li class="nav-item mx-2">
                     <a class="nav-link" href="#" style="color: #333;">
                         <i class="fas fa-percentage me-1"></i> Promo
                     </a>
-                </li>
+                </li> -->
             </ul>
         </div>
     </div>
