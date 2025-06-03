@@ -68,6 +68,14 @@ $routes->group('',['filter' => 'auth'], function($routes) {
         $routes->post('update-profile', 'UserController::updateProfile');
         $routes->get('bookings', 'UserController::bookings');
         $routes->get('favorites', 'UserController::favorites');
+
+        // Route untuk menampilkan form ganti password (GET)
+        // Anda perlu membuat metode `showChangePasswordForm($userId)` di UserController jika ingin menggunakan ini.
+        $routes->get('change-password', 'UserController::showChangePasswordForm', ['as' => 'user_show_change_password']);
+
+        // Route untuk memproses submit form ganti password (POST)
+        // Ini akan mengarah ke UserController::changePasswordSubmit($userId)
+        $routes->post('change-password/submit', 'UserController::changePasswordSubmit', ['as' => 'user_submit_change_password']);
     });
     
     // Admin Hotel Routes

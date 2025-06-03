@@ -39,6 +39,9 @@
                     <a href="/user/edit-profile" class="btn btn-primary">
                         <i class="fas fa-edit me-1"></i> Edit Profil
                     </a>
+                    <a href="/user/change-password" class="btn btn-primary">
+                        <i class="fas fa-edit me-1"></i> Ubah Kata Sandi
+                    </a>
                 </div>
             </div>
             

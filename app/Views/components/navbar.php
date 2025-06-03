@@ -61,7 +61,7 @@
                         <a href="<?= base_url('/login') ?>" class="btn btn-outline-primary me-2 px-3">
                             <i class="fas fa-sign-in-alt me-1"></i> Masuk
                         </a>
-                        <a href="<?= base_url('/register') ?>" class="btn btn-primary px-3">
+                        <a href="<?= base_url('/signup') ?>" class="btn btn-primary px-3">
                             <i class="fas fa-user-plus me-1"></i> Daftar
                         </a>
                     </div>
@@ -87,11 +87,11 @@
                     </a>
                     <ul class="dropdown-menu border-0 shadow-sm" aria-labelledby="destinationsDropdown">
                         <li><h6 class="dropdown-header text-primary">Destinasi Populer</h6></li>
-                        <li><a class="dropdown-item" href="#"><i class="fas fa-umbrella-beach me-2"></i> Bali</a></li>
-                        <li><a class="dropdown-item" href="#"><i class="fas fa-city me-2"></i> Jakarta</a></li>
-                        <li><a class="dropdown-item" href="#"><i class="fas fa-mountain me-2"></i> Yogyakarta</a></li>
+                        <li><a class="dropdown-item" href="/hotels?city=Denpasar"><i class="fas fa-umbrella-beach me-2"></i> Denpasar</a></li>
+                        <li><a class="dropdown-item" href="/hotels?city=Jakarta"><i class="fas fa-city me-2"></i> Jakarta</a></li>
+                        <li><a class="dropdown-item" href="/hotels?city=Yogyakarta"><i class="fas fa-mountain me-2"></i> Yogyakarta</a></li>
                         <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="#"><i class="fas fa-globe-asia me-2"></i> Semua Destinasi</a></li>
+                        <!-- <li><a class="dropdown-item" href="#"><i class="fas fa-globe-asia me-2"></i> Semua Destinasi</a></li> -->
                     </ul>
                 </li>
                 

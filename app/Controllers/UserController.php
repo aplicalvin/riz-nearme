@@ -120,4 +120,52 @@ class UserController extends BaseController
         ];
         return view('user/favorites', $data);
     }
+
+    public function showChangePasswordForm()
+    {
+         $data = [
+            'title' => 'Profil Saya',
+            'judul' => 'Profil Saya - ',
+            'user' => $this->userModel->find(session()->get('user_id')),
+            'activeTab' => 'profile'
+        ];
+        $user = $this->userModel->find(session()->get('user_id')); 
+        // dd($user);
+        if (!$user) { 
+            return redirect()->to('/login')->with('error', 'Anda harus login terlebih dahulu.');
+        }
+        return view('user/v_change_password', $data); // Tampilkan view form
+    }
+
+    public function changePasswordSubmit() // Tidak ada parameter $userId lagi
+    {
+        // Ambil user_id dari session. Pastikan key session Anda benar ('user_id', 'id', dll.)
+        $userId = $this->userModel->find(session()->get('user_id')); 
+
+        // Validasi apakah userId ada di session (seharusnya sudah ditangani oleh filter authGuard,
+        // tapi double check tidak ada salahnya)
+        if (!$userId) {
+            // Jika karena suatu hal filter tidak berjalan atau user_id tidak ada
+            return redirect()->to('/login')->with('error', 'Sesi tidak valid atau Anda belum login.');
+        }
+
+        // Ambil data dari POST request
+        $currentPassword    = $this->request->getPost('current_password');
+        $newPassword        = $this->request->getPost('new_password');
+        $confirmNewPassword = $this->request->getPost('confirm_new_password');
+
+        // Panggil metode model dengan $userId dari session
+        $result = $this->userModel->changePassword($userId, $currentPassword, $newPassword, $confirmNewPassword);
+
+        if ($result['success']) {
+            // Opsional: Tindakan setelah berhasil ganti password
+            // Misalnya, update data sesi jika ada info terkait keamanan, atau paksa login ulang.
+            // $this->session->setFlashdata('success_message', 'Password berhasil diubah.'); // Gunakan setFlashdata
+            return redirect()->to('/user/profile')->with('success', 'Password berhasil diubah.'); // Arahkan ke halaman profil
+        } else {
+            // $this->session->setFlashdata('error_messages', $result['errors']); // Gunakan setFlashdata untuk errors jika redirect
+            return redirect()->back()->withInput()->with('errors', $result['errors']);
+        }
+    }
+
 }

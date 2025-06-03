@@ -120,6 +120,62 @@ class UserModel extends Model
                 ->update();
     }
 
+    public function changePassword($userId, $currentPassword, $newPassword, $confirmNewPassword)
+    {
+        $user = $this->find($userId);
+
+        if (!$user) {
+            return ['success' => false, 'errors' => ['user' => 'User tidak ditemukan.']];
+        }
+        // dd($user[0]['password']);
+        // 1. Verifikasi password saat ini
+        if (!password_verify($currentPassword, $user[0]['password'])) {
+            return ['success' => false, 'errors' => ['current_password' => 'Password saat ini salah.']];
+        }
+
+        // 2. Validasi password baru
+        $rules = [
+            'new_password' => [
+                'label' => 'Password Baru',
+                'rules' => 'required|min_length[8]', // Atur panjang minimal sesuai kebutuhan
+                'errors' => [
+                    'required' => '{field} wajib diisi.',
+                    'min_length' => '{field} minimal harus {param} karakter.'
+                ]
+            ],
+            'confirm_new_password' => [
+                'label' => 'Konfirmasi Password Baru',
+                'rules' => 'required|matches[new_password]',
+                'errors' => [
+                    'required' => '{field} wajib diisi.',
+                    'matches' => '{field} tidak cocok dengan Password Baru.'
+                ]
+            ]
+        ];
+
+        $validationData = [
+            'new_password'         => $newPassword,
+            'confirm_new_password' => $confirmNewPassword
+        ];
+
+        $this->validation->setRules($rules);
+
+        if (!$this->validation->run($validationData)) {
+            return ['success' => false, 'errors' => $this->validation->getErrors()];
+        }
+
+        // 4. Update password (hook beforeUpdate akan menghash password baru)
+        $updateData = ['password' => $newPassword];
+        
+        if ($this->update($userId, $updateData)) {
+            return ['success' => true];
+        }
+        
+        // Tangkap error dari model jika ada
+        $modelErrors = $this->errors();
+        return ['success' => false, 'errors' => !empty($modelErrors) ? $modelErrors : ['database' => 'Gagal memperbarui password. Silakan coba lagi.']];
+    }
+
     public function getUserRole($id)
     {
         $user = $this->find($id); // Ambil user berdasarkan ID

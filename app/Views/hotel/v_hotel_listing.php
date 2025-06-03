@@ -85,7 +85,7 @@
     <!-- Ganti bagian pagination dengan ini -->
     <?php if (isset($pager) && $total_results > $per_page): ?>
         <nav class="mt-5">
-            <?= $pager->links('default', 'front_full') ?>
+            <?= $pager->links() ?>
         </nav>
     <?php endif; ?>
 
