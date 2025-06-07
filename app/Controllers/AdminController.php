@@ -72,7 +72,7 @@ public function saveRoom()
         'base_price' => 'required|numeric',
         'capacity' => 'required|numeric',
         'available_rooms' => 'required|numeric',
-        'photo' => 'uploaded[photo]|max_size[photo,1024]|is_image[photo]'
+        'photo' => 'uploaded[photo]|is_image[photo]'
     ];
 
     if (!$this->validate($rules)) {
@@ -134,7 +134,7 @@ public function updateRoom($id)
         'base_price' => 'required|numeric',
         'capacity' => 'required|numeric',
         'available_rooms' => 'required|numeric',
-        'photo' => 'max_size[photo,1024]|is_image[photo]'
+        'photo' => 'is_image[photo]'
     ];
 
     if (!$this->validate($rules)) {
@@ -263,9 +263,8 @@ public function deleteRoom($id)
             'address' => 'required',
             'star_rating' => 'permit_empty|numeric|less_than_equal_to[5]',
             'cover_photo' => [
-                'rules' => 'max_size[cover_photo,1024]|is_image[cover_photo]|mime_in[cover_photo,image/jpg,image/jpeg,image/png]',
+                'rules' => 'is_image[cover_photo]|mime_in[cover_photo,image/jpg,image/jpeg,image/png]',
                 'errors' => [
-                    'max_size' => 'Ukuran gambar terlalu besar (maks 1MB)',
                     'is_image' => 'File harus berupa gambar',
                     'mime_in' => 'Format gambar tidak didukung'
                 ]

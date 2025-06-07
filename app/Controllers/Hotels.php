@@ -63,13 +63,16 @@ class Hotels extends BaseController
         $data = [
             'title' => 'Cari Hotels - NearMe',
             'hotels' => $hotelData['hotels'],
-            'pager' => $hotelData['pager'],
+            // 'pager' => $hotelData['pager'],
+            'pager' => $hotelData['pager'],      // Ambil objek pager
             'filter_options' => $this->hotelModel->getFilterOptions(),
             'message' => $message,
             'total_results' => $totalHotels,
             'current_page' => $currentPage,
             'per_page' => $perPage
         ];
+
+        // dd($data);
 
         return view('hotel/v_hotel_listing', $data);
     }

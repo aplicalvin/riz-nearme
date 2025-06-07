@@ -43,7 +43,7 @@ class RoomGalleryController extends BaseController
     public function upload($roomTypeId)
     {
         $rules = [
-            'photo' => 'uploaded[photo]|is_image[photo]|max_size[photo,1024]'
+            'photo' => 'uploaded[photo]|is_image[photo]'
         ];
 
         if (!$this->validate($rules)) {
