@@ -145,10 +145,9 @@ class BookingController extends BaseController
         // Validasi file upload
         $validation = $this->validate([
             'payment_proof' => [
-                'rules' => 'uploaded[payment_proof]|max_size[payment_proof,2048]|is_image[payment_proof]',
+                'rules' => 'uploaded[payment_proof]|is_image[payment_proof]',
                 'errors' => [
                     'uploaded' => 'Harap pilih file bukti pembayaran',
-                    'max_size' => 'Ukuran file maksimal 2MB',
                     'is_image' => 'File harus berupa gambar (JPG, JPEG, PNG)'
                 ]
             ]

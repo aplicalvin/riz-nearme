@@ -53,10 +53,9 @@ class HotelGalleryController extends BaseController
         // Validation
         $rules = [
             'photo' => [
-                'rules' => 'uploaded[photo]|max_size[photo,2048]|is_image[photo]|mime_in[photo,image/jpg,image/jpeg,image/png]',
+                'rules' => 'uploaded[photo]|is_image[photo]|mime_in[photo,image/jpg,image/jpeg,image/png]',
                 'errors' => [
                     'uploaded' => 'Pilih foto terlebih dahulu',
-                    'max_size' => 'Ukuran foto maksimal 2MB',
                     'is_image' => 'File harus berupa gambar',
                     'mime_in' => 'Format file harus JPG/JPEG/PNG'
                 ]

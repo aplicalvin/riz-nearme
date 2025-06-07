@@ -54,7 +54,7 @@ class UserController extends BaseController
         $rules = [
             'full_name' => 'required|min_length[3]',
             'phone' => 'permit_empty|numeric|min_length[10]',
-            'photo' => 'uploaded[photo]|is_image[photo]|max_size[photo,2048]' // 2MB max
+            'photo' => 'uploaded[photo]|is_image[photo]' 
         ];
 
         // Foto optional: ubah rules jika tidak upload
