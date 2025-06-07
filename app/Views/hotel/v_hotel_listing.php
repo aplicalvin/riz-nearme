@@ -84,10 +84,12 @@
     <!-- Pagination Placeholder -->
     <!-- Ganti bagian pagination dengan ini -->
     <?php if (isset($pager) && $total_results > $per_page): ?>
-        <nav class="mt-5">
-            <?= $pager->links() ?>
-        </nav>
+        <div class="mt-5">
+            <?= $pager->links('default', 'custom_bootstrap') ?>
+
+        </div>
     <?php endif; ?>
+
 
     <!-- Tambahkan info pagination -->
     <div class="text-muted text-center mt-3">
