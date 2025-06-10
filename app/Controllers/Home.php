@@ -24,7 +24,7 @@ class Home extends BaseController
         // $hotels = $this->getPopularHotels(6)->hotelModel->getHotelsWithCities(); // Pastikan getPopularHotels mengembalikan objek yang benar
     
         $data = [
-            'title' => 'NearMe - Find Your Perfect Stay',
+            'judul' => 'NearMe - Find Your Perfect Stay',
             'meta_description' => 'Book the best hotels in Indonesia with NearMe',
             'featured_hotels' => $this->getFeaturedHotels(3),
             'hotels' => $this->getPopularHotels(6),
@@ -53,7 +53,7 @@ class Home extends BaseController
         $result = $hotelModel->getPaginatedHotels($filters, $perPage, $currentPage);
 
         $data = [
-            'title' => 'Hasil Pencarian Hotel',
+            'judul' => 'Hasil Pencarian Hotel',
             'hotels' => $result['hotels'],
             'pager' => $result['pager'],
             'current_page' => (int) $currentPage,
