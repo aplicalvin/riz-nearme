@@ -246,7 +246,7 @@
                         <?php foreach ($reviews as $review): ?>
                         <div class="review mb-4 pb-4 border-bottom">
                             <div class="d-flex align-items-center mb-3">
-                                <img src="<?= !empty($review['photo']) ? base_url('uploads/users/'.$review['photo']) : base_url('assets/images/default-user.jpg') ?>" class="rounded-circle me-3" width="50" height="50" alt="<?= esc($review['full_name']) ?>">
+                                <img src="<?= !empty($review['photo']) ? base_url('uploads/profiles/'.$review['photo']) : base_url('/dummy/person.png') ?>" class="rounded-circle me-3" width="50" height="50" alt="<?= esc($review['full_name']) ?>">
                                 <div>
                                     <h5 class="mb-0"><?= esc($review['full_name']) ?></h5>
                                     <small class="text-muted"><?= date('d M Y', strtotime($review['created_at'])) ?></small>

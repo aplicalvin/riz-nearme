@@ -8,7 +8,6 @@ use CodeIgniter\Router\RouteCollection;
 
 // Main Routes
 $routes->get('/', 'Home::index');
-$routes->get('/popular', 'Hotels::popular');
 $routes->get('/category', 'Hotels::category');
 $routes->get('/404', 'Hotels::category');
 

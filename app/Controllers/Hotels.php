@@ -77,23 +77,6 @@ class Hotels extends BaseController
         return view('hotel/v_hotel_listing', $data);
     }
 
-    public function popular(): string
-    {
-        // Get popular hotels (highest rated first)
-        $hotels = $this->hotelModel->select('hotels.*, cities.name as city_name')
-                                  ->join('cities', 'cities.id = hotels.city_id')
-                                  ->orderBy('star_rating', 'DESC')
-                                  ->limit(6)
-                                  ->findAll();
-
-        $data = [
-            'title' => 'Popular Hotels - NearMe',
-            'hotels' => $hotels,
-            'filter_options' => $this->getFilterOptions($hotels)
-        ];
-
-        return view('hotel/v_popular_hotels', $data);
-    }
 
     // ======== DETAIL ========
     public function detail($id)
@@ -174,7 +157,7 @@ class Hotels extends BaseController
 
     
         $data = [
-            'title' => $hotel['name'] . ' - NearMe',
+            'judul' => $hotel['name'] . ' - NearMe',
             'hotel' => $hotel,
             'reviews' => $reviews,
             'room_types' => $roomTypes,
