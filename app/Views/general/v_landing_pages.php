@@ -264,7 +264,7 @@
 </section>
 
 <!-- ======== Tentang Kami - Enhanced ======== -->
-<section class="about-us py-5">
+<!-- <section class="about-us py-5">
     <div class="container">
         <div class="row align-items-center">
             <div class="col-lg-6 mb-5 mb-lg-0">
@@ -315,10 +315,10 @@
             </div>
         </div>
     </div>
-</section>
+</section> -->
 
 <!-- ======== CTA Section ======== -->
-<section class="cta-section py-5" style="background: linear-gradient(135deg, #0176C8 0%, #0197F8 100%); color: white;">
+<!-- <section class="cta-section py-5" style="background: linear-gradient(135deg, #0176C8 0%, #0197F8 100%); color: white;">
     <div class="container">
         <div class="row align-items-center">
             <div class="col-lg-8 mb-4 mb-lg-0">
@@ -345,7 +345,7 @@
             </div>
         </div>
     </div>
-</section>
+</section> -->
 
 <?php echo $this->endSection() ?>
 

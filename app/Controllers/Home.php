@@ -54,6 +54,7 @@ class Home extends BaseController
 
         $data = [
             'judul' => 'Hasil Pencarian Hotel',
+            'title' => 'Hasil Pencarian Hotel',
             'hotels' => $result['hotels'],
             'pager' => $result['pager'],
             'current_page' => (int) $currentPage,

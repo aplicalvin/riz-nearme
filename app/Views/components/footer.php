@@ -22,9 +22,9 @@
                 <ul class="list-unstyled">
                     <li class="mb-2"><a href="<?= base_url('/') ?>" class="text-decoration-none" style="color: #6D6D6D !important;">Beranda</a></li>
                     <li class="mb-2"><a href="<?= base_url('/hotels') ?>" class="text-decoration-none" style="color: #6D6D6D !important;">Hotel</a></li>
-                    <li class="mb-2"><a href="<?= base_url('/about') ?>" class="text-decoration-none" style="color: #6D6D6D !important;">Tentang Kami</a></li>
+                    <!-- <li class="mb-2"><a href="<?= base_url('/about') ?>" class="text-decoration-none" style="color: #6D6D6D !important;">Tentang Kami</a></li>
                     <li class="mb-2"><a href="<?= base_url('/contact') ?>" class="text-decoration-none" style="color: #6D6D6D !important;">Kontak</a></li>
-                    <li class="mb-2"><a href="<?= base_url('/faq') ?>" class="text-decoration-none" style="color: #6D6D6D !important;">FAQ</a></li>
+                    <li class="mb-2"><a href="<?= base_url('/faq') ?>" class="text-decoration-none" style="color: #6D6D6D !important;">FAQ</a></li> -->
                 </ul>
             </div>
 
@@ -39,7 +39,7 @@
             </div>
 
             <!-- Kolom Newsletter -->
-            <div class="col-md-3 mb-4">
+            <!-- <div class="col-md-3 mb-4">
                 <h5 class="font-heading mb-4" style="color: #FFFF6F6;">Berlangganan</h5>
                 <p class="text-muted" style="color: #6D6D6D !important;">Dapatkan penawaran dan promo menarik langsung ke email Anda.</p>
                 <form class="mt-3">
@@ -48,7 +48,7 @@
                         <button class="btn btn-primary" type="submit" style="background-color: #FFFF6F6; border-color: #FFFF6F6; color: #1F1F1F;">Langganan</button>
                     </div>
                 </form>
-            </div>
+            </div> -->
         </div>
 
         <hr class="my-4" style="border-color: #454545 !important;">
