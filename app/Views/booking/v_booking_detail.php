@@ -143,10 +143,10 @@
                                 </table>
                             </div>
 
-                            <?php if ($booking['payment_status'] == 'pending' && $booking['status'] == 'pending'): ?>
+                            <!-- <?php //if ($booking['payment_status'] == 'pending' && $booking['status'] == 'pending'): ?>
                                 <div class="mt-4">
                                     <h6>Upload Bukti Pembayaran</h6>
-                                    <form action="<?= base_url('booking/upload/'.$booking['id']) ?>" method="post" enctype="multipart/form-data">
+                                    <form action="< ? = //base_url('booking/upload/'.$booking['id']) ? >" method="post" enctype="multipart/form-data">
                                         <div class="input-group mb-3">
                                             <input type="file" class="form-control" name="payment_proof" required>
                                             <button class="btn btn-primary" type="submit">Upload</button>
@@ -154,13 +154,13 @@
                                         <small class="text-muted">Format: JPG, PNG (maks. 2MB)</small>
                                     </form>
                                 </div>
-                            <?php elseif ($booking['payment_proof']): ?>
+                            < ?php //elseif ($booking['payment_proof']): ?>
                                 <div class="mt-4">
                                     <h6>Bukti Pembayaran</h6>
-                                    <img src="<?= base_url('uploads/payments/'.$booking['payment_proof']) ?>" 
+                                    <img src="< ?= //base_url('uploads/payments/'.$booking['payment_proof']) ?>" 
                                         class="img-thumbnail" style="max-height: 200px;" alt="Bukti Pembayaran">
                                 </div>
-                            <?php endif; ?>
+                            < ?php //endif; ?> -->
                         </div>
                     </div>
 
