@@ -26,6 +26,11 @@ $routes->post('hotels/(:num)/favorite', 'Users::toggleFavorite/$1');
 $routes->post('reviews/store', 'Reviews::store');
 $routes->post('bookings/store', 'Bookings::store');
 
+
+$routes->post('reviews/create', 'ReviewController::create');
+$routes->post('reviews/update/(:num)', 'ReviewController::update/$1');
+$routes->post('reviews/delete/(:num)', 'ReviewController::delete/$1');
+
 // Booking Routes
 // $routes->group('booking', function($routes) {
 //     $routes->get('/', 'BookingController::store');

@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Models\BookingModel;
 use App\Models\PaymentMethodModel;
+use App\Models\ReviewModel;
 use App\Models\RoomTypeModel;
 use function PHPUnit\Framework\returnArgument;
 
@@ -18,6 +19,7 @@ class BookingController extends BaseController
         $this->bookingModel = new BookingModel();
         $this->roomTypeModel = new RoomTypeModel();
         $this->paymentMethodModel = new PaymentMethodModel();
+        $this->reviewModel = new ReviewModel();
     }
 
     // Menampilkan form pemesanan
@@ -126,8 +128,11 @@ class BookingController extends BaseController
 
         $data = [
             'judul' => 'Detail Pemesanan',
-            'booking' => $booking
+            'booking' => $booking,
+            'review' => $this->reviewModel->getReview($id),
         ];
+
+        // dd($data);
 
         return view('booking/v_booking_detail', $data);
     }

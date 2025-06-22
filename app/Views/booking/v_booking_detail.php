@@ -164,6 +164,166 @@
                         </div>
                     </div>
 
+                    <!-- REVIEW -->
+                    <?php if ($booking['status'] == 'completed') : ?>
+
+                    <div class="card mb-4">
+                        <div class="card-header bg-light d-flex justify-content-between align-items-center">
+                            <h5 class="mb-0">Ulasan Anda</h5>
+                        </div>
+                        <div class="card-body">
+
+                            <?php if (!empty($review)) : ?>
+                                <div class="d-flex justify-content-between align-items-start">
+                                    <div>
+                                        <small class="text-muted"><?= date('d F Y', strtotime($review['created_at'])) ?></small>
+                                        <div class="my-2">
+                                            <?php for ($i = 1; $i <= 5; $i++) : ?>
+                                                <i class="bi bi-star<?= ($i <= $review['rating']) ? '-fill' : '' ?> text-warning"></i>
+                                            <?php endfor; ?>
+                                        </div>
+                                    </div>
+                                    <div class="dropdown">
+                                        <button class="btn btn-sm btn-light" type="button" data-bs-toggle="dropdown">
+                                            <i class="bi bi-three-dots-vertical"></i>
+                                        </button>
+                                        <ul class="dropdown-menu dropdown-menu-end">
+                                            <li>
+                                                <button class="dropdown-item" type="button" data-bs-toggle="modal" data-bs-target="#reviewModal" 
+                                                    data-action="edit" 
+                                                    data-review-id="<?= $review['id'] ?>"
+                                                    data-rating="<?= $review['rating'] ?>"
+                                                    data-comment="<?= esc($review['comment']) ?>">
+                                                    <i class="bi bi-pencil-square me-2"></i>Edit
+                                                </button>
+                                            </li>
+                                            <li>
+                                                <button class="dropdown-item text-danger" type="button" data-bs-toggle="modal" data-bs-target="#deleteReviewModal" 
+                                                    data-review-id="<?= $review['id'] ?>">
+                                                    <i class="bi bi-trash3-fill me-2"></i>Hapus
+                                                </button>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <p class="card-text mt-2"><?= nl2br(esc($review['comment'])) ?></p>
+
+                            <?php else : ?>
+                                <div class="text-center py-3">
+                                    <p class="text-muted">Bagikan pengalaman menginap Anda.</p>
+                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#reviewModal" data-action="add">
+                                        <i class="bi bi-pencil-square me-2"></i> Tulis Ulasan
+                                    </button>
+                                </div>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+
+                    <div class="modal fade" id="reviewModal" tabindex="-1" aria-labelledby="reviewModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="reviewModalLabel">Tulis Ulasan</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <form id="reviewForm" action="" method="post">
+                                    <?= csrf_field() ?>
+                                    <input type="hidden" name="booking_id" value="<?= $booking['id'] ?>">
+                                    <input type="hidden" name="hotel_id" value="<?= $booking['hotel_id'] ?>">
+                                    <div class="modal-body">
+                                        <div class="mb-3">
+                                            <label class="form-label">Rating Anda</label>
+                                            <div class="star-rating">
+                                                <input type="radio" id="5-stars" name="rating" value="5" required /><label for="5-stars" class="bi bi-star"></label>
+                                                <input type="radio" id="4-stars" name="rating" value="4" /><label for="4-stars" class="bi bi-star"></label>
+                                                <input type="radio" id="3-stars" name="rating" value="3" /><label for="3-stars" class="bi bi-star"></label>
+                                                <input type="radio" id="2-stars" name="rating" value="2" /><label for="2-stars" class="bi bi-star"></label>
+                                                <input type="radio" id="1-star" name="rating" value="1" /><label for="1-star" class="bi bi-star"></label>
+                                            </div>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="comment" class="form-label">Komentar</label>
+                                            <textarea class="form-control" id="comment" name="comment" rows="4"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                                        <button type="submit" class="btn btn-primary">Kirim</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal fade" id="deleteReviewModal" tabindex="-1" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Konfirmasi Hapus</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <p>Apakah Anda yakin ingin menghapus ulasan ini secara permanen?</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <form id="deleteReviewForm" action="" method="post">
+                                        <?= csrf_field() ?>
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                                        <button type="submit" class="btn btn-danger">Ya, Hapus</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <style>
+                    .star-rating{display:flex;flex-direction:row-reverse;justify-content:flex-end;font-size:1.8rem}.star-rating input{display:none}.star-rating label{color:#ccc;cursor:pointer;transition:color .2s}.star-rating input:checked~label,.star-rating label:hover,.star-rating label:hover~label{color:#ffc107}
+                    </style>
+
+                    <script>
+                    document.addEventListener('DOMContentLoaded', function () {
+                        const reviewModal = document.getElementById('reviewModal');
+                        if (reviewModal) {
+                            reviewModal.addEventListener('show.bs.modal', function (event) {
+                                const button = event.relatedTarget;
+                                const action = button.getAttribute('data-action');
+                                const form = document.getElementById('reviewForm');
+                                const modalTitle = reviewModal.querySelector('.modal-title');
+
+                                if (action === 'edit') {
+                                    const reviewId = button.getAttribute('data-review-id');
+                                    const rating = button.getAttribute('data-rating');
+                                    const comment = button.getAttribute('data-comment');
+
+                                    modalTitle.textContent = 'Edit Ulasan';
+                                    form.action = '<?= base_url('reviews/update/') ?>' + reviewId;
+                                    form.querySelector('#comment').value = comment;
+                                    
+                                    const starInput = form.querySelector('input[name="rating"][value="' + rating + '"]');
+                                    if(starInput) starInput.checked = true;
+
+                                } else { // action 'add'
+                                    modalTitle.textContent = 'Tulis Ulasan';
+                                    form.action = '<?= base_url('reviews/create') ?>';
+                                    form.reset();
+                                }
+                            });
+                        }
+
+                        const deleteModal = document.getElementById('deleteReviewModal');
+                        if(deleteModal){
+                            deleteModal.addEventListener('show.bs.modal', function (event) {
+                                const button = event.relatedTarget;
+                                const reviewId = button.getAttribute('data-review-id');
+                                const form = document.getElementById('deleteReviewForm');
+                                form.action = '<?= base_url('reviews/delete/') ?>' + reviewId;
+                            });
+                        }
+                    });
+                    </script>
+                    <?php endif; ?>
+                    <!-- REVIEW -->
+
                     <div class="d-flex justify-content-between">
                         <a href="<?= base_url('/user/bookings') ?>" class="btn btn-outline-secondary">
                             <i class="fas fa-arrow-left me-2"></i>Kembali ke Daftar Pemesanan
