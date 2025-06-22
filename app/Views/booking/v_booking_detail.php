@@ -131,10 +131,10 @@
                                             <td><?= esc($booking['room_type_name']) ?> × <?= (new \DateTime($booking['check_out_date']))->diff(new \DateTime($booking['check_in_date']))->days ?> malam</td>
                                             <td class="text-end"><?= number_to_currency($booking['room_price'] * (new \DateTime($booking['check_out_date']))->diff(new \DateTime($booking['check_in_date']))->days, 'IDR') ?></td>
                                         </tr>
-                                        <tr>
+                                        <!-- <tr>
                                             <td>Pajak & Layanan</td>
                                             <td class="text-end"><?= number_to_currency(0, 'IDR') ?></td>
-                                        </tr>
+                                        </tr> -->
                                         <tr class="fw-bold">
                                             <td>Total</td>
                                             <td class="text-end"><?= number_to_currency($booking['total_price'], 'IDR') ?></td>

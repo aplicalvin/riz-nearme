@@ -125,7 +125,7 @@ class BookingController extends BaseController
         }
 
         $data = [
-            'title' => 'Detail Pemesanan',
+            'judul' => 'Detail Pemesanan',
             'booking' => $booking
         ];
 

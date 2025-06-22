@@ -40,7 +40,7 @@ class BookingModel extends Model
                 ->join('room_types', 'room_types.id = bookings.room_type_id')
                 ->join('payment_methods', 'payment_methods.id = bookings.payment_method_id', 'left')
                 ->where('bookings.user_id', $userId)
-                ->orderBy('bookings.created_at', 'DESC')
+                ->orderBy('bookings.id', 'DESC')
                 ->findAll();
     }
 
