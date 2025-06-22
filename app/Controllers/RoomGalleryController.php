@@ -43,10 +43,14 @@ class RoomGalleryController extends BaseController
     public function upload($roomTypeId)
     {
         $rules = [
-            'photo' => 'uploaded[photo]|is_image[photo]'
+            'photo' => 'uploaded[photo]|is_image[photo]',
+            // 'error' => [
+                // 'uploaded' => 'Pilih foto terlebih dahulu',
+                // 'is_image' => 'File harus berupa gambar',
+            // ]
         ];
 
-        if (!$this->validate($rules)) {
+        if (!$this->validate(rules: $rules)) {
             return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
         }
 

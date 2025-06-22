@@ -68,14 +68,14 @@
                                     <div class="position-absolute top-50 start-50 translate-middle bg-white px-2 small text-muted">ATAU</div>
                                 </div>
 
-                                <div class="d-grid gap-2">
+                                <!-- <div class="d-grid gap-2">
                                     <a href="#" class="btn btn-outline-primary">
                                         <i class="fab fa-google me-2"></i> Lanjutkan dengan Google
                                     </a>
                                     <a href="#" class="btn btn-outline-primary">
                                         <i class="fab fa-facebook-f me-2"></i> Lanjutkan dengan Facebook
                                     </a>
-                                </div>
+                                </div> -->
 
                                 <div class="text-center mt-4">
                                     <p class="small mb-0">Belum punya akun? <a href="/signup" class="text-decoration-none fw-bold" style="color: #0176C8;">Daftar sekarang</a></p>

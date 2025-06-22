@@ -30,11 +30,11 @@
             </tr>
         </thead>
         <tbody>
-            <?php   foreach($bookings as $book): 
+            <?php   foreach($bookings as $index => $book): 
 
             ?>
                 <tr>
-                    <th scope="row">1</th>
+                    <th scope="row"><?= $index + 1 ?></th>
                     <td>
                         <div class="d-flex flex-column gap-0 m-0">
                             <p class="fw-bold m-0"><?= $book['guest_name'] ?></p>

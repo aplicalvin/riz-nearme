@@ -248,8 +248,9 @@ if(uri_string()!=""){
       <div class="row">
         <div class="col-lg-12">
 
-          <div class="card"> <div class="card-body">
-              <h5 class="card-title"><?= $hlm ?></h5>
+          <div class="card"> 
+            <div class="card-body pt-4">
+              <!-- <h5 class="card-title"></h5> -->
               <?= $this->renderSection('content') ?>
             </div>
           </div>

@@ -19,9 +19,9 @@
                     <h2 class="card-text fw-bold"><?= number_format($stat['jmlHotel']) ?></h2>
                     <p class="text-muted small">Hotel terdaftar</p>
                 </div>
-                <div class="card-footer bg-transparent border-primary">
+                <!-- <div class="card-footer bg-transparent border-primary">
                     <a href="<?= base_url('super/hotel') ?>" class="btn btn-sm btn-outline-primary">Lihat Data</a>
-                </div>
+                </div> -->
             </div>
         </div>
 
@@ -33,9 +33,9 @@
                     <h2 class="card-text fw-bold"><?= number_format($stat['jmluser']) ?></h2>
                     <p class="text-muted small">Pengguna terdaftar</p>
                 </div>
-                <div class="card-footer bg-transparent border-success">
+                <!-- <div class="card-footer bg-transparent border-success">
                     <a href="<?= base_url('super/users') ?>" class="btn btn-sm btn-outline-success">Lihat Data</a>
-                </div>
+                </div> -->
             </div>
         </div>
 
@@ -47,9 +47,9 @@
                     <h2 class="card-text fw-bold"><?= number_format($stat['jmlhotel']) ?></h2>
                     <p class="text-muted small">Admin hotel</p>
                 </div>
-                <div class="card-footer bg-transparent border-warning">
+                <!-- <div class="card-footer bg-transparent border-warning">
                     <a href="#" class="btn btn-sm btn-outline-warning">Lihat Data</a>
-                </div>
+                </div> -->
             </div>
         </div>
 
@@ -61,9 +61,9 @@
                     <h2 class="card-text fw-bold"><?= number_format($stat['jmlsuper']) ?></h2>
                     <p class="text-muted small">Administrator sistem</p>
                 </div>
-                <div class="card-footer bg-transparent border-danger">
+                <!-- <div class="card-footer bg-transparent border-danger">
                     <a href="#" class="btn btn-sm btn-outline-danger">Lihat Data</a>
-                </div>
+                </div> -->
             </div>
         </div>
     </div>
