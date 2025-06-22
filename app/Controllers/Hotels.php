@@ -72,7 +72,7 @@ class Hotels extends BaseController
             'per_page' => $perPage
         ];
 
-        // dd($data);
+        dd($data);
 
         return view('hotel/v_hotel_listing', $data);
     }

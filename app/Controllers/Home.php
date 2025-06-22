@@ -22,7 +22,16 @@ class Home extends BaseController
     public function index(): string
     {
         // $hotels = $this->getPopularHotels(6)->hotelModel->getHotelsWithCities(); // Pastikan getPopularHotels mengembalikan objek yang benar
-    
+        
+        $request = service('request');
+        $filters = [
+            'city' => $request->getGet('city'),
+            'stars' => $request->getGet('stars'),
+            // 'price_range' => $request->getGet('price_range')
+        ];
+
+        $hotelData = $this->hotelModel->getPaginatedHotels($filters);
+
         $data = [
             'judul' => 'NearMe - Find Your Perfect Stay',
             'meta_description' => 'Book the best hotels in Indonesia with NearMe',
@@ -31,6 +40,8 @@ class Home extends BaseController
             'popular_destinations' => $this->getPopularDestinations(),
             'message' => ''
         ];
+
+        // dd($data);
     
         return view('general/v_landing_pages', $data);
     }
@@ -93,12 +104,13 @@ class Home extends BaseController
 
     private function getPopularHotels(int $limit = 6): array
     {
-        $hotels = $this->hotelModel->select('hotels.*, AVG(reviews.rating) as avg_rating, COUNT(reviews.id) as review_count')
-                                  ->join('reviews', 'reviews.hotel_id = hotels.id', 'left')
-                                  ->groupBy('hotels.id')
-                                  ->orderBy('avg_rating', 'DESC')
-                                  ->orderBy('review_count', 'DESC')
-                                  ->findAll($limit);
+        $hotels = $this->hotelModel->select('hotels.*, cities.name as city_name, AVG(reviews.rating) as avg_rating, COUNT(reviews.id) as review_count')
+                                    ->join('cities', 'cities.id = hotels.city_id', 'left')                          
+                                    ->join('reviews', 'reviews.hotel_id = hotels.id', 'left')
+                                    ->groupBy('hotels.id')
+                                    ->orderBy('avg_rating', 'DESC')
+                                    ->orderBy('review_count', 'DESC')
+                                    ->findAll($limit);
 
         return array_map(function($hotel) {
             $hotel['rating'] = (float) $hotel['avg_rating'] ?? 0;
