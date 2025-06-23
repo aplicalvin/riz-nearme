@@ -25,23 +25,20 @@
                     <?php endif; ?>
                     <!-- PESAN KONFIRMASI -->
                     <!-- Status Pemesanan -->
-                    <div class="alert alert-<?= 
-                        $booking['status'] == 'confirmed' ? 'success' : 
-                        ($booking['status'] == 'cancelled' ? 'danger' : 'warning') 
-                    ?>">
+                    <?php
+                    // Determine the class based on the status
+                    $alertClass = match ($booking['status']) {
+                        'confirmed', 'completed' => 'success',
+                        'cancelled' => 'danger',
+                        default => 'warning',
+                    };
+                    ?>
+
+                    <div class="alert alert-<?= $alertClass ?>">
                         <div class="d-flex justify-content-between align-items-center">
                             <div>
                                 <strong>Status Pemesanan:</strong> 
                                 <?= ucfirst($booking['status']) ?>
-                            </div>
-                            <div>
-                                <strong>Status Pembayaran:</strong> 
-                                <span class="badge bg-<?= 
-                                    $booking['payment_status'] == 'paid' ? 'success' : 
-                                    ($booking['payment_status'] == 'failed' ? 'danger' : 'warning') 
-                                ?>">
-                                    <?= ucfirst($booking['payment_status']) ?>
-                                </span>
                             </div>
                         </div>
                     </div>

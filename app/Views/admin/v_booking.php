@@ -26,7 +26,7 @@
             <th scope="col">Check Out</th>
             <th scope="col">Total Harga</th>
             <th scope="col">Status</th>
-            <th scope="col">Detail</th>
+            <th scope="col">Ubah Status</th>
             </tr>
         </thead>
         <tbody>
@@ -60,14 +60,35 @@
                     <td>
                         <p><?= $book['total_price'] ?></p>
                     </td>
-                    <td>
-                        <button class="btn btn-outline-primary">
-                            <?= $book['status'];?>
-                        </button>
+                  <td>
+                        <?php
+                        // Atur kelas default untuk badge
+                        $badgeClass = 'bg-secondary';
+
+                        // Ubah kelas berdasarkan status
+                        switch ($book['status']) {
+                            case 'completed':
+                            case 'confirmed':
+                                $badgeClass = 'bg-success';
+                                break;
+                            case 'cancelled':
+                                $badgeClass = 'bg-danger';
+                                break;
+                            case 'pending':
+                                // Untuk warna kuning, sebaiknya tambahkan text-dark agar mudah dibaca
+                                $badgeClass = 'bg-warning text-dark'; 
+                                break;
+                        }
+                        ?>
+
+                        <!-- -- Elemen span dengan kelas badge yang dinamis  -->
+                        <span class="badge <?= $badgeClass ?>">
+                            <?= ucfirst($book['status']) ?>
+                        </span>
                     </td>
                     <td>
                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                            Detail
+                            Ubah
                         </button>
                     </td>
                 </tr>
