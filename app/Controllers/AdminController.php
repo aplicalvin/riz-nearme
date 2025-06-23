@@ -173,8 +173,9 @@ public function updateRoom($id)
 public function deleteRoom($id)
 {
     $room = $this->datakamar->find($id);
+    // dd($this->hotel_id );
     
-    if (!$room || $room['hotel_id'] != $this->hotel_id) {
+    if (!$room || $room['hotel_id'] != $this->hotel_id['id']) {
         return redirect()->to('/admin/rooms')->with('error', 'Kamar tidak ditemukan');
     }
 

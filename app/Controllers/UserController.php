@@ -26,7 +26,7 @@ class UserController extends BaseController
     public function profile()
     {
         $data = [
-            'title' => 'Profil Saya',
+            'judul' => 'Profil Saya',
             'judul' => 'Profil Saya - ',
             'user' => $this->userModel->find(session()->get('user_id')),
             'activeTab' => 'profile'
@@ -38,7 +38,7 @@ class UserController extends BaseController
     public function editProfile()
     {
         $data = [
-            'title' => 'Edit Profil',
+            'judul' => 'Edit Profil',
             'user' => $this->userModel->find(session()->get('user_id')),
             'activeTab' => 'profile'
         ];
@@ -98,7 +98,7 @@ class UserController extends BaseController
         $bookings = $this->bookingModel->getUserBookings(session()->get('user_id'));
 
         $data = [
-            'title' => 'History Pemesanan',
+            'judul' => 'History Pemesanan',
             'user' => $this->userModel->find(session()->get('user_id')), // <- Wajib ada
             'bookings' => $this->bookingModel->getUserBookings(session()->get('user_id')),
             'activeTab' => 'bookings'
@@ -113,7 +113,7 @@ class UserController extends BaseController
         $favorites = $this->favoriteModel->getUserFavorites(session()->get('user_id'));
 
         $data = [
-            'title' => 'Hotel Favorit',
+            'judul' => 'Hotel Favorit',
             'user' => $this->userModel->find(session()->get('user_id')), // <- Tambah ini
             'favorites' => $this->favoriteModel->getUserFavorites(session()->get('user_id')),
             'activeTab' => 'favorites'
@@ -124,7 +124,7 @@ class UserController extends BaseController
     public function showChangePasswordForm()
     {
          $data = [
-            'title' => 'Profil Saya',
+            'judul' => 'Profil Saya',
             'judul' => 'Profil Saya - ',
             'user' => $this->userModel->find(session()->get('user_id')),
             'activeTab' => 'profile'

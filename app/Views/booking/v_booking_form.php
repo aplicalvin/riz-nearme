@@ -67,7 +67,7 @@
                         </div>
 
                         <!-- Jumlah Tamu -->
-                        <div class="mb-4">
+                        <!-- <div class="mb-4">
                             <h5 class="mb-3">Jumlah Tamu</h5>
                             <div class="row">
                                 <div class="col-md-6">
@@ -83,7 +83,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
 
                         <!-- Metode Pembayaran -->
                         <div class="mb-4">

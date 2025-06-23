@@ -67,8 +67,8 @@ class BookingController extends BaseController
             'room_type_id' => 'required|numeric',
             'check_in_date' => 'required|valid_date',
             'check_out_date' => 'required|valid_date',
-            'adults' => 'required|numeric|greater_than[0]',
-            'children' => 'numeric',
+            // 'adults' => 'required|numeric|greater_than[0]',
+            // 'children' => 'numeric',
             'payment_method_id' => 'required|numeric',
             'special_requests' => 'permit_empty|string'
         ];
@@ -92,8 +92,8 @@ class BookingController extends BaseController
             'payment_method_id' => $this->request->getPost('payment_method_id'),
             'check_in_date' => $this->request->getPost('check_in_date'),
             'check_out_date' => $this->request->getPost('check_out_date'),
-            'adults' => $this->request->getPost('adults'),
-            'children' => $this->request->getPost('children') ?? 0,
+            // 'adults' => $this->request->getPost('adults'),
+            // 'children' => $this->request->getPost('children') ?? 0,
             'total_price' => $totalPrice,
             'status' => 'pending',
             'payment_status' => 'pending',
